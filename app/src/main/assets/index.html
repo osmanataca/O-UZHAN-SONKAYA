@@ -1,0 +1,4597 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#4F46E5">
+  <meta name="description" content="KPSS Ortaöğretim Çevrimdışı Sınav Hazırlık ve Test Uygulaması">
+  <title>KPSS Ortaöğretim Sınav Hazırlık</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    /* ==========================================================================
+       KPSS ORTAÖĞRETİM MODERN TEMA & RESET (CSS DEĞİŞKENLERİ)
+       ========================================================================== */
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --primary-light: #e0e7ff;
+      --primary-dark: #3730a3;
+      --accent: #8b5cf6;
+      --success: #10b981;
+      --success-light: #d1fae5;
+      --error: #ef4444;
+      --error-light: #fee2e2;
+      --warning: #f59e0b;
+      --warning-light: #fef3c7;
+      --info: #0284c7;
+      --info-light: #e0f2fe;
+
+      --bg-main: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-elevated: #ffffff;
+      --border-subtle: #e2e8f0;
+      --border-strong: #cbd5e1;
+
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #94a3b8;
+      --text-inverse: #ffffff;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --radius-full: 9999px;
+
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+
+      --font-size-base: 16px;
+      --font-scale: 1;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    /* KARANLIK TEMA */
+    [data-theme="dark"] {
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --primary-light: #1e1b4b;
+      --primary-dark: #818cf8;
+      --accent: #a78bfa;
+      --success: #10b981;
+      --success-light: #064e3b;
+      --error: #f87171;
+      --error-light: #7f1d1d;
+      --warning: #fbbf24;
+      --warning-light: #78350f;
+      --info: #38bdf8;
+      --info-light: #082f49;
+
+      --bg-main: #0b0f19;
+      --bg-card: #151c2e;
+      --bg-elevated: #1e293b;
+      --border-subtle: #1e293b;
+      --border-strong: #334155;
+
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #64748b;
+      --text-inverse: #0f172a;
+
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      font-size: calc(var(--font-size-base) * var(--font-scale));
+      line-height: 1.5;
+      transition: background-color 0.25s ease, color 0.25s ease;
+      padding-top: var(--safe-top);
+      padding-bottom: calc(72px + var(--safe-bottom));
+    }
+
+    /* Responsive Wrapper for Tablets/Desktop */
+    .app-container {
+      width: 100%;
+      max-width: 640px;
+      margin: 0 auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* ÜST BAŞLIK (HEADER) */
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .app-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 18px;
+      box-shadow: 0 2px 8px rgba(79, 70, 229, 0.35);
+    }
+
+    .brand-text h1 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .brand-text span {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .header-badges {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge-chip {
+      background: var(--bg-main);
+      border: 1px solid var(--border-subtle);
+      padding: 5px 10px;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--text-secondary);
+    }
+
+    .badge-streak {
+      color: #ea580c;
+      background: #ffedd5;
+      border-color: #fdba74;
+    }
+    [data-theme="dark"] .badge-streak {
+      background: #431407;
+      border-color: #9a3412;
+      color: #fb923c;
+    }
+
+    /* EKRANLAR (SCREENS) */
+    .screen {
+      display: none;
+      padding: 16px;
+      flex: 1;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* KART BİLEŞENLERİ */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* ANA SAYFA BİLEŞENLERİ */
+    .hero-banner {
+      background: linear-gradient(135deg, var(--primary) 0%, #4338ca 50%, var(--accent) 100%);
+      color: white;
+      border-radius: var(--radius-xl);
+      padding: 22px 20px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.4);
+    }
+
+    .hero-banner::after {
+      content: "";
+      position: absolute;
+      top: -30px;
+      right: -30px;
+      width: 140px;
+      height: 140px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+    }
+
+    .hero-greeting {
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .hero-quote {
+      font-size: 0.85rem;
+      opacity: 0.9;
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+
+    .daily-goal-container {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 14px 16px;
+      border-radius: var(--radius-lg);
+      backdrop-filter: blur(8px);
+    }
+
+    .progress-ring-box {
+      position: relative;
+      width: 64px;
+      height: 64px;
+      flex-shrink: 0;
+    }
+
+    .progress-ring-box svg {
+      transform: rotate(-90deg);
+    }
+
+    .progress-ring-bg {
+      stroke: rgba(255, 255, 255, 0.25);
+    }
+
+    .progress-ring-fill {
+      stroke: #ffffff;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 0.6s ease;
+    }
+
+    .progress-ring-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: white;
+    }
+
+    .goal-details h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .goal-details p {
+      font-size: 0.8rem;
+      opacity: 0.85;
+    }
+
+    /* KALDIĞIN YERDEN DEVAM ET KARTI */
+    .resume-card {
+      border: 1px solid var(--primary-light);
+      background: linear-gradient(135deg, var(--bg-card) 60%, var(--primary-light) 100%);
+      cursor: pointer;
+    }
+    [data-theme="dark"] .resume-card {
+      background: linear-gradient(135deg, var(--bg-card) 60%, #1e1b4b 100%);
+      border-color: #312e81;
+    }
+
+    .resume-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .resume-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 3px 8px;
+      border-radius: var(--radius-sm);
+    }
+
+    .countdown-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-card);
+    }
+
+    .countdown-days {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--primary);
+      line-height: 1;
+    }
+
+    /* DERSLER GRID */
+    .lessons-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .lesson-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+
+    .lesson-card:active {
+      transform: scale(0.98);
+    }
+
+    .lesson-icon-wrap {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .lesson-turkce .lesson-icon-wrap { background: #fee2e2; color: #ef4444; }
+    .lesson-matematik .lesson-icon-wrap { background: #e0e7ff; color: #4f46e5; }
+    .lesson-tarih .lesson-icon-wrap { background: #fef3c7; color: #d97706; }
+    .lesson-cografya .lesson-icon-wrap { background: #d1fae5; color: #059669; }
+    .lesson-vatandaslik .lesson-icon-wrap { background: #ede9fe; color: #7c3aed; }
+    .lesson-guncel .lesson-icon-wrap { background: #e0f2fe; color: #0284c7; }
+
+    .lesson-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .lesson-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* TEST SEÇENEKLERİ EKRANI */
+    .mode-tab-bar {
+      display: flex;
+      gap: 6px;
+      background: var(--bg-elevated);
+      padding: 5px;
+      border-radius: var(--radius-md);
+      margin-bottom: 16px;
+      overflow-x: auto;
+    }
+
+    .mode-tab {
+      flex: 1;
+      white-space: nowrap;
+      text-align: center;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .mode-tab.active {
+      background: var(--bg-card);
+      color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .test-config-group {
+      margin-bottom: 16px;
+    }
+
+    .test-config-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .chip-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      padding: 9px 16px;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text-primary);
+      transition: all 0.15s;
+    }
+
+    .chip.selected {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      box-shadow: 0 2px 6px rgba(79, 70, 229, 0.3);
+    }
+
+    .select-dropdown {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-strong);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      font-weight: 500;
+      outline: none;
+    }
+
+    /* BUTONLAR */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 14px 20px;
+      border-radius: var(--radius-lg);
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s ease;
+      min-height: 48px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35);
+    }
+    .btn-primary:active { transform: scale(0.98); background: var(--primary-hover); }
+
+    .btn-secondary {
+      background: var(--bg-elevated);
+      color: var(--text-primary);
+      border: 1px solid var(--border-strong);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-sm {
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      border-radius: var(--radius-md);
+      min-height: 36px;
+      width: auto;
+    }
+
+    /* ==========================================================================
+       SORU EKRANI (TEST ÇÖZÜM MODU)
+       ========================================================================== */
+    .quiz-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      margin-bottom: 12px;
+    }
+
+    .quiz-progress-bar-wrap {
+      width: 100%;
+      height: 6px;
+      background: var(--border-subtle);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+
+    .quiz-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .timer-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-variant-numeric: tabular-nums;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+    }
+    .timer-badge.warning {
+      color: #b91c1c;
+      background: #fee2e2;
+      animation: pulse 1s infinite;
+    }
+
+    .question-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .question-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .question-topic-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      background: var(--bg-elevated);
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .star-btn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      transition: color 0.15s;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+    }
+    .star-btn.starred {
+      color: #f59e0b;
+    }
+
+    .question-text {
+      font-size: 1.05rem;
+      font-weight: 600;
+      line-height: 1.6;
+      color: var(--text-primary);
+      margin-bottom: 18px;
+    }
+
+    /* ŞIKLAR LİSTESİ */
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border: 1.5px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      background: var(--bg-card);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      position: relative;
+      min-height: 54px;
+    }
+
+    .option-item:hover {
+      border-color: var(--border-strong);
+    }
+
+    .option-item.selected {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .option-item.correct {
+      border-color: var(--success) !important;
+      background: var(--success-light) !important;
+      color: #065f46;
+    }
+
+    .option-item.wrong {
+      border-color: var(--error) !important;
+      background: var(--error-light) !important;
+      color: #991b1b;
+    }
+
+    .option-item.eliminated {
+      opacity: 0.45;
+      text-decoration: line-through;
+      background: var(--bg-elevated);
+    }
+
+    .option-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+      color: var(--text-secondary);
+    }
+
+    .option-item.selected .option-badge {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .option-item.correct .option-badge {
+      background: var(--success);
+      color: white;
+      border-color: var(--success);
+    }
+
+    .option-item.wrong .option-badge {
+      background: var(--error);
+      color: white;
+      border-color: var(--error);
+    }
+
+    .option-content {
+      flex: 1;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .eliminate-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 6px;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+    }
+    .eliminate-btn:hover {
+      color: var(--error);
+      background: var(--error-light);
+    }
+
+    /* AÇIKLAMA KUTUSU (INSTANT FEEDBACK) */
+    .explanation-box {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: var(--radius-md);
+      background: var(--info-light);
+      border-left: 4px solid var(--info);
+      font-size: 0.88rem;
+      color: #0c4a6e;
+      display: none;
+      animation: fadeIn 0.2s ease-in;
+    }
+    [data-theme="dark"] .explanation-box {
+      background: #082f49;
+      color: #bae6fd;
+    }
+
+    .explanation-box strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--primary);
+    }
+
+    /* TEST ALT NAVİGASYONU */
+    .quiz-bottom-nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .quiz-bottom-nav .btn {
+      flex: 1;
+      min-height: 48px;
+    }
+
+    /* ==========================================================================
+       SONUÇ EKRANI (RESULT SCREEN)
+       ========================================================================== */
+    .score-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .score-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px 6px;
+      text-align: center;
+    }
+
+    .score-box-num {
+      font-size: 1.35rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 2px;
+    }
+
+    .score-box-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .score-correct { color: var(--success); }
+    .score-wrong { color: var(--error); }
+    .score-empty { color: var(--text-muted); }
+    .score-net { color: var(--primary); }
+
+    .lesson-breakdown-item {
+      margin-bottom: 12px;
+    }
+
+    .breakdown-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .breakdown-bar {
+      height: 8px;
+      background: var(--border-subtle);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      display: flex;
+    }
+
+    .bar-correct { background: var(--success); }
+    .bar-wrong { background: var(--error); }
+
+    .question-review-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+
+    .review-status-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 6px;
+    }
+    .status-correct { background: var(--success-light); color: var(--success); }
+    .status-wrong { background: var(--error-light); color: var(--error); }
+    .status-empty { background: var(--bg-elevated); color: var(--text-muted); }
+
+    /* ==========================================================================
+       ANALİZ EKRANI (CHARTS & WEAK TOPICS)
+       ========================================================================== */
+    .stat-row-card {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .stat-mini-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 14px;
+    }
+
+    .stat-mini-card h4 {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .stat-mini-card .val {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .weak-topic-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .weak-topic-item:last-child { border-bottom: none; }
+
+    .weak-topic-info h5 {
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .weak-topic-info span {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .chart-container {
+      width: 100%;
+      height: 200px;
+      margin: 10px 0;
+      display: flex;
+      align-items: flex-end;
+      gap: 12px;
+      padding-top: 10px;
+    }
+
+    /* HEATMAP */
+    .heatmap-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .heatmap-cell {
+      aspect-ratio: 1;
+      border-radius: var(--radius-sm);
+      background: var(--bg-elevated);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .heatmap-cell.lvl-1 { background: #c7d2fe; color: #3730a3; }
+    .heatmap-cell.lvl-2 { background: #818cf8; color: white; }
+    .heatmap-cell.lvl-3 { background: #4f46e5; color: white; }
+    [data-theme="dark"] .heatmap-cell.lvl-1 { background: #312e81; color: #c7d2fe; }
+    [data-theme="dark"] .heatmap-cell.lvl-2 { background: #4338ca; color: white; }
+    [data-theme="dark"] .heatmap-cell.lvl-3 { background: #6366f1; color: white; }
+
+    /* ==========================================================================
+       ROZETLER (BADGES)
+       ========================================================================== */
+    .badges-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .badge-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px 8px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge-card.locked {
+      opacity: 0.45;
+      filter: grayscale(1);
+    }
+
+    .badge-card .icon {
+      font-size: 26px;
+    }
+
+    .badge-card .name {
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    /* ==========================================================================
+       ALT GEZİNME ÇUBUĞU (BOTTOM NAVIGATION BAR)
+       ========================================================================== */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: calc(64px + var(--safe-bottom));
+      background: var(--bg-card);
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      z-index: 50;
+      padding-bottom: var(--safe-bottom);
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-btn {
+      flex: 1;
+      height: 100%;
+      background: transparent;
+      border: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: color 0.15s ease;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .nav-btn svg {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .nav-btn.active {
+      color: var(--primary);
+    }
+
+    /* MODAL VE ÇEKMECE (QUESTION MAP DRAWER) */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-sheet {
+      background: var(--bg-card);
+      width: 100%;
+      max-width: 640px;
+      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+      padding: 22px 20px calc(24px + var(--safe-bottom));
+      max-height: 85vh;
+      overflow-y: auto;
+      animation: slideUp 0.25s ease-out;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .modal-header h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .close-modal-btn {
+      background: var(--bg-elevated);
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      color: var(--text-secondary);
+    }
+
+    .question-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .grid-num-btn {
+      aspect-ratio: 1;
+      border-radius: var(--radius-md);
+      border: 1.5px solid var(--border-subtle);
+      background: var(--bg-main);
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .grid-num-btn.answered {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .grid-num-btn.starred::after {
+      content: "★";
+      position: absolute;
+      top: 2px;
+      right: 4px;
+      font-size: 10px;
+      color: #f59e0b;
+    }
+    .grid-num-btn.current {
+      box-shadow: 0 0 0 2px var(--primary);
+    }
+
+    /* TOAST BİLDİRİMİ */
+    .toast {
+      position: fixed;
+      top: calc(14px + var(--safe-top));
+      left: 50%;
+      transform: translateX(-50%) translateY(-30px);
+      background: #1e293b;
+      color: white;
+      padding: 10px 18px;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-lg);
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s ease;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+
+    <!-- ÜST BAŞLIK -->
+    <header class="app-header">
+      <div class="app-brand">
+        <div class="brand-icon">K</div>
+        <div class="brand-text">
+          <h1 id="headerTitle">KPSS Ortaöğretim</h1>
+          <span id="headerSub">Çevrimdışı Sınav Hazırlığı</span>
+        </div>
+      </div>
+      <div class="header-badges">
+        <div class="badge-chip badge-streak" id="streakBadge" title="Günlük Çalışma Serisi">
+          🔥 <span id="streakCount">0</span> Gün
+        </div>
+        <button id="quickSoundBtn" class="badge-chip" style="cursor: pointer;" title="Ses Efektleri">
+          🔊
+        </button>
+      </div>
+    </header>
+
+    <!-- =====================================================================
+         1. ANA SAYFA EKRANI
+         ===================================================================== -->
+    <main id="screen-home" class="screen active">
+      <!-- HERO BANNER -->
+      <section class="hero-banner">
+        <h2 class="hero-greeting" id="heroGreeting">Merhaba Aday! 👋</h2>
+        <p class="hero-quote" id="heroQuote">"Başarı, her gün tekrarlanan küçük disiplinlerin toplamıdır."</p>
+
+        <div class="daily-goal-container">
+          <div class="progress-ring-box">
+            <svg width="64" height="64">
+              <circle class="progress-ring-bg" stroke-width="6" fill="transparent" r="26" cx="32" cy="32"/>
+              <circle class="progress-ring-fill" id="goalRingFill" stroke-width="6" fill="transparent" r="26" cx="32" cy="32"
+                      stroke-dasharray="163.36" stroke-dashoffset="163.36"/>
+            </svg>
+            <div class="progress-ring-text" id="goalPercentText">0%</div>
+          </div>
+          <div class="goal-details">
+            <h3>Günlük Hedef</h3>
+            <p><span id="dailySolvedCount">0</span> / <span id="dailyTargetCount">20</span> Soru Tamamlandı</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- KALDIĞIN YERDEN DEVAM ET KARTI -->
+      <div class="card resume-card" id="resumeCard" style="display: none;" onclick="resumeActiveQuiz()">
+        <div class="resume-header">
+          <span class="resume-tag">Devam Eden Sınav</span>
+          <span style="font-size: 0.8rem; font-weight: 600; color: var(--primary);" id="resumeProgress">Soru 4 / 20</span>
+        </div>
+        <h3 style="font-size: 1rem; margin-bottom: 6px;" id="resumeTitle">Genel Deneme Sınavı</h3>
+        <p style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 10px;">Yarıda kalan testini kaldığın yerden tamamla.</p>
+        <button class="btn btn-primary btn-sm">Hemen Devam Et →</button>
+      </div>
+
+      <!-- SINAV GERİ SAYIMI -->
+      <div class="card countdown-card">
+        <div>
+          <div class="card-title" style="margin-bottom: 2px;">KPSS Sınavına Kalan</div>
+          <span style="font-size: 0.8rem; color: var(--text-muted);" id="examDateLabel">Hedef Sınav Tarihi</span>
+        </div>
+        <div style="text-align: right;">
+          <div class="countdown-days" id="examDaysCount">--</div>
+          <span style="font-size: 0.72rem; color: var(--text-muted); cursor: pointer; text-decoration: underline;" onclick="promptExamDate()">Tarihi Değiştir</span>
+        </div>
+      </div>
+
+      <!-- GÜNÜN 20 SORUSU HIZLI BUTONU -->
+      <div class="card" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; cursor: pointer;" onclick="startDailyChallenge()">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <h3 style="font-size: 1.05rem; font-weight: 800; margin-bottom: 4px;">⚡ Günün 20 Sorusu</h3>
+            <p style="font-size: 0.8rem; opacity: 0.9;">Tüm derslerden karma seçilmiş günlük egzersiz</p>
+          </div>
+          <div style="font-size: 26px;">🎯</div>
+        </div>
+      </div>
+
+      <!-- DERS BAZLI HIZLI BAŞLANGIÇ KARTLARI -->
+      <div class="card-title">Dersler & Konular</div>
+      <div class="lessons-grid">
+        <div class="lesson-card lesson-turkce" onclick="openTestConfigForLesson('Türkçe')">
+          <div class="lesson-icon-wrap">📖</div>
+          <div class="lesson-name">Türkçe</div>
+          <div class="lesson-meta">
+            <span>Paragraf, Dil Bilgisi</span>
+            <strong id="badge-count-turkce">125 Soru</strong>
+          </div>
+        </div>
+
+        <div class="lesson-card lesson-matematik" onclick="openTestConfigForLesson('Matematik')">
+          <div class="lesson-icon-wrap">📐</div>
+          <div class="lesson-name">Matematik</div>
+          <div class="lesson-meta">
+            <span>Problemler, Geometri</span>
+            <strong id="badge-count-matematik">125 Soru</strong>
+          </div>
+        </div>
+
+        <div class="lesson-card lesson-tarih" onclick="openTestConfigForLesson('Tarih')">
+          <div class="lesson-icon-wrap">🏛️</div>
+          <div class="lesson-name">Tarih</div>
+          <div class="lesson-meta">
+            <span>Osmanlı, İnkılap</span>
+            <strong id="badge-count-tarih">112 Soru</strong>
+          </div>
+        </div>
+
+        <div class="lesson-card lesson-cografya" onclick="openTestConfigForLesson('Coğrafya')">
+          <div class="lesson-icon-wrap">🌍</div>
+          <div class="lesson-name">Coğrafya</div>
+          <div class="lesson-meta">
+            <span>Yer Şekilleri, İklim</span>
+            <strong id="badge-count-cografya">75 Soru</strong>
+          </div>
+        </div>
+
+        <div class="lesson-card lesson-vatandaslik" onclick="openTestConfigForLesson('Vatandaşlık')">
+          <div class="lesson-icon-wrap">⚖️</div>
+          <div class="lesson-name">Vatandaşlık</div>
+          <div class="lesson-meta">
+            <span>Anayasa, Yasama</span>
+            <strong id="badge-count-vatandaslik">38 Soru</strong>
+          </div>
+        </div>
+
+        <div class="lesson-card lesson-guncel" onclick="openTestConfigForLesson('Güncel Bilgiler')">
+          <div class="lesson-icon-wrap">💡</div>
+          <div class="lesson-name">Güncel Bilgiler</div>
+          <div class="lesson-meta">
+            <span>Kültür, Sanat, Dünya</span>
+            <strong id="badge-count-guncel">25 Soru</strong>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- =====================================================================
+         2. TESTLER & DENEMELER EKRANI
+         ===================================================================== -->
+    <main id="screen-tests" class="screen">
+      <div class="card-title">Test ve Deneme Merkezi</div>
+
+      <!-- MOD SEÇİCİ TABLAR -->
+      <div class="mode-tab-bar">
+        <button class="mode-tab active" onclick="switchTestModeTab('konu')">Konu Testi</button>
+        <button class="mode-tab" onclick="switchTestModeTab('deneme')">Genel Deneme</button>
+        <button class="mode-tab" onclick="switchTestModeTab('hizli')">Hızlı Test</button>
+        <button class="mode-tab" onclick="switchTestModeTab('karisik')">Özel Karışık</button>
+      </div>
+
+      <!-- TEST AYAR KARTI -->
+      <div class="card">
+        <!-- DERS SEÇİMİ (Konu testinde) -->
+        <div class="test-config-group" id="cfgLessonGroup">
+          <label>Ders Seçimi</label>
+          <select id="cfgLessonSelect" class="select-dropdown" onchange="updateTopicDropdown()">
+            <option value="Tümü">Tüm Dersler (Karma)</option>
+            <option value="Türkçe">Türkçe</option>
+            <option value="Matematik">Matematik</option>
+            <option value="Tarih">Tarih</option>
+            <option value="Coğrafya">Coğrafya</option>
+            <option value="Vatandaşlık">Vatandaşlık</option>
+            <option value="Güncel Bilgiler">Güncel Bilgiler</option>
+          </select>
+        </div>
+
+        <!-- KONU SEÇİMİ -->
+        <div class="test-config-group" id="cfgTopicGroup">
+          <label>Konu Seçimi</label>
+          <select id="cfgTopicSelect" class="select-dropdown">
+            <option value="Tümü">Tüm Konular</option>
+          </select>
+        </div>
+
+        <!-- ZORLUK SEVİYESİ -->
+        <div class="test-config-group" id="cfgDifficultyGroup">
+          <label>Zorluk Seviyesi</label>
+          <div class="chip-selector" id="diffChipSelector">
+            <div class="chip selected" onclick="selectDifficultyChip(this, 'all')">Farketmez</div>
+            <div class="chip" onclick="selectDifficultyChip(this, '1')">Kolay ⭐</div>
+            <div class="chip" onclick="selectDifficultyChip(this, '2')">Orta ⭐⭐</div>
+            <div class="chip" onclick="selectDifficultyChip(this, '3')">Zor ⭐⭐⭐</div>
+          </div>
+        </div>
+
+        <!-- SORU SAYISI -->
+        <div class="test-config-group" id="cfgCountGroup">
+          <label>Soru Sayısı</label>
+          <div class="chip-selector" id="countChipSelector">
+            <div class="chip selected" onclick="selectCountChip(this, 10)">10 Soru</div>
+            <div class="chip" onclick="selectCountChip(this, 20)">20 Soru</div>
+            <div class="chip" onclick="selectCountChip(this, 40)">40 Soru</div>
+            <div class="chip" id="chip120" style="display:none;" onclick="selectCountChip(this, 120)">120 (ÖSYM Tam)</div>
+          </div>
+        </div>
+
+        <!-- SÜRE VE GERİ BİLDİRİM TERCİHİ -->
+        <div class="test-config-group">
+          <label>Sınav Seçenekleri</label>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; text-transform: none; font-size: 0.9rem;">
+              <input type="checkbox" id="cfgTimerToggle" checked> Geri Sayım Süreli Mod
+            </label>
+            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; text-transform: none; font-size: 0.9rem;">
+              <input type="checkbox" id="cfgInstantFeedback" checked> Soruyu Çözünce Anında Çözümü Göster
+            </label>
+            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; text-transform: none; font-size: 0.9rem;">
+              <input type="checkbox" id="cfgShuffle"> Şıkları ve Soruları Karıştır
+            </label>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="startConfiguredTest()">
+          🚀 Sınavı Başlat
+        </button>
+      </div>
+
+      <!-- ÖSYM GENEL DENEME BANNER KARTI -->
+      <div class="card" style="border: 2px dashed var(--primary); background: var(--bg-card);">
+        <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <span class="badge-chip" style="background: var(--primary-light); color: var(--primary);">ÖSYM Formatı</span>
+          <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-secondary);">130 Dakika</span>
+        </div>
+        <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 4px;">Gerçek 120 Soruluk KPSS Denemesi</h3>
+        <p style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 14px;">
+          60 Genel Yetenek (Türkçe + Matematik) ve 60 Genel Kültür (Tarih + Coğrafya + Vatandaşlık + Güncel Bilgiler) standart sınavı.
+        </p>
+        <button class="btn btn-primary" onclick="startFullExam()">
+          🏆 120 Soruluk Genel Denemeyi Başlat
+        </button>
+      </div>
+    </main>
+
+    <!-- =====================================================================
+         3. SORU VE TEST ÇÖZÜM EKRANI (QUIZ VIEW)
+         ===================================================================== -->
+    <main id="screen-quiz" class="screen">
+      <!-- QUIZ HEADER -->
+      <div class="quiz-header">
+        <button class="btn-sm btn-secondary" onclick="confirmExitQuiz()">✕ Çıkış</button>
+        <div style="font-weight: 800; font-size: 0.95rem;" id="quizCounterText">Soru 1 / 20</div>
+        <div class="timer-badge" id="quizTimerBadge">⏱️ <span id="quizTimerText">15:00</span></div>
+      </div>
+
+      <!-- PROGRESS BAR -->
+      <div class="quiz-progress-bar-wrap">
+        <div class="quiz-progress-fill" id="quizProgressBar"></div>
+      </div>
+
+      <!-- SORU KARTI -->
+      <div class="question-card">
+        <div class="question-meta-row">
+          <span class="question-topic-badge" id="qTopicBadge">Türkçe • Paragraf</span>
+          <div style="display:flex; align-items: center; gap: 6px;">
+            <span id="qDifficultyBadge" style="font-size: 0.75rem; color: var(--warning);">⭐⭐</span>
+            <button class="star-btn" id="qStarBtn" onclick="toggleCurrentQuestionStar()" title="Soruya Yıldız Koy / Favoriye Ekle">★</button>
+            <button class="btn-sm btn-secondary" style="padding: 4px 8px; font-size: 0.75rem;" onclick="openQuestionMapModal()">🗺️ Harita</button>
+          </div>
+        </div>
+
+        <div class="question-text" id="qText">Soru metni yükleniyor...</div>
+
+        <!-- ŞIKLAR -->
+        <div class="options-list" id="optionsList">
+          <!-- Seçenekler JS ile basılacak -->
+        </div>
+
+        <!-- AÇIKLAMA / GERİBİLDİRİM KUTUSU -->
+        <div class="explanation-box" id="explanationBox">
+          <strong>💡 Çözüm ve Açıklama:</strong>
+          <span id="explanationText"></span>
+        </div>
+      </div>
+
+      <!-- ALT BUTONLAR -->
+      <div class="quiz-bottom-nav">
+        <button class="btn btn-secondary" id="btnPrevQuestion" onclick="goToPrevQuestion()">← Önceki</button>
+        <button class="btn btn-outline" id="btnClearSelection" onclick="clearOptionSelection()">Boş Bırak</button>
+        <button class="btn btn-primary" id="btnNextQuestion" onclick="goToNextQuestion()">Sonraki →</button>
+      </div>
+
+      <div style="margin-top: 10px;">
+        <button class="btn btn-secondary btn-sm" style="width: 100%; color: var(--error);" onclick="confirmFinishQuiz()">
+          ✓ Sınavı Tamamla ve Sonuçları Gör
+        </button>
+      </div>
+    </main>
+
+    <!-- =====================================================================
+         4. SONUÇ EKRANI (RESULT VIEW)
+         ===================================================================== -->
+    <main id="screen-result" class="screen">
+      <div style="text-align: center; margin-bottom: 16px;">
+        <div style="font-size: 40px; margin-bottom: 6px;" id="resultEmoji">🎉</div>
+        <h2 style="font-size: 1.35rem; font-weight: 800;" id="resultTitle">Test Tamamlandı!</h2>
+        <p style="font-size: 0.85rem; color: var(--text-secondary);" id="resultSub">Harika bir çalışma oldu, netlerini incele.</p>
+      </div>
+
+      <!-- SKORLAR KUTUSU -->
+      <div class="score-summary-grid">
+        <div class="score-box">
+          <div class="score-box-num score-correct" id="resCorrectCount">0</div>
+          <div class="score-box-label">Doğru</div>
+        </div>
+        <div class="score-box">
+          <div class="score-box-num score-wrong" id="resWrongCount">0</div>
+          <div class="score-box-label">Yanlış</div>
+        </div>
+        <div class="score-box">
+          <div class="score-box-num score-empty" id="resEmptyCount">0</div>
+          <div class="score-box-label">Boş</div>
+        </div>
+        <div class="score-box">
+          <div class="score-box-num score-net" id="resNetScore">0.00</div>
+          <div class="score-box-label">Net</div>
+        </div>
+      </div>
+
+      <!-- DETAYLI METRİK KARTI -->
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 8px;">
+          <span>Başarı Oranı:</span>
+          <strong id="resAccuracy">0%</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 8px;">
+          <span>Geçen Süre:</span>
+          <strong id="resDuration">0 dk 0 sn</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 0.85rem;">
+          <span>Soru Başına Ortalama Süre:</span>
+          <strong id="resAvgTime">0 sn</strong>
+        </div>
+      </div>
+
+      <!-- DERS BAZLI BAŞARI DAĞILIMI -->
+      <div class="card">
+        <div class="card-title">Ders Bazında Net Dağılımı</div>
+        <div id="lessonBreakdownContainer">
+          <!-- JS ile doldurulacak -->
+        </div>
+      </div>
+
+      <!-- AKSİYON BUTONLARI -->
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+        <button class="btn btn-primary" id="btnSolveWrongsAgain" onclick="solveWrongQuestionsFromQuiz()">
+          🔁 Yanlış Yaptığım Soruları Tekrar Çöz
+        </button>
+        <button class="btn btn-secondary" onclick="showScreen('screen-home')">
+          🏠 Ana Sayfaya Dön
+        </button>
+      </div>
+
+      <!-- SORU SORU İNCELEME -->
+      <div class="card-title">Tüm Soruları İncele</div>
+      <div id="resultQuestionsReviewList">
+        <!-- JS ile soru detayları basılacak -->
+      </div>
+    </main>
+
+    <!-- =====================================================================
+         5. ANALİZ & GELİŞİM EKRANI
+         ===================================================================== -->
+    <main id="screen-analytics" class="screen">
+      <div class="card-title">Performans & Analiz Paneli</div>
+
+      <!-- İSTATİSTİK ÖZETİ -->
+      <div class="stat-row-card">
+        <div class="stat-mini-card">
+          <h4>Toplam Çözülen</h4>
+          <div class="val" id="anTotalSolved">0</div>
+        </div>
+        <div class="stat-mini-card">
+          <h4>Genel Başarı</h4>
+          <div class="val" id="anAccuracy">0%</div>
+        </div>
+        <div class="stat-mini-card">
+          <h4>En İyi Deneme Neti</h4>
+          <div class="val" id="anBestNet">0.00</div>
+        </div>
+        <div class="stat-mini-card">
+          <h4>Ortalama Soru Süresi</h4>
+          <div class="val" id="anAvgTime">0s</div>
+        </div>
+      </div>
+
+      <!-- DERS BAZLI BAŞARI GRAFİĞİ (SVG) -->
+      <div class="card">
+        <div class="card-title">Ders Başarı Oranları (%)</div>
+        <div id="lessonChartSvgWrap"></div>
+      </div>
+
+      <!-- NET GELİŞİM ÇİZGİ GRAFİĞİ (SVG) -->
+      <div class="card">
+        <div class="card-title">Son Testlerde Net Gelişimi</div>
+        <div id="netTrendChartWrap"></div>
+      </div>
+
+      <!-- ZAYIF KONULAR (BAŞARISI %50 ALTI) -->
+      <div class="card">
+        <div class="card-title">⚠️ Zayıf Konuların (Acil Tekrar)</div>
+        <div id="weakTopicsList">
+          <p style="font-size: 0.85rem; color: var(--text-muted); padding: 10px 0;">Henüz zayıf konu verisi oluşmadı. Daha fazla test çözdükçe zayıf olduğun konular otomatik tespit edilir.</p>
+        </div>
+      </div>
+
+      <!-- HAFTALIK ÇALIŞMA ISI HARİTASI -->
+      <div class="card">
+        <div class="card-title">Son 7 Gün Çalışma Yoğunluğu</div>
+        <div class="heatmap-grid" id="weeklyHeatmapGrid"></div>
+      </div>
+    </main>
+
+    <!-- =====================================================================
+         6. YANLIŞLARIM & FAVORİLER EKRANI
+         ===================================================================== -->
+    <main id="screen-mistakes" class="screen">
+      <div class="card-title">Özel Soru Havuzu</div>
+
+      <div class="mode-tab-bar">
+        <button class="mode-tab active" id="tabMistakes" onclick="switchMistakesTab('wrongs')">Yanlış Defterim (<span id="wrongCountBadge">0</span>)</button>
+        <button class="mode-tab" id="tabFavorites" onclick="switchMistakesTab('stars')">Yıldızlı Sorular (<span id="starCountBadge">0</span>)</button>
+      </div>
+
+      <div style="margin-bottom: 14px;">
+        <button class="btn btn-primary" id="btnStartMistakesQuiz" onclick="startMistakesOnlyQuiz()">
+          🎯 Sadece Yanlışlarımdan Test Oluştur
+        </button>
+      </div>
+
+      <!-- FİLTRE -->
+      <div style="margin-bottom: 12px;">
+        <select id="mistakesLessonFilter" class="select-dropdown" onchange="renderMistakesList()">
+          <option value="Tümü">Tüm Dersler</option>
+          <option value="Türkçe">Türkçe</option>
+          <option value="Matematik">Matematik</option>
+          <option value="Tarih">Tarih</option>
+          <option value="Coğrafya">Coğrafya</option>
+          <option value="Vatandaşlık">Vatandaşlık</option>
+          <option value="Güncel Bilgiler">Güncel Bilgiler</option>
+        </select>
+      </div>
+
+      <div id="mistakesListContainer">
+        <!-- JS ile basılacak -->
+      </div>
+    </main>
+
+    <!-- =====================================================================
+         7. PROFİL, ROZETLER & AYARLAR EKRANI
+         ===================================================================== -->
+    <main id="screen-profile" class="screen">
+      <div class="card-title">Profil ve Ayarlar</div>
+
+      <!-- KULLANICI BİLGİLERİ -->
+      <div class="card">
+        <div class="card-title">Kullanıcı Bilgileri</div>
+        <div style="margin-bottom: 12px;">
+          <label style="display:block; font-size:0.8rem; font-weight:700; color:var(--text-secondary); margin-bottom:4px;">İsim / Takma Ad</label>
+          <input type="text" id="profUserNameInput" class="select-dropdown" placeholder="Adınız">
+        </div>
+
+        <div style="margin-bottom: 12px;">
+          <label style="display:block; font-size:0.8rem; font-weight:700; color:var(--text-secondary); margin-bottom:4px;">Günlük Soru Hedefi</label>
+          <select id="profDailyTargetSelect" class="select-dropdown">
+            <option value="10">10 Soru / Gün (Tempolu)</option>
+            <option value="20">20 Soru / Gün (Önerilen)</option>
+            <option value="40">40 Soru / Gün (İddialı)</option>
+            <option value="60">60 Soru / Gün (Derece)</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom: 12px;">
+          <label style="display:block; font-size:0.8rem; font-weight:700; color:var(--text-secondary); margin-bottom:4px;">Hedef Sınav Tarihi</label>
+          <input type="date" id="profExamDateInput" class="select-dropdown">
+        </div>
+
+        <button class="btn btn-secondary btn-sm" onclick="saveProfileSettings()">Kaydet</button>
+      </div>
+
+      <!-- ROZETLER -->
+      <div class="card">
+        <div class="card-title">Kazanılan Rozetler</div>
+        <div class="badges-grid" id="badgesContainer"></div>
+      </div>
+
+      <!-- GÖRÜNÜM & ERİŞİLEBİLİRLİK -->
+      <div class="card">
+        <div class="card-title">Görünüm ve Tercihler</div>
+
+        <div style="margin-bottom: 12px;">
+          <label style="display:block; font-size:0.8rem; font-weight:700; color:var(--text-secondary); margin-bottom:4px;">Tema Seçimi</label>
+          <select id="themeSelect" class="select-dropdown" onchange="changeAppTheme(this.value)">
+            <option value="system">Sistem Varsayılanı</option>
+            <option value="light">Aydınlık Tema</option>
+            <option value="dark">Karanlık Tema</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom: 12px;">
+          <label style="display:block; font-size:0.8rem; font-weight:700; color:var(--text-secondary); margin-bottom:4px;">Yazı Boyutu (Font)</label>
+          <div class="chip-selector">
+            <div class="chip" id="fontSmall" onclick="setFontScale(0.9)">Küçük</div>
+            <div class="chip selected" id="fontNormal" onclick="setFontScale(1)">Normal</div>
+            <div class="chip" id="fontLarge" onclick="setFontScale(1.15)">Büyük</div>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction: column; gap:10px; margin-top:14px;">
+          <label style="display: flex; align-items: center; justify-content: space-between; font-size: 0.9rem; cursor: pointer;">
+            <span>Ses Efektleri</span>
+            <input type="checkbox" id="soundToggle" checked onchange="toggleSoundSetting(this.checked)">
+          </label>
+          <label style="display: flex; align-items: center; justify-content: space-between; font-size: 0.9rem; cursor: pointer;">
+            <span>Titreşim (Haptic)</span>
+            <input type="checkbox" id="vibrateToggle" checked onchange="toggleVibrateSetting(this.checked)">
+          </label>
+        </div>
+      </div>
+
+      <!-- YEDEKLEME & VERİ YÖNETİMİ -->
+      <div class="card">
+        <div class="card-title">Veri Yönetimi & Yedekleme</div>
+        <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 12px;">
+          Tüm ilerlemen cihazında çevrimdışı saklanır. Farklı cihaza aktarmak için yedeğini JSON olarak indirebilirsin.
+        </p>
+
+        <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+          <button class="btn btn-secondary btn-sm" style="flex:1;" onclick="exportDataAsJSON()">📥 Yedeği İndir (JSON)</button>
+          <label class="btn btn-secondary btn-sm" style="flex:1; cursor:pointer; text-align:center;">
+            📤 Yedeği Yükle
+            <input type="file" id="importFileInput" accept=".json" style="display:none;" onchange="importDataFromJSON(event)">
+          </label>
+        </div>
+
+        <button class="btn btn-outline btn-sm" style="width: 100%; color: var(--error); border-color: var(--error);" onclick="confirmResetAllData()">
+          ⚠️ Tüm İlerlemeyi Sıfırla
+        </button>
+      </div>
+    </main>
+
+    <!-- =====================================================================
+         ALT GEZİNME ÇUBUĞU (BOTTOM NAVIGATION)
+         ===================================================================== -->
+    <nav class="bottom-nav">
+      <button class="nav-btn active" onclick="showScreen('screen-home')" id="nav-btn-home">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>Ana Sayfa</span>
+      </button>
+
+      <button class="nav-btn" onclick="showScreen('screen-tests')" id="nav-btn-tests">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        <span>Testler</span>
+      </button>
+
+      <button class="nav-btn" onclick="showScreen('screen-analytics')" id="nav-btn-analytics">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+        <span>Analiz</span>
+      </button>
+
+      <button class="nav-btn" onclick="showScreen('screen-mistakes')" id="nav-btn-mistakes">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></line><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        <span>Yanlışlarım</span>
+      </button>
+
+      <button class="nav-btn" onclick="showScreen('screen-profile')" id="nav-btn-profile">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <span>Profil</span>
+      </button>
+    </nav>
+
+    <!-- SORU HARİTASI DRAWER MODAL -->
+    <div class="modal-overlay" id="questionMapModal">
+      <div class="modal-sheet">
+        <div class="modal-header">
+          <h3>Soru Haritası</h3>
+          <button class="close-modal-btn" onclick="closeQuestionMapModal()">✕</button>
+        </div>
+        <div style="display: flex; gap: 14px; font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 8px;">
+          <span>🟢 Cevaplanan</span>
+          <span>⚪ Boş</span>
+          <span>⭐ Yıldızlı</span>
+        </div>
+        <div class="question-grid" id="questionMapGrid"></div>
+      </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="appToast">Bildirim</div>
+
+  </div>
+
+  <!-- =========================================================================
+       SORU HAVUZU (ÖSYM KPSS ORTAÖĞRETİM MÜFREDATI İLE BİREBİR UYUMLU 68+ SORU)
+       ========================================================================= -->
+  <script>
+    const SORULAR = [
+      // -----------------------------------------------------------------------
+      // TÜRKÇE (Sözcükte Anlam, Cümlede Anlam, Paragraf, Dil Bilgisi, Yazım-Noktalama, Anlatım Bozukluğu)
+      // -----------------------------------------------------------------------
+      {
+        id: 1,
+        ders: "Türkçe",
+        konu: "Sözcükte Anlam",
+        zorluk: 1,
+        soru: "Aşağıdaki cümlelerin hangisinde altı çizili sözcük 'mecaz anlamda' kullanılmıştır?",
+        secenekler: [
+          "Masadaki sıcak çaydan bir yudum aldı.",
+          "Yeni müdür çalışanlarına karşı oldukça soğuk davrandı.",
+          "Pencereden giren taze hava odayı ferahlattı.",
+          "Bahçedeki kuru yaprakları tırmıkla topladık.",
+          "Yolun kenarındaki derin çukura dikkat etmelisin."
+        ],
+        dogru: 1,
+        aciklama: "'Soğuk' sözcüğü gerçek sıcaklık anlamından uzaklaşarak 'ilgisiz, sevgisiz, mesafeli' anlamında mecaz olarak kullanılmıştır."
+      },
+      {
+        id: 2,
+        ders: "Türkçe",
+        konu: "Paragrafta Ana Düşünce",
+        zorluk: 2,
+        soru: "Okumak sadece boş zamanları dolduracak bir hobi değil; insanın kendini, insanlığı ve dünyayı derinlemesine anlamlandırma çabasıdır. Kitap sayfalarında dolaşmayan bir zihin, zamanla dar bir pencereden dünyaya bakmaya mahkûm kalır.\n\nBu parçada vurgulanmak istenen asıl düşünce aşağıdakilerden hangisidir?",
+        secenekler: [
+          "Kitap okuma alışkanlığı çocuklukta kazanılmalıdır.",
+          "Okumak, insanın zihnini geliştirerek evrensel bir bakış açısı kazandırır.",
+          "Günümüzde insanlar boş zamanlarını kitap okuyarak değerlendirmelidir.",
+          "Dar pencerelerden bakmak insanı ön yargılı olmaya iter.",
+          "Her kitabın vermek istediği bir ana fikir mutlaka vardır."
+        ],
+        dogru: 1,
+        aciklama: "Paragrafta okumanın insanın kavrayış ufkunu genişlettiği, dünyayı anlamlandırmasını sağladığı vurgulanmıştır."
+      },
+      {
+        id: 3,
+        ders: "Türkçe",
+        konu: "Yazım Kuralları",
+        zorluk: 2,
+        soru: "Aşağıdaki cümlelerin hangisinde 'ki'nin yazımıyla ilgili bir yanlışlık yapılmıştır?",
+        secenekler: [
+          "Evdeki hesap çarşıya uymadı.",
+          "Anladım ki bu iş sabır gerektiriyor.",
+          "Seninki bu akşam toplantıya katılmayacakmış.",
+          "Madem ki gelmeyecektin, neden haber vermedin?",
+          "Akşamki maç nefesleri kesti."
+        ],
+        dogru: 3,
+        aciklama: "'Mademki' kelimesi kalıplaşmış olduğu için (SOMBAHÇEMİ kuralı) bitişik yazılmalıdır. 'Madem ki' yazımı yanlıştır."
+      },
+      {
+        id: 4,
+        ders: "Türkçe",
+        konu: "Noktalama İşaretleri",
+        zorluk: 2,
+        soru: "Aşağıdaki cümlelerin hangisinde virgülün (,) kaldırılması anlam karışıklığına yol açar?",
+        secenekler: [
+          "Genç, doktora merakla ameliyatın sonucunu sordu.",
+          "Hava soğuyunca, herkes kalın giysilerini giydi.",
+          "Sabahleyin erkenden kalkar, yürüyüşe çıkardı.",
+          "Oraya gitmek için, uzun bir yolculuğu göze aldı.",
+          "Kitap okumak, zihni dinlendirmenin en güzel yoludur."
+        ],
+        dogru: 0,
+        aciklama: "Genç sözcüğünden sonra virgül kalkarsa 'genç doktor' sıfat tamlaması oluşur ve anlam tamamen değişir."
+      },
+      {
+        id: 5,
+        ders: "Türkçe",
+        konu: "Ses Bilgisi",
+        zorluk: 1,
+        soru: "'Ayrılık' sözcüğünde aşağıdaki ses olaylarından hangisi vardır?",
+        secenekler: [
+          "Ünsüz Benzeşmesi",
+          "Ünlü Düşmesi",
+          "Ünsüz Türemesi",
+          "Ünlü Daralması",
+          "Ünsüz Yumuşaması"
+        ],
+        dogru: 1,
+        aciklama: "Sözcüğün kökü 'ayır-' fiilidir. -ıl yapım eki alırken 'ı' ünlüsü düşmüş (ayır-ıl-ık -> ayrılık) ve ünlü düşmesi gerçekleşmiştir."
+      },
+      {
+        id: 6,
+        ders: "Türkçe",
+        konu: "Cümlede Anlam",
+        zorluk: 2,
+        soru: "Aşağıdaki cümlelerin hangisinde 'amaç-sonuç' ilişkisi vardır?",
+        secenekler: [
+          "Kar yağdığı için köy yolları kapandı.",
+          "Sınavı kazanmak amacıyla gece gündüz ders çalıştı.",
+          "Hava kararınca eve dönmek zorunda kaldık.",
+          "Kitabı bitiremediğinden ödevini teslim edemedi.",
+          "Düzenli spor yaparsan sağlığını korursun."
+        ],
+        dogru: 1,
+        aciklama: "'Sınavı kazanmak amacıyla' ifadesi net bir hedef/amaç belirtir, dolayısıyla cümle amaç-sonuç ilgisi taşır."
+      },
+      {
+        id: 7,
+        ders: "Türkçe",
+        konu: "Dil Bilgisi",
+        zorluk: 3,
+        soru: "'Yaşlı adam, elindeki bastonu yavaşça yere bıraktı.' cümlesinin ögeleri aşağıdakilerden hangisinde sırasıyla doğru verilmiştir?",
+        secenekler: [
+          "Özne - Nesne - Zarf Tümleci - Dolaylı Tümleç - Yüklem",
+          "Özne - Belirtili Nesne - Zarf Tümleci - Yer Tamlayıcısı - Yüklem",
+          "Belirtisiz Nesne - Zarf Tümleci - Yüklem",
+          "Özne - Zarf Tümleci - Nesne - Yüklem",
+          "Yer Tamlayıcısı - Özne - Nesne - Yüklem"
+        ],
+        dogru: 1,
+        aciklama: "Bıraktı (Yüklem), Kim bıraktı? Yaşlı adam (Özne), Neyi bıraktı? Elindeki bastonu (Belirtili Nesne), Nasıl bıraktı? Yavaşça (Zarf Tümleci), Nereye bıraktı? Yere (Yer Tamlayıcısı)."
+      },
+      {
+        id: 8,
+        ders: "Türkçe",
+        konu: "Anlatım Bozukluğu",
+        zorluk: 2,
+        soru: "Aşağıdaki cümlelerin hangisinde bir anlatım bozukluğu vardır?",
+        secenekler: [
+          "Bu konuda herkes fikrini açıkça söyledi.",
+          "Öğrenciler okula zamanında geldiler.",
+          "Çocuklarını çok sever, her istediklerini yapardı.",
+          "Gereksiz ve lüzumsuz tartışmalardan kaçınmalıyız.",
+          "Yarın akşam tiyatroya gideceğiz."
+        ],
+        dogru: 3,
+        aciklama: "'Gereksiz' ile 'lüzumsuz' eş anlamlı sözcüklerdir. Bir arada kullanılmaları duruluk ilkesine aykırıdır ve gereksiz sözcük kullanımından kaynaklanan anlatım bozukluğudur."
+      },
+      {
+        id: 9,
+        ders: "Türkçe",
+        konu: "Paragrafta Yapı",
+        zorluk: 2,
+        soru: "Bir paragrafın giriş cümlesi kendinden önce bir cümlenin varlığını hissettirmemelidir.\n\nBuna göre aşağıdakilerden hangisi bir paragrafın giriş cümlesi olmaya en uygundur?",
+        secenekler: [
+          "Oysa yazar bu eserinde farklı bir üslup denemiş.",
+          "Sanat, insanın güzelliği arama ve ifade etme çabasıdır.",
+          "Bu nedenle toplumların gelişmesinde eğitim esastır.",
+          "Yine de onun gibi bir ustanın unutulması beklenemez.",
+          "Kısacası başarıya ulaşmak için sabır şarttır."
+        ],
+        dogru: 1,
+        aciklama: "'Oysa', 'Bu nedenle', 'Yine de', 'Kısacası' bağlayıcı unsurlar içerir ve önceki cümleye gönderme yapar. B seçeneği ise bağımsız bir tanımdır."
+      },
+      {
+        id: 10,
+        ders: "Türkçe",
+        konu: "Yazım Kuralları",
+        zorluk: 2,
+        soru: "Aşağıdaki cümlelerin hangisinde büyük harflerin yazımıyla ilgili bir yanlışlık vardır?",
+        secenekler: [
+          "Bu yaz Van Gölü'nde yüzme fırsatı buldum.",
+          "Dün akşam Resmi Gazete'de yayımlanan kararı inceledik.",
+          "Türk Tarih Kurumu binasında konferans verildi.",
+          "İngiliz Dili ve edebiyatı bölümünü dereceyle bitirdi.",
+          "Ahmet Bey yarın Ankara'ya gidecek."
+        ],
+        dogru: 3,
+        aciklama: "Özel ada dahil olmayan veya bölüm/bölüm adı niteliğindeki tamlamalarda 'İngiliz Dili ve Edebiyatı' şeklinde 'E' büyük harfle yazılmalıdır."
+      },
+      {
+        id: 11,
+        ders: "Türkçe",
+        konu: "Sözcük Türleri",
+        zorluk: 2,
+        soru: "Aşağıdaki altı çizili sözcüklerden hangisi türü bakımından diğerlerinden farklıdır?",
+        secenekler: [
+          "Güzel günlerin geleceğine inanıyordu.",
+          "Sıcak bir çorba içip dinlendi.",
+          "Konuyu onunla güzelce konuştuk.",
+          "Geniş odada üç pencere vardı.",
+          "Zor soruları sona bıraktı."
+        ],
+        dogru: 2,
+        aciklama: "A, B, D ve E seçeneklerindeki sözcükler ismi niteleyen 'sıfat' iken; C seçeneğindeki 'güzelce' fiili niteleyen bir 'zarf'tır (belirteçtir)."
+      },
+      {
+        id: 12,
+        ders: "Türkçe",
+        konu: "Deyimler ve Atasözleri",
+        zorluk: 1,
+        soru: "Çok heyecanlanmak, aşırı telaşa kapılmak durumunda kullanılan deyim aşağıdakilerden hangisidir?",
+        secenekler: [
+          "Etekleri zil çalmak",
+          "Etekleri tutuşmak",
+          "Göze girmek",
+          "Kulak kabartmak",
+          "Burnu havada olmak"
+        ],
+        dogru: 1,
+        aciklama: "'Etekleri tutuşmak' çok telaşlanmak ve paniğe kapılmak anlamındadır. 'Etekleri zil çalmak' ise çok sevinmektir."
+      },
+
+      // -----------------------------------------------------------------------
+      // MATEMATİK (Temel Kavramlar, Bölünebilme, Rasyonel Sayılar, Oran-Orantı, Problemler, Geometri)
+      // -----------------------------------------------------------------------
+      {
+        id: 13,
+        ders: "Matematik",
+        konu: "Temel Kavramlar",
+        zorluk: 1,
+        soru: "a ve b birer doğal sayıdır.\na + b = 18 olduğuna göre, a · b çarpımının alabileceği EN BÜYÜK değer kaçtır?",
+        secenekler: ["72", "77", "80", "81", "90"],
+        dogru: 3,
+        aciklama: "Toplamları sabit olan iki sayının çarpımının en büyük olması için sayılar birbirine en yakın seçilir. Doğal sayı olduklarından a = 9 ve b = 9 alınırsa; a · b = 9 · 9 = 81 olur."
+      },
+      {
+        id: 14,
+        ders: "Matematik",
+        konu: "Rasyonel Sayılar",
+        zorluk: 1,
+        soru: "(1/2 + 1/3) ÷ (5/6) işleminin sonucu kaçtır?",
+        secenekler: ["1/2", "1", "5/6", "6/5", "2"],
+        dogru: 1,
+        aciklama: "Payda eşitlendiğinde: 1/2 + 1/3 = 3/6 + 2/6 = 5/6. Buradan (5/6) ÷ (5/6) = 1 elde edilir."
+      },
+      {
+        id: 15,
+        ders: "Matematik",
+        konu: "Bölünebilme Kuralları",
+        zorluk: 2,
+        soru: "Dört basamaklı 4a5b sayısı hem 5 hem de 9 ile tam bölünebilen bir çift sayıdır.\nBuna göre a kaçtır?",
+        secenekler: ["0", "4", "5", "8", "9"],
+        dogru: 3,
+        aciklama: "Sayı 5 ile bölünüyor ve çift sayı ise birler basamağı b = 0 olmalıdır. Sayı 4a50 olur. 9 ile tam bölünebilmesi için rakamları toplamı 9'un katı olmalıdır: 4 + a + 5 + 0 = 9 + a. Dolayısıyla a = 0 veya a = 9 olabilir. Şıklarda 9 vardır (a=9 için toplam 18, 9'un katıdır)."
+      },
+      {
+        id: 16,
+        ders: "Matematik",
+        konu: "EBOB - EKOK",
+        zorluk: 2,
+        soru: "Aralarında asal iki sayının EKOK'u 120 ve EBOB'u ile EKOK'unun toplamı 121'dir.\nBu sayılardan biri 8 olduğuna göre diğeri kaçtır?",
+        secenekler: ["12", "15", "16", "20", "24"],
+        dogru: 1,
+        aciklama: "Aralarında asal iki sayının EBOB'u daima 1'dir. EKOK'ları sayıların çarpımına eşittir. Sayıların çarpımı 120 ise ve biri 8 ise diğeri: 120 ÷ 8 = 15'tir."
+      },
+      {
+        id: 17,
+        ders: "Matematik",
+        konu: "Yüzde Problemleri",
+        zorluk: 2,
+        soru: "Bir mağaza, etiket fiyatı 400 TL olan bir pantolona %25 indirim yapmıştır. Ardından indirimli fiyat üzerinden %10 daha indirim uygulamıştır.\nPantolonun son satış fiyatı kaç TL olmuştur?",
+        secenekler: ["260", "270", "280", "300", "310"],
+        dogru: 1,
+        aciklama: "İlk indirim: 400'ün %25'i = 100 TL. İndirimli fiyat = 400 - 100 = 300 TL. İkinci indirim: 300'ün %10'u = 30 TL. Son fiyat = 300 - 30 = 270 TL."
+      },
+      {
+        id: 18,
+        ders: "Matematik",
+        konu: "Yaş Problemleri",
+        zorluk: 2,
+        soru: "Bir babanın bugünkü yaşı, iki çocuğunun yaşları toplamının 3 katıdır. 4 yıl sonra babanın yaşı, çocuklarının yaşları toplamının 2 katı olacaktır.\nBabanın bugünkü yaşı kaçtır?",
+        secenekler: ["32", "36", "40", "44", "48"],
+        dogru: 1,
+        aciklama: "Çocukların yaşları toplamı x olsun. Baba = 3x. 4 yıl sonra: Baba = 3x + 4. İki çocuk olduğu için çocukların yaşları toplamı x + 8 olur. Denklem: 3x + 4 = 2(x + 8) => 3x + 4 = 2x + 16 => x = 12. Babanın yaşı = 3 · 12 = 36."
+      },
+      {
+        id: 19,
+        ders: "Matematik",
+        konu: "Hız - Hareket Problemleri",
+        zorluk: 2,
+        soru: "Aralarındaki mesafe 480 km olan iki şehirden aynı anda birbirlerine doğru hareket eden iki aracın hızları saatte 70 km ve 50 km'dir.\nBu iki araç kaç saat sonra karşılaşırlar?",
+        secenekler: ["3", "4", "5", "6", "8"],
+        dogru: 1,
+        aciklama: "Zıt yönlü birbirine doğru hareketlerde hızlar toplanır: Vtop = 70 + 50 = 120 km/s. Karşılaşma süresi t = Yol / Vtop = 480 / 120 = 4 saattir."
+      },
+      {
+        id: 20,
+        ders: "Matematik",
+        konu: "Üslü Sayılar",
+        zorluk: 1,
+        soru: "(2^5 + 2^5 + 2^5 + 2^5) işleminin sonucu aşağıdakilerden hangisine eşittir?",
+        secenekler: ["2^6", "2^7", "2^8", "2^10", "2^20"],
+        dogru: 1,
+        aciklama: "4 adet 2^5 toplanmaktadır: 4 · 2^5 = 2^2 · 2^5 = 2^(2+5) = 2^7."
+      },
+      {
+        id: 21,
+        ders: "Matematik",
+        konu: "Köklü Sayılar",
+        zorluk: 2,
+        soru: "√75 - √27 + √12 işleminin sonucu kaçtır?",
+        secenekler: ["2√3", "3√3", "4√3", "5√3", "6√3"],
+        dogru: 2,
+        aciklama: "√75 = √(25·3) = 5√3. √27 = √(9·3) = 3√3. √12 = √(4·3) = 2√3. İşlem: 5√3 - 3√3 + 2√3 = 4√3."
+      },
+      {
+        id: 22,
+        ders: "Matematik",
+        konu: "Olasılık",
+        zorluk: 2,
+        soru: "Düzgün bir madeni para 3 kez havaya atılıyor. En az bir kez tura gelme olasılığı kaçtır?",
+        secenekler: ["1/8", "3/8", "1/2", "5/8", "7/8"],
+        dogru: 4,
+        aciklama: "Tüm durumlar 2^3 = 8'dir. İstenmeyen durum hepsinin yazı (Y-Y-Y) gelmesidir (1 durum). En az bir tura = 1 - (1/8) = 7/8."
+      },
+      {
+        id: 23,
+        ders: "Matematik",
+        konu: "Geometri - Üçgende Açılar",
+        zorluk: 1,
+        soru: "Bir ABC üçgeninde m(A) = 65° ve m(B) = 45° olduğuna göre, C açısının ölçüsü kaç derecedir?",
+        secenekler: ["60°", "65°", "70°", "75°", "80°"],
+        dogru: 2,
+        aciklama: "Üçgenin iç açıları toplamı 180°'dir. 65° + 45° = 110°. C açısı = 180° - 110° = 70°'dir."
+      },
+      {
+        id: 24,
+        ders: "Matematik",
+        konu: "Geometri - Çevre ve Alan",
+        zorluk: 2,
+        soru: "Kısa kenarı 8 cm ve çevresi 36 cm olan bir dikdörtgenin alanı kaç santimetrekaredir?",
+        secenekler: ["64", "72", "80", "88", "96"],
+        dogru: 2,
+        aciklama: "Çevre = 2 · (Kısa + Uzun) = 36 => Kısa + Uzun = 18. Uzun kenar = 18 - 8 = 10 cm. Alan = 8 · 10 = 80 cm²."
+      },
+
+      // -----------------------------------------------------------------------
+      // TARİH (İlk Türk Devletleri, Türk-İslam, Osmanlı, Kurtuluş Savaşı, İnkılaplar, Dış Politika)
+      // -----------------------------------------------------------------------
+      {
+        id: 25,
+        ders: "Tarih",
+        konu: "İslamiyet Öncesi Türk Tarihi",
+        zorluk: 1,
+        soru: "Tarihte bilinen ilk Türk devleti aşağıdakilerden hangisidir?",
+        secenekler: ["Göktürkler", "Asya Hun Devleti", "Uygurlar", "Avarlar", "Hazarlar"],
+        dogru: 1,
+        aciklama: "Tarihte teşkilatlı olarak bilinen ilk Türk devleti Teoman önderliğinde kurulan Asya Hun (Büyük Hun) Devleti'dir."
+      },
+      {
+        id: 26,
+        ders: "Tarih",
+        konu: "İslamiyet Öncesi Türk Tarihi",
+        zorluk: 2,
+        soru: "Yerleşik hayata geçen, tarımla uğraşan ve Maniheizm dinini benimseyen ilk Türk devleti hangisidir?",
+        secenekler: ["Uygurlar", "Göktürkler", "Hunlar", "Karluklar", "Kıpçaklar"],
+        dogru: 0,
+        aciklama: "Bögü Kağan döneminde Maniheizm dinini kabul eden ve yerleşik yaşama geçerek ilk tapınak ve kütüphaneleri kuran devlet Uygurlar'dır."
+      },
+      {
+        id: 27,
+        ders: "Tarih",
+        konu: "Türk-İslam Tarihi",
+        zorluk: 2,
+        soru: "Büyük Selçuklu Devleti ile Bizans arasında 1071 yılında gerçekleşen ve Anadolu'nun kapılarını Türklere açan savaş hangisidir?",
+        secenekler: ["Dandanakan Savaşı", "Pasinler Savaşı", "Malazgirt Meydan Muharebesi", "Miryokefalon Savaşı", "Yassıçemen Savaşı"],
+        dogru: 2,
+        aciklama: "Sultan Alparslan komutasında Bizans İmparatoru Romen Diyojen'e karşı kazanılan Malazgirt Savaşı (1071), Anadolu'nun kapılarını Türk fethine açmıştır."
+      },
+      {
+        id: 28,
+        ders: "Tarih",
+        konu: "Osmanlı Devleti Kuruluş ve Yükselme",
+        zorluk: 1,
+        soru: "Osmanlı Devleti'nde ilk altın parayı bastıran ve Topkapı Sarayı'nı inşa ettiren padişah kimdir?",
+        secenekler: ["Osman Bey", "Yıldırım Bayezid", "Fatih Sultan Mehmet", "Yavuz Sultan Selim", "Kanuni Sultan Süleyman"],
+        dogru: 2,
+        aciklama: "II. Mehmet (Fatih Sultan Mehmet) İstanbul'u fethettikten sonra devletin iktisadi ve idari merkezini güçlendirmiş, ilk altın para (Sultani) bastırmış ve Topkapı Sarayı'nı yaptırmıştır."
+      },
+      {
+        id: 29,
+        ders: "Tarih",
+        konu: "Osmanlı Kültür ve Medeniyeti",
+        zorluk: 2,
+        soru: "Osmanlı Devleti'nde gelirleri doğrudan devlet hazinesine aktarılan ve iltizam usulüyle toplanan topraklara ne ad verilir?",
+        secenekler: ["Dirlik", "Mukataa", "Vakıf", "Yurtluk", "Paşmaklık"],
+        dogru: 1,
+        aciklama: "Geliri doğrudan doğruya hazineye ait olan ve iltizam sistemiyle kiralanan arazilere 'Mukataa' denir."
+      },
+      {
+        id: 30,
+        ders: "Tarih",
+        konu: "Kurtuluş Savaşı Hazırlık Dönemi",
+        zorluk: 2,
+        soru: "'Milletin bağımsızlığını yine milletin azim ve kararı kurtaracaktır.' maddesi ilk kez nerede yer almıştır?",
+        secenekler: ["Havza Genelgesi", "Amasya Genelgesi", "Erzurum Kongresi", "Sivas Kongresi", "Misakımilli"],
+        dogru: 1,
+        aciklama: "22 Haziran 1919'da yayımlanan Amasya Genelgesi'nde ilk kez Millî Mücadele'nin amacı, gerekçesi ve yöntemi ortaya konmuştur."
+      },
+      {
+        id: 31,
+        ders: "Tarih",
+        konu: "Kurtuluş Savaşı Muharebeler",
+        zorluk: 2,
+        soru: "Mustafa Kemal Paşa'ya 'Gazi' unvanı ve 'Mareşal' rütbesi hangi savaştan sonra verilmiştir?",
+        secenekler: ["I. İnönü Savaşı", "II. İnönü Savaşı", "Sakarya Meydan Muharebesi", "Büyük Taarruz", "Kütahya-Eskişehir Savaşları"],
+        dogru: 2,
+        aciklama: "TBMM, 19 Eylül 1921 tarihinde Sakarya Meydan Muharebesi'nin kazanılmasının ardından Başkomutan Mustafa Kemal'e Mareşallik rütbesi ve Gazilik unvanı vermiştir."
+      },
+      {
+        id: 32,
+        ders: "Tarih",
+        konu: "Atatürk İlkeleri",
+        zorluk: 1,
+        soru: "Aşar vergisinin kaldırılması ve Medeni Kanun ile kadın-erkek eşitliğinin sağlanması öncelikle Atatürk'ün hangi ilkesiyle doğrudan ilgilidir?",
+        secenekler: ["Cumhuriyetçilik", "Halkçılık", "Devletçilik", "Laiklik", "Milliyetçilik"],
+        dogru: 1,
+        aciklama: "Toplumda ayrıcalıkları ortadan kaldırmak, adaleti ve fırsat eşitliğini sağlamak doğrudan 'Halkçılık' ilkesinin gereğidir."
+      },
+      {
+        id: 33,
+        ders: "Tarih",
+        konu: "Atatürk Dönemi Dış Politika",
+        zorluk: 3,
+        soru: "Türkiye'nin Boğazlar üzerindeki tam egemenliğini sağlayan ve komisyonu kaldıran antlaşma hangisidir?",
+        secenekler: ["Lozan Barış Antlaşması", "Montrö Boğazlar Sözleşmesi", "Sadabat Paktı", "Balkan Antantı", "Ankara Antlaşması"],
+        dogru: 1,
+        aciklama: "20 Temmuz 1936'da imzalanan Montrö Boğazlar Sözleşmesi ile uluslararası Boğazlar Komisyonu lağvedilmiş ve Boğazların askerileştirilme hakkı Türkiye'ye geçmiştir."
+      },
+      {
+        id: 34,
+        ders: "Tarih",
+        konu: "I. Dünya Savaşı",
+        zorluk: 2,
+        soru: "Osmanlı Devleti'nin I. Dünya Savaşı'nda savaştığı taarruz (hücum) cepheleri aşağıdakilerden hangileridir?",
+        secenekler: [
+          "Çanakkale ve Irak",
+          "Kafkas ve Kanal",
+          "Suriye-Filistin ve Hicaz",
+          "Galiçya ve Makedonya",
+          "Kafkas ve Çanakkale"
+        ],
+        dogru: 1,
+        aciklama: "Osmanlı Devleti'nin taarruz cepheleri '2K' formülü ile anılan Kafkas ve Kanal cepheleridir. Çanakkale ise savunma cephesidir."
+      },
+      {
+        id: 35,
+        ders: "Tarih",
+        konu: "Çağdaş Türk ve Dünya Tarihi",
+        zorluk: 2,
+        soru: "Sovyet Sosyalist Cumhuriyetler Birliği'nin dağılmasıyla 1991 yılında bağımsızlığını kazanan ilk Türk cumhuriyeti hangisidir?",
+        secenekler: ["Azerbaycan", "Kazakistan", "Özbekistan", "Kırgızistan", "Türkmenistan"],
+        dogru: 0,
+        aciklama: "SSCB'nin dağılması sürecinde 1991 yılında bağımsızlığını ilk ilan eden Türk devleti Azerbaycan'dır (Türkiye Azerbaycan'ı ilk tanıyan ülkedir)."
+      },
+      {
+        id: 36,
+        ders: "Tarih",
+        konu: "Kurtuluş Savaşı Antlaşmalar",
+        zorluk: 2,
+        soru: "TBMM'yi tanıyan ilk Müslüman devlet aşağıdakilerden hangisidir?",
+        secenekler: ["İran", "Afganistan", "Mısır", "Pakistan", "Irak"],
+        dogru: 1,
+        aciklama: "1 Mart 1921 tarihinde Moskova'da imzalanan Türk-Afgan Dostluk Antlaşması ile TBMM'yi tanıyan ilk Müslüman devlet Afganistan olmuştur."
+      },
+
+      // -----------------------------------------------------------------------
+      // COĞRAFYA (Konum, Yer Şekilleri, İklim, Nüfus, Tarım, Madenler, Bölgeler)
+      // -----------------------------------------------------------------------
+      {
+        id: 37,
+        ders: "Coğrafya",
+        konu: "Türkiye'nin Coğrafi Konumu",
+        zorluk: 1,
+        soru: "Türkiye'nin matematiksel (mutlak) konumu hangi paralel ve meridyenler arasındadır?",
+        secenekler: [
+          "36° - 42° Kuzey Paralelleri / 26° - 45° Doğu Meridyenleri",
+          "26° - 45° Kuzey Paralelleri / 36° - 42° Doğu Meridyenleri",
+          "30° - 40° Kuzey Paralelleri / 20° - 40° Doğu Meridyenleri",
+          "35° - 45° Kuzey Paralelleri / 25° - 40° Doğu Meridyenleri",
+          "36° - 42° Güney Paralelleri / 26° - 45° Batı Meridyenleri"
+        ],
+        dogru: 0,
+        aciklama: "Türkiye 36°-42° Kuzey enlemleri (paralelleri) ile 26°-45° Doğu boylamları (meridyenleri) arasında yer alır."
+      },
+      {
+        id: 38,
+        ders: "Coğrafya",
+        konu: "Türkiye'nin Yer Şekilleri",
+        zorluk: 2,
+        soru: "Aşağıdaki göllerden hangisi bir 'Volkanik Set Gölü' örneğidir?",
+        secenekler: ["Beyşehir Gölü", "Çıldır Gölü", "Salda Gölü", "Tuz Gölü", "Manyas Gölü"],
+        dogru: 1,
+        aciklama: "Çıldır, Van, Erçek, Nazik, Balık ve Haçlı gölleri lav setti (volkanik set) sonucu oluşmuş göllerdir."
+      },
+      {
+        id: 39,
+        ders: "Coğrafya",
+        konu: "Türkiye'nin İklimi",
+        zorluk: 1,
+        soru: "Türkiye'de yıllık sıcaklık farkının en fazla olduğu coğrafi bölge aşağıdakilerden hangisidir?",
+        secenekler: ["Ege Bölgesi", "Akdeniz Bölgesi", "Doğu Anadolu Bölgesi", "Karadeniz Bölgesi", "Marmara Bölgesi"],
+        dogru: 2,
+        aciklama: "Karasallık şiddetinin ve yükseltinin en fazla olduğu Doğu Anadolu Bölgesi'nde yaz ve kış arasındaki yıllık sıcaklık farkı en yüksektir."
+      },
+      {
+        id: 40,
+        ders: "Coğrafya",
+        konu: "Türkiye'de Nüfus ve Yerleşme",
+        zorluk: 2,
+        soru: "Teke ve Taşeli platolarının seyrek nüfuslu olmasında aşağıdakilerden hangisi EN ETKİLİ faktördür?",
+        secenekler: [
+          "Sanayinin gelişmemiş olması",
+          "Karstik arazi yapısı ve engebeli yer şekilleri",
+          "Şiddetli kış soğukları",
+          "Ulaşım ağının tamamen bulunmaması",
+          "Yıllık yağış miktarının yetersizliği"
+        ],
+        dogru: 1,
+        aciklama: "Akdeniz'de yer alan Teke ve Taşeli platoları karstik (kireçtaşı) yapıları nedeniyle suyu tabana geçirir ve tarım/yerleşmeye elverişsiz engebeli arazilere sahiptir."
+      },
+      {
+        id: 41,
+        ders: "Coğrafya",
+        konu: "Türkiye'de Tarım ve Hayvancılık",
+        zorluk: 2,
+        soru: "Türkiye'de kıl keçisi yetiştiriciliğinin en yaygın olduğu coğrafi bölge hangisidir?",
+        secenekler: ["İç Anadolu", "Güneydoğu Anadolu", "Akdeniz", "Karadeniz", "Marmara"],
+        dogru: 2,
+        aciklama: "Kıl keçisi dağlık, engebeli ve makilik arazileri sever. Bu nedenle Toros Dağları kuşağı ve Akdeniz Bölgesi kıl keçisi yetiştiriciliğinde ilk sıradadır."
+      },
+      {
+        id: 42,
+        ders: "Coğrafya",
+        konu: "Madenler ve Enerji Kaynakları",
+        zorluk: 2,
+        soru: "Dünya rezervlerinin yaklaşık %72'si Türkiye'de bulunan; Balıkesir, Kütahya ve Eskişehir'de çıkarılan stratejik maden hangisidir?",
+        secenekler: ["Krom", "Bor", "Boksit", "Bakır", "Manganez"],
+        dogru: 1,
+        aciklama: "Bor mineralleri dünya rezervlerinin %70'inden fazlasıyla ülkemizde bulunur ve Susurluk, Bigadiç, Kestelek, Emet ve Seyitgazi'de çıkarılır."
+      },
+      {
+        id: 43,
+        ders: "Coğrafya",
+        konu: "Türkiye'nin Akarsuları",
+        zorluk: 2,
+        soru: "Aşağıdaki akarsulardan hangisi kaynağını Türkiye'den alıp yurt dışından denize dökülür?",
+        secenekler: ["Kızılırmak", "Yeşilırmak", "Fırat", "Gediz", "Büyük Menderes"],
+        dogru: 2,
+        aciklama: "Fırat ve Dicle nehirleri kaynağını Türkiye'den alıp Suriye ve Irak üzerinden Basra Körfezi'ne dökülür."
+      },
+      {
+        id: 44,
+        ders: "Coğrafya",
+        konu: "Doğal Afetler",
+        zorluk: 1,
+        soru: "Türkiye'de heyelan olaylarının en fazla ilkbahar mevsiminde ve Karadeniz Bölgesi'nde meydana gelmesinin temel sebebi nedir?",
+        secenekler: [
+          "Şiddetli rüzgârların esmesi",
+          "Eğim, killi toprak ve kar erimelerinin başlaması",
+          "Bitki örtüsünün tahrip edilmesi",
+          "Tektonik depremlerin ilkbaharda yoğunlaşması",
+          "Baraj kapaklarının açılması"
+        ],
+        dogru: 1,
+        aciklama: "Dik yamaç eğimi, killi arazi yapısı ve ilkbaharda eriyen karların toprağı suya doyurması heyelanı tetikleyen en önemli unsurlardır."
+      },
+      {
+        id: 45,
+        ders: "Coğrafya",
+        konu: "Türkiye'nin Ovaları",
+        zorluk: 2,
+        soru: "Seyhan ve Ceyhan nehirlerinin taşıdığı alüvyonlarla oluşan Türkiye'nin en büyük delta ovası hangisidir?",
+        secenekler: ["Bafra Ovası", "Çarşamba Ovası", "Çukurova", "Silifke Ovası", "Gediz Ovası"],
+        dogru: 2,
+        aciklama: "Adana ilinde bulunan Çukurova, Seyhan ve Ceyhan nehirlerinin oluşturduğu Türkiye'nin en büyük kıyı delta ovasıdır."
+      },
+      {
+        id: 46,
+        ders: "Coğrafya",
+        konu: "Türkiye'nin Bitki Örtüsü",
+        zorluk: 2,
+        soru: "Maki bitki örtüsünün insanlar tarafından tahrip edilmesi sonucu ortaya çıkan kısa boylu çalı topluluğuna ne ad verilir?",
+        secenekler: ["Garig", "Psödomaki", "Bozkır", "Antropojen Bozkır", "Tundra"],
+        dogru: 0,
+        aciklama: "Akdeniz iklim bölgesinde makilerin tahrip edildiği yerlerde yetişen lavanta, kekik, abdestbozan gibi bodur çalılara 'Garig' (frigana) adı verilir."
+      },
+      {
+        id: 47,
+        ders: "Coğrafya",
+        konu: "Rüzgârlar",
+        zorluk: 2,
+        soru: "Türkiye'ye kuzeydoğu yönünden esen ve kışın Doğu Anadolu ile Karadeniz'de dondurucu soğuklara neden olan yerel rüzgâr hangisidir?",
+        secenekler: ["Karayel", "Yıldız", "Poyraz", "Lodos", "Samyeli"],
+        dogru: 2,
+        aciklama: "Kayıp-Sakal şifresine göre: Kuzeybatı Karayel, Kuzey Yıldız, Kuzeydoğu Poyraz'dır. Poyraz kışın soğuk ve kar getirir."
+      },
+      {
+        id: 48,
+        ders: "Coğrafya",
+        konu: "Turizm",
+        zorluk: 1,
+        soru: "Travertenleri ve antik Hierapolis kentiyle UNESCO Dünya Mirası Listesi'nde yer alan turizm merkezimiz hangi ilimizdedir?",
+        secenekler: ["Nevşehir", "Denizli", "Antalya", "Muğla", "İzmir"],
+        dogru: 1,
+        aciklama: "Pamukkale travertenleri ve Hierapolis Antik Kenti Denizli il sınırları içerisinde yer almaktadır."
+      },
+
+      // -----------------------------------------------------------------------
+      // VATANDAŞLIK (Hukuk, Anayasa, Yasama, Yürütme, Yargı, İdare Hukuku)
+      // -----------------------------------------------------------------------
+      {
+        id: 49,
+        ders: "Vatandaşlık",
+        konu: "Hukukun Temel Kavramları",
+        zorluk: 1,
+        soru: "Yazılı veya yazısız bir hukuk kuralına aykırı davranıldığında devlet gücüyle uygulanan yaptırıma ne ad verilir?",
+        secenekler: ["Ahlak", "Müeyyide (Yaptırım)", "Gelenek", "İçtihat", "Mülkiyet"],
+        dogru: 1,
+        aciklama: "Hukuk kurallarını diğer toplumsal kurallardan ayıran en temel fark devlet gücüyle desteklenen maddi yaptırımlı (müeyyideli) olmasıdır."
+      },
+      {
+        id: 50,
+        ders: "Vatandaşlık",
+        konu: "1982 Anayasası Esasları",
+        zorluk: 1,
+        soru: "1982 Anayasası'na göre Türkiye Cumhuriyeti Devleti'nin başkenti neresidir?",
+        secenekler: ["İstanbul", "Ankara", "İzmir", "Konya", "Bursa"],
+        dogru: 1,
+        aciklama: "Anayasa'nın 3. maddesi uyarınca 'Türkiye Devletinin başkenti Ankara'dır.' ve bu madde değiştirilemez hükümler arasındadır."
+      },
+      {
+        id: 51,
+        ders: "Vatandaşlık",
+        konu: "TBMM ve Yasama",
+        zorluk: 2,
+        soru: "1982 Anayasası'na göre Türkiye Büyük Millet Meclisi (TBMM) kaç milletvekilinden oluşur?",
+        secenekler: ["450", "500", "550", "600", "650"],
+        dogru: 3,
+        aciklama: "2017 anayasa değişikliği ile TBMM üye tamsayısı 550'den 600 milletvekiline çıkarılmıştır."
+      },
+      {
+        id: 52,
+        ders: "Vatandaşlık",
+        konu: "Yürütme Organı",
+        zorluk: 2,
+        soru: "1982 Anayasası'na göre Cumhurbaşkanı bir dönemde kaç yıl için seçilir?",
+        secenekler: ["4", "5", "6", "7", "3"],
+        dogru: 1,
+        aciklama: "Cumhurbaşkanının görev süresi 5 yıldır. Bir kimse en fazla iki defa Cumhurbaşkanı seçilebilir."
+      },
+      {
+        id: 53,
+        ders: "Vatandaşlık",
+        konu: "Temel Hak ve Hürriyetler",
+        zorluk: 2,
+        soru: "Aşağıdakilerden hangisi Anayasa'mızda düzenlenen 'Siyasi Haklar ve Ödevler' (Aktif Statü Hakları) arasında yer alır?",
+        secenekler: [
+          "Mülkiyet hakkı",
+          "Yaşama hakkı",
+          "Seçme ve seçilme hakkı",
+          "Sağlık hakkı",
+          "Din ve vicdan hürriyeti"
+        ],
+        dogru: 2,
+        aciklama: "Vatandaşlık, seçme-seçilme, siyasi parti kurma ve dilekçe hakkı siyasi haklar (aktif statü) bölümünde yer alır."
+      },
+      {
+        id: 54,
+        ders: "Vatandaşlık",
+        konu: "Yargı Organları",
+        zorluk: 2,
+        soru: "Adli yargı kolunun en yüksek temyiz ve karar mercii aşağıdakilerden hangisidir?",
+        secenekler: ["Danıştay", "Yargıtay", "Uyuşmazlık Mahkemesi", "Sayıştay", "Anayasa Mahkemesi"],
+        dogru: 1,
+        aciklama: "Adli yargının temyiz mercii Yargıtay'dır. İdari yargının temyiz mercii ise Danıştay'dır."
+      },
+      {
+        id: 55,
+        ders: "Vatandaşlık",
+        konu: "İdare Hukuku",
+        zorluk: 2,
+        soru: "Türkiye'de bir ilde belediye kurulabilmesi için nüfusun en az kaç olması gerekir?",
+        secenekler: ["2.000", "5.000", "10.000", "20.000", "50.000"],
+        dogru: 1,
+        aciklama: "5393 sayılı Belediye Kanunu'na göre belediye kurulabilmesi için nüfusun en az 5.000 olması şarttır."
+      },
+      {
+        id: 56,
+        ders: "Vatandaşlık",
+        konu: "1982 Anayasası Esasları",
+        zorluk: 2,
+        soru: "Milletvekili seçilme yaşı 2017 anayasa değişikliği ile kaça indirilmiştir?",
+        secenekler: ["18", "21", "25", "30", "35"],
+        dogru: 0,
+        aciklama: "2017 anayasa değişikliği referandumu ile milletvekili seçilme yaşı 25'ten 18'e düşürülmüştür."
+      },
+      {
+        id: 57,
+        ders: "Vatandaşlık",
+        konu: "Yargı",
+        zorluk: 2,
+        soru: "Anayasa Mahkemesi toplam kaç üyeden oluşur?",
+        secenekler: ["11", "15", "17", "21", "22"],
+        dogru: 1,
+        aciklama: "Askeri yüksek mahkemelerin 2017'de kaldırılmasından sonra Anayasa Mahkemesi'nin üye sayısı 15 olarak belirlenmiştir."
+      },
+      {
+        id: 58,
+        ders: "Vatandaşlık",
+        konu: "Uluslararası Kuruluşlar",
+        zorluk: 1,
+        soru: "Birleşmiş Milletler (BM) Teşkilatı'nın genel merkezi hangi şehirdedir?",
+        secenekler: ["Cenevre", "Londra", "New York", "Paris", "Brüksel"],
+        dogru: 2,
+        aciklama: "Birleşmiş Milletler'in ana genel merkezi Amerika Birleşik Devletleri'nin New York kentindedir."
+      },
+
+      // -----------------------------------------------------------------------
+      // GÜNCEL BİLGİLER (Kültür, Sanat, Bilim, Coğrafi Keşifler, Dünya)
+      // -----------------------------------------------------------------------
+      {
+        id: 59,
+        ders: "Güncel Bilgiler",
+        konu: "Kültür ve Sanat",
+        zorluk: 1,
+        soru: "İstiklal Marşı'mızın bestecisi kimdir?",
+        secenekler: [
+          "Osman Zeki Üngör",
+          "Ali Rıfat Çağatay",
+          "Münir Nurettin Selçuk",
+          "Cemal Reşit Rey",
+          "Hacı Arif Bey"
+        ],
+        dogru: 0,
+        aciklama: "İstiklal Marşı'nın ilk bestesini Ali Rıfat Çağatay yapmış, günümüzde okunan son halini ise 1930 yılından itibaren Osman Zeki Üngör bestelemiştir."
+      },
+      {
+        id: 60,
+        ders: "Güncel Bilgiler",
+        konu: "Bilim ve Uzay",
+        zorluk: 1,
+        soru: "Türkiye'nin ilk yerli ve millî yüksek çözünürlüklü yer gözlem uydusunun adı nedir?",
+        secenekler: ["Türksat 1A", "Rasat", "İMECE", "Göktürk-1", "Bilsat"],
+        dogru: 2,
+        aciklama: "TÜBİTAK UZAY tarafından geliştirilen ve Nisan 2023'te fırlatılan Türkiye'nin ilk yerli ve millî yer gözlem uydusu İMECE'dir."
+      },
+      {
+        id: 61,
+        ders: "Güncel Bilgiler",
+        konu: "Edebiyat",
+        zorluk: 2,
+        soru: "'İnce Memed', 'Yer Demir Gök Bakır' ve 'Teneke' gibi ölümsüz eserlerin yazarı olan edebiyatçımız kimdir?",
+        secenekler: ["Yaşar Kemal", "Orhan Pamuk", "Sabahattin Ali", "Ahmet Hamdi Tanpınar", "Kemal Tahir"],
+        dogru: 0,
+        aciklama: "Çukurova insanının mücadelesini destansı bir dille aktaran Nobel adayı usta yazarımız Yaşar Kemal'dir."
+      },
+      {
+        id: 62,
+        ders: "Güncel Bilgiler",
+        konu: "Uluslararası Ödüller",
+        zorluk: 1,
+        soru: "2015 yılında DNA onarımı mekanizmaları alanındaki çalışmalarıyla Nobel Kimya Ödülü'nü kazanan Türk bilim insanı kimdir?",
+        secenekler: ["Prof. Dr. Aziz Sancar", "Prof. Dr. Oktay Sinanoğlu", "Prof. Dr. Celal Şengör", "Prof. Dr. Gazi Yaşargil", "Prof. Dr. Cahit Arf"],
+        dogru: 0,
+        aciklama: "Mardin Savur doğumlu bilim insanımız Prof. Dr. Aziz Sancar, 2015 Nobel Kimya Ödülü'ne layık görülmüştür."
+      },
+      {
+        id: 63,
+        ders: "Güncel Bilgiler",
+        konu: "Kültürel Miras",
+        zorluk: 1,
+        soru: "Şanlıurfa ilimizde yer alan ve tarihin sıfır noktası olarak kabul edilen dünyanın en eski tapınak kalıntılarına ev sahipliği yapan arkeolojik alan hangisidir?",
+        secenekler: ["Çatalhöyük", "Göbeklitepe", "Alacahöyük", "Yassıhöyük", "Efes"],
+        dogru: 1,
+        aciklama: "UNESCO Dünya Mirası Listesi'nde yer alan yaklaşık 12.000 yıllık Göbeklitepe, Şanlıurfa ilimizde bulunmaktadır."
+      },
+      {
+        id: 64,
+        ders: "Güncel Bilgiler",
+        konu: "Uluslararası Örgütler",
+        zorluk: 2,
+        soru: "Avrupa Birliği'nin yürütme organı olan ve kanun teklifleri hazırlayan kurum hangisidir?",
+        secenekler: [
+          "Avrupa Konseyi",
+          "Avrupa Komisyonu",
+          "Avrupa Parlamentosu",
+          "Avrupa Adalet Divanı",
+          "Avrupa Merkez Bankası"
+        ],
+        dogru: 1,
+        aciklama: "Avrupa Komisyonu, AB'nin yürütme organıdır ve AB yasalarını önerme ve bütçeyi yönetme yetkisine sahiptir."
+      },
+      {
+        id: 65,
+        ders: "Güncel Bilgiler",
+        konu: "Spor",
+        zorluk: 1,
+        soru: "Olimpiyatlarda üç altın madalya kazanan ve 'Cep Herkülü' lakabıyla anılan efsanevi Türk halterci kimdir?",
+        secenekler: ["Halil Mutlu", "Naim Süleymanoğlu", "Taner Sağır", "Hafız Süleymanoğlu", "Sedat Artuç"],
+        dogru: 1,
+        aciklama: "Kendi ağırlığının üç katından fazlasını kaldırarak dünya rekorları kıran efsane milli sporcumuz Naim Süleymanoğlu'dur."
+      },
+      {
+        id: 66,
+        ders: "Güncel Bilgiler",
+        konu: "Uluslararası Coğrafya",
+        zorluk: 2,
+        soru: "Akdeniz'i Kızıldeniz'e ve dolayısıyla Hint Okyanusu'na bağlayan yapay su yolu aşağıdakilerden hangisidir?",
+        secenekler: ["Panama Kanalı", "Süveyş Kanalı", "Kiel Kanalı", "Korint Kanalı", "Hürmüz Boğazı"],
+        dogru: 1,
+        aciklama: "Mısır topraklarında bulunan Süveyş Kanalı 1869 yılında açılarak Akdeniz ile Kızıldeniz'i birbirine bağlamıştır."
+      },
+      {
+        id: 67,
+        ders: "Güncel Bilgiler",
+        konu: "Kültür Mirası",
+        zorluk: 1,
+        soru: "Mimar Sinan'ın 'Ustalık Eserim' dediği Edirne'de bulunan tarihi şaheser cami hangisidir?",
+        secenekler: ["Süleymaniye Camii", "Şehzade Camii", "Selimiye Camii", "Mihrimah Sultan Camii", "Rüstem Paşa Camii"],
+        dogru: 2,
+        aciklama: "Mimar Sinan Şehzadebaşı'na çıraklık, Süleymaniye'ye kalfalık, Selimiye'ye ise ustalık eserim demiştir."
+      },
+      {
+        id: 68,
+        ders: "Güncel Bilgiler",
+        konu: "Bilim ve Teknoloji",
+        zorluk: 1,
+        soru: "Kuduz aşısını bularak mikrobiyoloji alanında çığır açan ünlü Fransız kimyager ve mikrobiyolog kimdir?",
+        secenekler: ["Louis Pasteur", "Alexander Fleming", "Robert Koch", "Marie Curie", "Albert Sabin"],
+        dogru: 0,
+        aciklama: "Kuduz aşısını geliştiren ve pastörizasyon yöntemini bulan Fransız bilim insanı Louis Pasteur'dür."
+      },
+      // -----------------------------------------------------------------------
+      // TÜRKÇE (DEVAM PAKETİ - Soru 69-106)
+      // -----------------------------------------------------------------------
+      {
+        id: 69,
+        ders: "Türkçe",
+        konu: "Paragrafta Ana Düşünce",
+        zorluk: 2,
+        soru: "Gerçek bir edebiyat okuru, kitabı sadece olay örgüsünü merak ettiği için eline almaz; satır aralarında yazarın gizlediği felsefi derinliği, dili nasıl yoğurduğunu ve insan ruhunun labirentlerinde nasıl gezindiğini keşfetmek için okur. Bu yüzden hızlı tüketilen, okuyucusuna sadece anlık heyecan vadeden metinler, zamanın acımasız eleğinde elenip gitmeye mahkûmdur.\n\nBu parçaya göre kalıcı bir eserin temel niteliği aşağıdakilerden hangisidir?",
+        secenekler: [
+          "Geniş halk kitleleri tarafından kolayca anlaşılabilmesi",
+          "Güncel olayları tarafsız bir gözle aktarması",
+          "Derinlikli bir dil ve insan ruhunu yansıtan edebi bir birikim taşıması",
+          "Olay örgüsünün merak ve gerilim unsurlarıyla örülmesi",
+          "Dönemin siyasi ve sosyal yapısına ayna tutması"
+        ],
+        dogru: 2,
+        aciklama: "Metinde kalıcı eserlerin anlık heyecan yerine felsefi derinlik, dil ustalığı ve insan ruhunu anlama çabası taşıması gerektiği vurgulanmıştır."
+      },
+      {
+        id: 70,
+        ders: "Türkçe",
+        konu: "Paragrafta Yardımcı Düşünce",
+        zorluk: 2,
+        soru: "Anadolu kilimleri sadece yere serilen dokumalar değil, birer sessiz çığlıktır. Genç kızların umutları, anaların duaları, ayrılık acıları o motiflerde birer renk ve çizgiye dönüşür. Kilimlerdeki her desenin bir adı, her rengin bir dili vardır; sarı hüznü, kırmızı sevgiyi ve coşkuyu, yeşil ise muradı simgeler.\n\nBu parçadan Anadolu kilimleriyle ilgili olarak aşağıdakilerden hangisi ÇIKARILAMAZ?",
+        secenekler: [
+          "Yapan kişilerin duygularını ve hislerini yansıttığı",
+          "Farklı renklerin belirli anlamlar ve semboller taşıdığı",
+          "Dokuyanların toplumsal ve bireysel yaşantılarından izler taşıdığı",
+          "Motiflerin rastgele değil, belirli bir ad ve amaçla dokunduğu",
+          "Günümüzde sadece turistik amaçlarla üretilip pazarlandığı"
+        ],
+        dogru: 4,
+        aciklama: "Metinde kilimlerin kültürel ve manevi yönleri, motif ve renk dilleri anlatılmıştır; günümüzde sadece turistik amaçla üretildiğine dair hiçbir ifade yer almaz."
+      },
+      {
+        id: 71,
+        ders: "Türkçe",
+        konu: "Paragrafta Yapı (Akışı Bozan Cümle)",
+        zorluk: 2,
+        soru: "(I) Şiir, sözcüklerin anlam sınırlarını zorlayarak yeni imgeler yaratma sanatıdır. (II) İyi bir şair, herkesin kullandığı sözcüklerle kimsenin kuramadığı bağlar kurar. (III) Bu yüzden şiir dili, günlük konuşma dilinden belirgin biçimde ayrılır. (IV) Şiir kitaplarının satış oranları son yıllarda romanların gerisinde kalmıştır. (V) İmge zenginliği ve özgün çağrışımlar da işte bu özel dil işçiliğinin bir sonucudur.\n\nBu parçadaki numaralanmış cümlelerden hangisi düşüncenin akışını bozmaktadır?",
+        secenekler: ["I", "II", "III", "IV", "V"],
+        dogru: 3,
+        aciklama: "Parçanın genelinde şiirin dili, imge zenginliği ve şairin sözcüklerle ilişkisi anlatılırken IV. cümlede aniden şiir kitaplarının piyasadaki satış rakamlarına geçilmiş, konu bütünlüğü bozulmuştur."
+      },
+      {
+        id: 72,
+        ders: "Türkçe",
+        konu: "Paragrafı İkiye Bölme",
+        zorluk: 2,
+        soru: "(I) Yazar, çocukluğunu geçirdiği sahil kasabasını romanlarının merkezine yerleştirmiştir. (II) Deniz kokan sokaklar, balıkçı barınakları ve dar patikalar onun anlatımında adeta canlanır. (III) Mekân betimlemelerindeki bu ustalık, okuyucunun o atmosferi birebir hissetmesini sağlar. (IV) Yazarın son dönemde kaleme aldığı denemeler ise tamamen felsefi bir sorgulama içerir. (V) Bu denemelerde varoluş sancısı, zaman kavramı ve yalnızlık derinlemesine işlenir. (VI) Dolayısıyla okur, yazarın bu yeni türde de ne kadar yetkin olduğunu görür.\n\nBu parça iki paragrafa ayrılmak istense ikinci paragraf hangi cümleyle başlar?",
+        secenekler: ["II", "III", "IV", "V", "VI"],
+        dogru: 2,
+        aciklama: "I, II ve III. cümlelerde yazarın romanlarındaki sahil kasabası ve mekân betimlemeleri ele alınırken; IV. cümleden itibaren yazarın farklı bir tür olan 'denemeleri' ve onların felsefi temaları anlatılmaya başlanmıştır."
+      },
+      {
+        id: 73,
+        ders: "Türkçe",
+        konu: "Paragrafta Cümle Yerleştirme",
+        zorluk: 3,
+        soru: "'Çünkü eleştiri, bir eserin kusurlarını yüzüne vurmak değil, onun estetik değerini ortaya çıkarmaktır.'\n\nBu cümlenin bir paragrafta anlam akışına uygun olarak aşağıdakilerden hangisinden sonra getirilmesi en uygundur?",
+        secenekler: [
+          "Eleştirmenler genellikle yazarlarla iyi anlaşamazlar.",
+          "Edebiyatımızda eleştiri türünün gelişmemiş olması büyük bir eksikliktir.",
+          "Gerçek eleştirmen, sanatçıyı incitmek amacıyla değil, yol göstermek için yazar.",
+          "Son yıllarda yayımlanan eleştiri kitaplarının sayısı gittikçe artmaktadır.",
+          "Bir yazarın her eleştiriyi dikkate alması beklenemez."
+        ],
+        dogru: 2,
+        aciklama: "'Gerçek eleştirmen sanatçıyı incitmek amacıyla değil yol göstermek için yazar' cümlesinin mantıksal gerekçesi 'Çünkü eleştiri kusurları yüze vurmak değil estetik değeri ortaya çıkarmaktır' cümlesiyle doğrudan tamamlanır."
+      },
+      {
+        id: 74,
+        ders: "Türkçe",
+        konu: "Cümlede Anlam (Örtülü Anlam)",
+        zorluk: 2,
+        soru: "'Ahmet, bu yıl da sınavda dereceye girmeyi başardı.' cümlesinden aşağıdaki yargılardan hangisi KESİN OLARAK çıkarılır?",
+        secenekler: [
+          "Ahmet bu yıl sınava ilk kez girmiştir.",
+          "Ahmet daha önceki yıllarda da dereceye girmiştir.",
+          "Sınav bu yıl önceki yıllardan daha zordur.",
+          "Ahmet sınava sadece bu yıl çok çalışmıştır.",
+          "Ahmet'in arkadaşları sınavda başarısız olmuştur."
+        ],
+        dogru: 1,
+        aciklama: "'bu yıl da' bağlacı, eylemin daha önceki yıllarda da gerçekleştiğini ve tekrarlandığını kesin olarak bildirir (örtülü anlam)."
+      },
+      {
+        id: 75,
+        ders: "Türkçe",
+        konu: "Cümlede Anlam (Aşamalı Durum)",
+        zorluk: 1,
+        soru: "Aşağıdaki cümlelerin hangisinde 'aşamalı bir durum' söz konusudur?",
+        secenekler: [
+          "Hasta, ameliyattan sonra hemen ayağa kalktı.",
+          "Hastanın durumu günden güne daha iyiye gidiyor.",
+          "Doktor, ilaçları düzenli kullanmasını söyledi.",
+          "Hastanede iki hafta boyunca tedavi gördü.",
+          "Sağlığına kavuşunca arkadaşlarıyla buluştu."
+        ],
+        dogru: 1,
+        aciklama: "'günden güne', 'gittikçe', 'zamanla', 'yavaş yavaş' gibi ifadeler durumun kademeli olarak değiştiğini (aşamalılık) gösterir."
+      },
+      {
+        id: 76,
+        ders: "Türkçe",
+        konu: "Cümlede Anlam (Koşul - Sonuç)",
+        zorluk: 1,
+        soru: "Aşağıdaki cümlelerin hangisinde eylemin gerçekleşmesi bir 'koşula (şarta)' bağlanmıştır?",
+        secenekler: [
+          "Kar yağdığı için uçak seferleri iptal edildi.",
+          "Düzenli tekrar yaparsan konuları daha iyi pekiştirirsin.",
+          "Kitabı bitirmek amacıyla odasına kapandı.",
+          "Dün akşam elektrikler kesilince mum yaktık.",
+          "Soruları dikkatle okuyarak hızlıca çözdü."
+        ],
+        dogru: 1,
+        aciklama: "Konuların daha iyi pekişmesi, düzenli tekrar yapma koşuluna (-se/-sa) bağlanmıştır."
+      },
+      {
+        id: 77,
+        ders: "Türkçe",
+        konu: "Cümlede Anlam (Öznel ve Nesnel)",
+        zorluk: 1,
+        soru: "Aşağıdaki cümlelerin hangisi kanıtlanabilirlik açısından 'nesnel' bir nitelik taşır?",
+        secenekler: [
+          "Yazarın son romanı okuyucuyu derinden etkileyen muhteşem bir eserdir.",
+          "Törende okunan şiir salondaki herkese duygusal anlar yaşattı.",
+          "Türkiye İstatistik Kurumu verilerine göre nüfus geçen yıla göre artmıştır.",
+          "Sonbahar, insanın ruhunu dinlendiren en huzurlu mevsimdir.",
+          "Filmin müzikleri sahnelere eşsiz bir derinlik katmış."
+        ],
+        dogru: 2,
+        aciklama: "TÜİK resmi verilerine dayanan nüfus artışı kişiden kişiye değişmeyen, somut olarak kanıtlanabilir veya çürütülebilir nesnel bir bilgidir."
+      },
+      {
+        id: 78,
+        ders: "Türkçe",
+        konu: "Cümlede Anlam (Doğrudan ve Dolaylı Anlatım)",
+        zorluk: 2,
+        soru: "Aşağıdaki cümlelerin hangisinde 'dolaylı anlatım' vardır?",
+        secenekler: [
+          "Öğretmen: 'Yarın ödevlerinizi kontrol edeceğim.' dedi.",
+          "Mustafa Kemal: 'Hayatta en hakiki mürşit ilimdir.' demiştir.",
+          "Babam, akşam eve erken gelmemiz gerektiğini söyledi.",
+          "'Bu kitabı mutlaka okumalısın.' diyerek kitabı bana uzattı.",
+          "Müdür, toplantıda: 'Disiplin başarının anahtarıdır.' ifadesini kullandı."
+        ],
+        dogru: 2,
+        aciklama: "Başkasına ait bir sözün değiştirilmeden aktarılması doğrudan anlatımdır. Sözün '...gerektiğini söyledi' biçiminde aktaranın kendi cümle yapısına uydurulması dolaylı anlatımdır."
+      },
+      {
+        id: 79,
+        ders: "Türkçe",
+        konu: "Sözcükte Anlam (Somutlaştırma)",
+        zorluk: 2,
+        soru: "Soyut bir kavramın somut bir varlık gibi anlatılmasına 'somutlaştırma' denir.\n\nBuna göre aşağıdaki cümlelerin hangisinde somutlaştırma yapılmıştır?",
+        secenekler: [
+          "Bu sıcak havada soğuk bir ayran çok iyi geldi.",
+          "Onun söyledikleri yüreğime bir taş gibi oturdu.",
+          "Bahçedeki çiçekler susuzluktan kurumuştu.",
+          "Çocuklar parkta neşeyle koşup oynuyorlardı.",
+          "Kitap okumak insanı dinlendirir."
+        ],
+        dogru: 1,
+        aciklama: "Dert, acı veya hüzün gibi soyut bir duygu 'taş' gibi somut ve ağır bir nesneye benzetilerek somutlaştırılmıştır."
+      },
+      {
+        id: 80,
+        ders: "Türkçe",
+        konu: "Sözcükte Anlam (Dolaylama)",
+        zorluk: 1,
+        soru: "Tek bir sözcükle anlatılabilecek bir kavramın birden fazla sözcükle anlatılmasına 'dolaylama' denir (Örnek: kömür yerine kara elmas).\n\nAşağıdakilerden hangisinde dolaylama örneği YOKTUR?",
+        secenekler: [
+          "File bekçisi yaptığı kurtarışlarla maça damga vurdu.",
+          "Yedi tepeli şehir her mevsim ayrı bir güzelliğe bürünür.",
+          "Bacasız sanayi ülke ekonomisine önemli döviz girdisi sağlar.",
+          "Ormanların kralı avını sabırla takip etti.",
+          "Genç sporcu koşu bandında bir saat antrenman yaptı."
+        ],
+        dogru: 4,
+        aciklama: "File bekçisi (kaleci), Yedi tepeli şehir (İstanbul), Bacasız sanayi (turizm), Ormanların kralı (aslan) dolaylamadır. E seçeneğinde dolaylama yoktur."
+      },
+      {
+        id: 81,
+        ders: "Türkçe",
+        konu: "Sözcükte Anlam (Güzel Adlandırma)",
+        zorluk: 1,
+        soru: "Söylenmesi kaba, korkutucu veya uğursuz sayılan bazı kavramların daha kibar ve sevimli sözlerle karşılanmasına 'güzel adlandırma' denir.\n\nAşağıdakilerden hangisinde güzel adlandırma örneği vardır?",
+        secenekler: [
+          "Büyükbabası son yolculuğuna dualarla uğurlandı.",
+          "Akşamki maçta forvet oyuncusu iki gol attı.",
+          "Güneş batarken gökyüzü kızıla boyandı.",
+          "Fırtına nedeniyle vapur seferleri aksadı.",
+          "Kütüphanedeki eski kitaplar koruma altına alındı."
+        ],
+        dogru: 0,
+        aciklama: "'Ölüm' veya 'cenaze' yerine 'son yolculuk' ifadesinin kullanılması güzel adlandırma örneğidir (benzer şekilde verem yerine ince hastalık denmesi gibi)."
+      },
+      {
+        id: 82,
+        ders: "Türkçe",
+        konu: "Sözcükte Anlam (Deyim Aktarması)",
+        zorluk: 2,
+        soru: "Aşağıdaki cümlelerin hangisinde 'insandan doğaya aktarma' (kişileştirme) yapılmıştır?",
+        secenekler: [
+          "Rüzgâr sert esince sokaktaki tabelalar sallandı.",
+          "Güneş dağların ardından yavaşça yükseldi.",
+          "Hırçın dalgalar kayalıklara öfkeyle çarpıyordu.",
+          "Kuşlar gökyüzünde kanat çırparak uçtu.",
+          "Ağaçtaki kuru yapraklar yere döküldü."
+        ],
+        dogru: 2,
+        aciklama: "'Hırçın' ve 'öfke' insana özgü duygulardır; bu özelliklerin doğadaki dalgalara verilmesi insandan doğaya aktarmadır."
+      },
+      {
+        id: 83,
+        ders: "Türkçe",
+        konu: "Ses Bilgisi (Ünlü Daralması)",
+        zorluk: 2,
+        soru: "Aşağıdaki cümlelerin hangisinde 'ünlü daralması' meydana gelmiştir?",
+        secenekler: [
+          "Sabahları düzenli olarak yürüyüş yapıyor.",
+          "Dün akşam bana her şeyi açıkça anlatıyordu.",
+          "Bize neden haber vermediğini bir türlü söylemiyor.",
+          "Öğrenciler teneffüste bahçede neşeyle koşuyor.",
+          "Yarın akşam şehir dışından misafirlerimiz geliyor."
+        ],
+        dogru: 2,
+        aciklama: "Fiil kökü 'söyle-'dir. -me olumsuzluk eki (söyle-me-yor) aldığında e ünlüsü yor ekinin etkisiyle daralarak 'i'ye dönüşmüş (söyle-m-i-yor) ve ünlü daralması oluşmuştur."
+      },
+      {
+        id: 84,
+        ders: "Türkçe",
+        konu: "Ses Bilgisi (Benzeşme ve Yumuşama)",
+        zorluk: 3,
+        soru: "'Çiftçi, yetiştirdiği taze sebzeleri sabah erkenden pazara götürdü.' cümlesindeki 'yetiştirdiği' sözcüğünde hangi ses olayları BİRLİKTE gerçekleşmiştir?",
+        secenekler: [
+          "Ünlü Düşmesi ve Ünsüz Türemesi",
+          "Ünsüz Benzeşmesi (Sertleşme) ve Ünsüz Yumuşaması",
+          "Ünlü Daralması ve Kaynaştırma",
+          "Ünsüz Düşmesi ve Büyük Ünlü Uyumu Bozulması",
+          "Ünsüz Yumuşaması ve Ünlü Düşmesi"
+        ],
+        dogru: 1,
+        aciklama: "Kelimede -dik sıfat fiil eki vardır: yetiş-tir-dik-i -> ş sert ünsüzünden sonra d sesi t'ye dönüşmüştür (yetiş-tir-tik-i: ünsüz benzeşmesi). Ardından gelen ünlü nedeniyle k sesi ğ'ye yumuşamıştır (yetiştirdiği: ünsüz yumuşaması)."
+      },
+      {
+        id: 85,
+        ders: "Türkçe",
+        konu: "Ses Bilgisi (Kaynaştırma Harfleri)",
+        zorluk: 1,
+        soru: "Türkçede iki ünlü harf yan yana gelmediğinde araya 'y, ş, s, n' kaynaştırma harfleri girer.\n\nAşağıdaki sözcüklerin hangisinde kaynaştırma harfi VARDIR?",
+        secenekler: ["Evden", "Kitaplık", "Arabası", "Gözlükçü", "Kalemler"],
+        dogru: 2,
+        aciklama: "Araba (ünlü ile biter) + ı (3. tekil iyelik eki) birleşirken araya 's' kaynaştırma harfi girmiştir: araba-s-ı."
+      },
+      {
+        id: 86,
+        ders: "Türkçe",
+        konu: "Yazım Kuralları (Birleşik Fiiller)",
+        zorluk: 2,
+        soru: "Aşağıdaki cümlelerin hangisinde birleşik fiillerin yazımıyla ilgili bir YANLIŞLIK yapılmıştır?",
+        secenekler: [
+          "Olayın ciddiyetini çok geç fark etti.",
+          "Tüm eşyalarını toplayıp şehri terketti.",
+          "Yapılan tüm haksızlıkları sabırla affetti.",
+          "Kayıp cüzdanını karakola giderek teslim etti.",
+          "Yeni görevini başarıyla kabul etti."
+        ],
+        dogru: 1,
+        aciklama: "Etmek, eylemek, olmak gibi yardımcı fiillerle kurulan birleşik fiillerde ses düşmesi veya türemesi yoksa ayrı yazılır. 'Terk etti' ayrı yazılmalıdır (ses olayı olmadığı için)."
+      },
+      {
+        id: 87,
+        ders: "Türkçe",
+        konu: "Yazım Kuralları (İkilemeler ve Kalıplar)",
+        zorluk: 2,
+        soru: "Aşağıdaki cümlelerin hangisinde yazım yanlışı vardır?",
+        secenekler: [
+          "İki arkadaş el ele tutuşarak parka doğru yürüdü.",
+          "Olaylar ardı ardına sıralanınca herkes şaşırdı.",
+          "Polisler suçluyu kıskıvrak yakaladı.",
+          "Sorunlar art arda gelince ne yapacağını bilemedi.",
+          "Herşey yolunda giderken beklenmedik bir kriz çıktı."
+        ],
+        dogru: 4,
+        aciklama: "'Şey' sözcüğü daima ayrı yazılır: 'Her şey' şeklinde yazılmalıdır. 'Herşey' bitişik yazılamaz."
+      },
+      {
+        id: 88,
+        ders: "Türkçe",
+        konu: "Yazım Kuralları (Kısaltmaların Ek Alışı)",
+        zorluk: 2,
+        soru: "Aşağıdaki cümlelerin hangisinde kısaltmalara getirilen eklerin yazımında bir yanlışlık yapılmıştır?",
+        secenekler: [
+          "TDK'nin yeni yazım kılavuzunu inceledik.",
+          "TBMM'ye yeni kanun teklifi sunuldu.",
+          "THY'de çalışan kabin memurları greve gitti.",
+          "MEB'in yayımladığı takvim öğrencileri sevindirdi.",
+          "TDK'nın bastığı son sözlüğü kütüphaneden aldım."
+        ],
+        dogru: 4,
+        aciklama: "Türkçede kısaltmalar harflerin okunuşuna göre ek alır ve 'K' harfi 'ka' değil 'ke' olarak okunur. Bu nedenle 'TDK'nin' doğru, 'TDK'nın' yanlıştır."
+      },
+      {
+        id: 89,
+        ders: "Türkçe",
+        konu: "Noktalama İşaretleri (Noktalı Virgül)",
+        zorluk: 2,
+        soru: "Aşağıdaki cümlelerin hangisinde noktalı virgül (;) doğru yerde kullanılmıştır?",
+        secenekler: [
+          "Pazardan elma, armut, portakal; ıspanak, pırasa, lahana aldık.",
+          "Dün akşam eve geldim; dinlendim.",
+          "Ali; Ayşe ve Fatma'yı sinemaya davet etti.",
+          "Yarın; saat beşte buluşacağız.",
+          "Kitap okumayı çok severdi; çünkü ufku genişti."
+        ],
+        dogru: 0,
+        aciklama: "Cümle içinde virgüllerle ayrılmış tür veya takımları birbirinden ayırmak için noktalı virgül kullanılır: Meyveler (elma, armut, portakal) ile sebzeler (ıspanak, pırasa, lahana) arasına noktalı virgül konur."
+      },
+      {
+        id: 90,
+        ders: "Türkçe",
+        konu: "Noktalama İşaretleri (Kesme İşareti)",
+        zorluk: 2,
+        soru: "Kurum, kuruluş, kurul ve iş yeri adlarına gelen ekler kesme işaretiyle ayrılmaz.\n\nBuna göre aşağıdaki cümlelerin hangisinde kesme işaretinin kullanımıyla ilgili bir YANLIŞLIK yapılmıştır?",
+        secenekler: [
+          "Atatürk Orman Çiftliği'ne gezi düzenledik.",
+          "Türkiye Büyük Millet Meclisi'ne dilekçe verildi.",
+          "Ankara Üniversitesi Rektörlüğü'ne başvuru yapıldı.",
+          "Ahmet Bey'in dünkü konuşması çok etkileyiciydi.",
+          "Bakanlar Kurulu'nun son toplantısında önemli kararlar alındı."
+        ],
+        dogru: 1,
+        aciklama: "Kurum ve kuruluş adlarına getirilen ekler kesmeyle ayrılmaz (TDK Kuralı). Doğru yazım: 'Türkiye Büyük Millet Meclisine' şeklinde kesmesiz olmalıdır."
+      },
+      {
+        id: 91,
+        ders: "Türkçe",
+        konu: "Noktalama İşaretleri (İki Nokta)",
+        zorluk: 2,
+        soru: "Aşağıdaki cümlelerin hangisinde iki nokta (:) yanlış kullanılmıştır?",
+        secenekler: [
+          "Kendimi takdim edeyim: Meclis kâtiplerindenim.",
+          "Pazardan şunları aldım: elma, portakal, muz.",
+          "Bahçede: rengarenk güller açmıştı.",
+          "Yazarın savunduğu tez şuydu: Sanat toplum için yapılmalıdır.",
+          "Öğretmen sınıfa seslendi: 'Lütfen yerlerinize oturun.'"
+        ],
+        dogru: 2,
+        aciklama: "Örnek veya açıklama verilmeyecek bir cümlede özne veya yer tamlayıcısından sonra iki nokta konulamaz. 'Bahçede:' kullanımı yanlıştır."
+      },
+      {
+        id: 92,
+        ders: "Türkçe",
+        konu: "Sözcükte Yapı (Kök Türü)",
+        zorluk: 2,
+        soru: "Aşağıdaki altı çizili sözcüklerden hangisinin kökü sözcük türü (isim/fiil) bakımından diğerlerinden FARKLIDIR?",
+        secenekler: [
+          "Soruların tamamını doğru yanıtladı. (Soru)",
+          "Gözlem yeteneği oldukça gelişmişti. (Gözlem)",
+          "Yazgısına boyun eğmek istemiyordu. (Yazgı)",
+          "Saygılı davranışlarıyla herkesin takdirini kazandı. (Saygılı)",
+          "Sulak arazilerde pirinç tarımı yapılır. (Sulak)"
+        ],
+        dogru: 4,
+        aciklama: "A (sor- fiil kökü), B (gözle- -> göz isim değil; kök: gözlemek fiilinden türeyen gözlem veya C: yaz-mak fiili, D: say-mak fiili). E seçeneğinde ise 'su' isim köküdür (su-lak)."
+      },
+      {
+        id: 93,
+        ders: "Türkçe",
+        konu: "Sözcükte Yapı (Yapım ve Çekim Eki)",
+        zorluk: 2,
+        soru: "Aşağıdaki sözcüklerden hangisi HEM yapım eki HEM de çekim eki almıştır?",
+        secenekler: [
+          "Evlerimizde",
+          "Kitapçıdan",
+          "Koşacak",
+          "Gözlük",
+          "Masa"
+        ],
+        dogru: 1,
+        aciklama: "Kitap (kök) + -çı (isimden isim yapım eki) + -dan (ayrılma hâli çekim eki). Hem yapım hem çekim eki almıştır."
+      },
+      {
+        id: 94,
+        ders: "Türkçe",
+        konu: "Sözcük Türleri (Belgisiz Zamir / Sıfat)",
+        zorluk: 2,
+        soru: "Aşağıdaki cümlelerin hangisinde 'birkaçı' sözcüğü belgisiz zamir olarak kullanılmıştır?",
+        secenekler: [
+          "Birkaç gün sonra okullar açılacak.",
+          "Sorulardan birkaçını çözmekte zorlandım.",
+          "Birkaç kişi kapının önünde bekliyordu.",
+          "Birkaç kitap alıp kütüphaneden ayrıldı.",
+          "Birkaç saat uyuduktan sonra yola çıktı."
+        ],
+        dogru: 1,
+        aciklama: "A, C, D ve E seçeneklerinde 'birkaç' sözcüğü bir ismin önüne gelerek onu nitelediği için belgisiz sıfattır. B seçeneğinde ise çekim eki alarak ismin yerini tuttuğu için 'belgisiz zamir'dir."
+      },
+      {
+        id: 95,
+        ders: "Türkçe",
+        konu: "Sözcük Türleri (Zarf)",
+        zorluk: 2,
+        soru: "Aşağıdaki cümlelerin hangisinde 'durum (hâl) zarfı' kullanılmıştır?",
+        secenekler: [
+          "Yarın sabah erkenden yola çıkacağız.",
+          "Öğrenciler sınıfa koşarak girdiler.",
+          "Dışarı çıkıp biraz hava almak istedi.",
+          "Çok çalıştığı için sınavda yüksek not aldı.",
+          "Yukarı çıkarak odasına kapandı."
+        ],
+        dogru: 1,
+        aciklama: "Fiile sorulan 'Nasıl?' sorusunun cevabı durum zarfıdır. 'Nasıl girdiler?' -> 'koşarak' (durum zarfı)."
+      },
+      {
+        id: 96,
+        ders: "Türkçe",
+        konu: "Sözcük Türleri (Edat ve Bağlaç)",
+        zorluk: 2,
+        soru: "'Yalnız' sözcüğü 'sadece' anlamında kullanıldığında edat, 'ama/fakat' anlamında kullanıldığında bağlaç olur.\n\nBuna göre aşağıdaki cümlelerin hangisinde 'yalnız' sözcüğü EDAT olarak kullanılmıştır?",
+        secenekler: [
+          "Seninle gelirim yalnız orada çok kalamam.",
+          "Bu zor problemi yalnız o çözebilir.",
+          "Çok zeki bir çocuk yalnız ders çalışmayı sevmiyor.",
+          "Parayı veririm yalnız zamanında geri ödeyeceksin.",
+          "Güzel bir ev yalnız kirası biraz yüksek."
+        ],
+        dogru: 1,
+        aciklama: "'Bu zor problemi sadece o çözebilir' şeklinde 'sadece' anlamında kullanıldığı için edattır (ilgeçtir). Diğerlerinde 'ama/fakat' anlamında bağlaçtır."
+      },
+      {
+        id: 97,
+        ders: "Türkçe",
+        konu: "Ek Fiil (Ek Eylem)",
+        zorluk: 3,
+        soru: "Ek fiilin iki temel görevi vardır: İsim soylu sözcüklere gelerek onları yüklem yapmak veya basit zamanlı fiillere gelerek birleşik zamanlı fiil yapmak.\n\nAşağıdaki cümlelerin hangisinde ek fiil DİĞERLERİNDEN FARKLI bir görevde kullanılmıştır?",
+        secenekler: [
+          "Hava dün akşam çok soğuktu.",
+          "O yıllarda köyün en zengin insanıydı.",
+          "Her sabah erkenden sahilde koşardı.",
+          "En sevdiği mevsim ilkbahardı.",
+          "Bahçedeki çiçekler oldukça bakımlıydı."
+        ],
+        dogru: 2,
+        aciklama: "A (soğuk-tu: isme gelmiş), B (insanı-ydı: isme gelmiş), D (ilkbahar-dı: isme gelmiş), E (bakımlı-ydı: isme gelmiş). C seçeneğinde ise 'koş-ar-dı' basit zamanlı fiile gelerek geniş zamanın hikâyesi birleşik zamanını kurmuştur."
+      },
+      {
+        id: 98,
+        ders: "Türkçe",
+        konu: "Fiilimsiler (Sıfat-Fiil)",
+        zorluk: 2,
+        soru: "Aşağıdaki cümlelerin hangisinde 'adlaşmış sıfat-fiil' kullanılmıştır?",
+        secenekler: [
+          "Gelen misafirleri kapıda güler yüzle karşıladı.",
+          "Ağlayan çocuğa şeker verip onu teselli etti.",
+          "Sınavı kazananlar yarın sabah rektörlükte toplanacak.",
+          "Kırılan vazonun parçalarını dikkatle topladı.",
+          "Okunacak kitapları masanın üzerine dizdi."
+        ],
+        dogru: 2,
+        aciklama: "'Sınavı kazanan öğrenciler/adaylar' tamlamasındaki isim düşmüş ve sıfat-fiil ismi bünyesine katarak 'kazananlar' şeklinde adlaşmış sıfat-fiil olmuştur."
+      },
+      {
+        id: 99,
+        ders: "Türkçe",
+        konu: "Fiilimsiler (Zarf-Fiil)",
+        zorluk: 2,
+        soru: "Aşağıdaki cümlelerin hangisinde zarf-fiil cümleye 'zaman' anlamı katmıştır?",
+        secenekler: [
+          "Soruları gülerek çözmeye başladı.",
+          "Ders zili çalınca tüm öğrenciler sınıfa girdi.",
+          "Koşa koşa durağa yetişti.",
+          "Hiç durmaksızın iki saat boyunca yürüdü.",
+          "Konuşa konuşa aralarındaki buzları erittiler."
+        ],
+        dogru: 1,
+        aciklama: "Fiile sorulan 'Ne zaman girdi?' sorusunun cevabı 'Ders zili çalınca' zarf-fiil öbeğidir ve cümleye zaman anlamı katmıştır. Diğerleri 'Nasıl?' sorusuna cevap veren durum anlamlı zarf-fiillerdir."
+      },
+      {
+        id: 100,
+        ders: "Türkçe",
+        konu: "Fiilde Çatı (Geçişli / Geçişsiz)",
+        zorluk: 2,
+        soru: "Nesne alabilen fiillere 'geçişli fiil' denir (başına 'onu' sözcüğü getirilebilir).\n\nBuna göre aşağıdaki cümlelerin hangisinin yüklemi GEÇİŞSİZ bir fiildir?",
+        secenekler: [
+          "Masadaki mektubu dikkatlice okudu.",
+          "Kardeşine doğum gününde bisiklet aldı.",
+          "Sabah erkenden kalkıp sahilde yürüdü.",
+          "Akşamki maçın tekrarını televizyonda izledi.",
+          "Kütüphaneden iki yeni kitap ödünç aldı."
+        ],
+        dogru: 2,
+        aciklama: "'Onu okudu', 'onu aldı', 'onu izledi' nesne alabilir (geçişlidir). Ancak 'onu yürüdü' denemez, nesne alamadığı için 'yürümek' geçişsiz bir fiildir."
+      },
+      {
+        id: 101,
+        ders: "Türkçe",
+        konu: "Fiilde Çatı (Etken / Edilgen)",
+        zorluk: 2,
+        soru: "Öznesi gerçek olmayıp 'sözde özne' olan, işin başkası tarafından yapıldığını belirten (-l, -n eki alan) fiillere 'edilgen fiil' denir.\n\nAşağıdakilerden hangisi edilgen çatılı bir fiildir?",
+        secenekler: [
+          "Okulun bahçesi öğrenciler tarafından temizlendi.",
+          "Ali dünkü toplantıya zamanında katıldı.",
+          "Bebek beşiğinde mışıl mışıl uyudu.",
+          "Yazar son romanında tarihi olayları anlattı.",
+          "Çocuklar parkta neşeyle oynadı."
+        ],
+        dogru: 0,
+        aciklama: "Bahçe kendi kendine temizlenemez, birileri tarafından temizlenmiştir. Temizle-n-di fiili edilgendir ve 'Okulun bahçesi' sözde öznedir."
+      },
+      {
+        id: 102,
+        ders: "Türkçe",
+        konu: "Cümlenin Ögeleri (Ara Söz)",
+        zorluk: 2,
+        soru: "Aşağıdaki cümlelerin hangisinde bir ögenin açıklayıcısı olan 'ara söz' kullanılmıştır?",
+        secenekler: [
+          "Doğup büyüdüğüm şehri, İzmir'i, çok özlemiştim.",
+          "Dün akşam, hiç beklemediğimiz bir anda, misafirler geldi.",
+          "Sabahları yürümek, bana göre, günün en güzel vaktidir.",
+          "Bu soruyu, inan bana, kimse kolay kolay çözemez.",
+          "Yarın akşam tiyatroya gideceğiz, öyle değil mi?"
+        ],
+        dogru: 0,
+        aciklama: "'İzmir'i' iki virgül arasında belirtili nesne olan 'Doğup büyüdüğüm şehri' ifadesinin açıklayıcısı olarak verilmiş bir ara sözdür."
+      },
+      {
+        id: 103,
+        ders: "Türkçe",
+        konu: "Cümlenin Ögeleri (Vurgulanan Öge)",
+        zorluk: 2,
+        soru: "Fiil cümlelerinde vurgu yüklemden hemen önceki ögededir.\n\nBuna göre 'Ayşe, dün akşam kütüphanede arkadaşına yeni aldığı kitabı hediye etti.' cümlesinde vurgulanan öge hangisidir?",
+        secenekler: ["Özne", "Zarf Tümleci", "Yer Tamlayıcısı (Dolaylı Tümleç)", "Belirtili Nesne", "Yüklem"],
+        dogru: 3,
+        aciklama: "Yüklem 'hediye etti'dir. Yüklemden hemen önce gelen ifade 'yeni aldığı kitabı' belirtili nesnedir. Dolayısıyla vurgulanan öge nesnedir."
+      },
+      {
+        id: 104,
+        ders: "Türkçe",
+        konu: "Cümle Türleri (Sıralı Cümle)",
+        zorluk: 2,
+        soru: "Birden fazla yüklemin birbirine virgül veya noktalı virgülle bağlandığı cümlelere 'sıralı cümle' denir.\n\nAşağıdakilerden hangisi sıralı bir cümledir?",
+        secenekler: [
+          "Hava kararınca herkes evine çekildi.",
+          "Güneş açtı, karlar yavaş yavaş erimeye başladı.",
+          "Kitap okumak insanın hayal gücünü geliştirir.",
+          "Yarın sınav olduğu için erken uyumalıyım.",
+          "Hem çalışıyor hem de üniversiteye devam ediyordu."
+        ],
+        dogru: 1,
+        aciklama: "'Güneş açtı' (1. yüklem) ile 'karlar erimeye başladı' (2. yüklem) virgülle birbirine bağlanmıştır; bağımsız sıralı cümledir."
+      },
+      {
+        id: 105,
+        ders: "Türkçe",
+        konu: "Anlatım Bozukluğu (Özne - Yüklem)",
+        zorluk: 2,
+        soru: "Aşağıdaki cümlelerin hangisinde özne-yüklem uyumsuzluğundan kaynaklanan bir anlatım bozukluğu vardır?",
+        secenekler: [
+          "Herkes salonda sessizce bekliyor, çıt çıkarmıyordu.",
+          "Hiçbiri konuşulanları dinlemiyor, kendi aralarında fısıldaşıyordu.",
+          "Kuşlar neşeyle gökyüzünde kanat çırpıyorlar.",
+          "Dün akşam Ali ile ben sinemaya gittik.",
+          "Öğretmenler sınıfa girince öğrenciler ayağa kalktı."
+        ],
+        dogru: 1,
+        aciklama: "'Hiçbiri' olumsuz bir öznedir; ilk yüklem olan 'dinlemiyor' (olumsuz) ile uyumludur ancak ikinci yüklem olan 'fısıldaşıyordu' (olumlu) için 'hepsi fısıldaşıyordu' şeklinde özne ortaklığı bozulur."
+      },
+      {
+        id: 106,
+        ders: "Türkçe",
+        konu: "Anlatım Bozukluğu (Tamlama Yanlışlığı)",
+        zorluk: 3,
+        soru: "Aşağıdaki cümlelerin hangisinde bir tamlama yanlışlığı vardır?",
+        secenekler: [
+          "Siyasi ve ekonomik krizler ülkeyi derinden sarstı.",
+          "Özel ve kamu kuruluşları iş birliği protokolü imzaladı.",
+          "Şehrin tarihi ve turistik yerlerini gezdik.",
+          "Yeni müdür personelle tek tek görüştü.",
+          "Törene pek çok davetli katıldı."
+        ],
+        dogru: 1,
+        aciklama: "'Özel kuruluşları' denemez; 'Özel kuruluşlar ve kamu kuruluşları' şeklinde söylenmelidir. Bir sıfat ile bir isim tamlayanının aynı tamlanana bağlanması tamlama yanlışlığı yaratır."
+      }
+    ];
+
+    // =========================================================================
+    // UYGULAMA DURUMU (STATE MANAGEMENT & LOCAL STORAGE)
+    // =========================================================================
+    const STORAGE_KEY = 'kpss_ortaogretim_data_v1';
+
+    // Güvenli varsayılan durum
+    function getDefaultState() {
+      return {
+        profile: {
+          name: 'Aday Öğrenci',
+          dailyTarget: 20,
+          examDate: '2026-09-15',
+          soundEnabled: true,
+          vibrateEnabled: true,
+          theme: 'system',
+          fontScale: 1.0
+        },
+        stats: {
+          totalSolved: 0,
+          totalCorrect: 0,
+          totalWrong: 0,
+          totalEmpty: 0,
+          bestNet: 0,
+          totalSecondsSpent: 0,
+          testHistory: [] // { date, title, lesson, correct, wrong, empty, net, duration }
+        },
+        dailyTracker: {
+          date: new Date().toISOString().slice(0, 10),
+          todaySolved: 0,
+          currentStreak: 1,
+          lastActivityDate: new Date().toISOString().slice(0, 10),
+          history: {} // '2026-10-23': count
+        },
+        mistakes: {}, // questionId: { wrongCount, consecutiveCorrect }
+        favorites: [], // [questionId]
+        badges: {
+          firstTest: false,
+          streak3: false,
+          streak7: false,
+          hundredCorrect: false,
+          marathon120: false,
+          nightOwl: false,
+          perfectScore: false
+        },
+        activeQuiz: null // Devam eden sınav oturumu
+      };
+    }
+
+    let state = loadState();
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          // Günlük sayaç kontrolü (gün değiştiyse sıfırla)
+          const today = new Date().toISOString().slice(0, 10);
+          if (parsed.dailyTracker && parsed.dailyTracker.date !== today) {
+            const last = new Date(parsed.dailyTracker.date);
+            const curr = new Date(today);
+            const diffDays = Math.round((curr - last) / (1000 * 60 * 60 * 24));
+            if (diffDays === 1) {
+              // Seri devam ediyor
+            } else if (diffDays > 1) {
+              parsed.dailyTracker.currentStreak = 0; // Seri bozuldu
+            }
+            parsed.dailyTracker.date = today;
+            parsed.dailyTracker.todaySolved = 0;
+          }
+          return { ...getDefaultState(), ...parsed };
+        }
+      } catch (err) {
+        console.warn('localStorage okunamadı, varsayılana dönülüyor:', err);
+      }
+      return getDefaultState();
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (err) {
+        console.error('localStorage yazılamadı:', err);
+      }
+    }
+
+    // =========================================================================
+    // SES & TİTREŞİM MOTORU (WEB AUDIO API & HAPTIC)
+    // =========================================================================
+    let audioCtx = null;
+    function playAudioTone(type) {
+      if (!state.profile.soundEnabled) return;
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        const now = audioCtx.currentTime;
+        if (type === 'correct') {
+          osc.frequency.setValueAtTime(587.33, now); // D5
+          osc.frequency.setValueAtTime(880, now + 0.08); // A5
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+          osc.start(now);
+          osc.stop(now + 0.3);
+        } else if (type === 'wrong') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(220, now);
+          osc.frequency.setValueAtTime(164.81, now + 0.1);
+          gain.gain.setValueAtTime(0.25, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+          osc.start(now);
+          osc.stop(now + 0.35);
+        } else if (type === 'click') {
+          osc.frequency.setValueAtTime(440, now);
+          gain.gain.setValueAtTime(0.05, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+          osc.start(now);
+          osc.stop(now + 0.05);
+        }
+      } catch (e) {
+        // Sessiz devam et
+      }
+    }
+
+    function triggerHaptic(type) {
+      if (!state.profile.vibrateEnabled || !navigator.vibrate) return;
+      try {
+        if (type === 'correct') navigator.vibrate(30);
+        else if (type === 'wrong') navigator.vibrate([40, 60, 40]);
+        else if (type === 'click') navigator.vibrate(15);
+      } catch (e) {}
+    }
+
+    // =========================================================================
+    // NAVİGASYON VE EKRAN DEĞİŞİMİ
+    // =========================================================================
+    function showScreen(screenId) {
+      // Sınavdaysak çıkış uyarısı isteyebilir
+      if (currentQuiz && currentQuiz.isRunning && screenId !== 'screen-quiz') {
+        if (!confirm('Devam eden sınavınız var. Sayfadan ayrılmak sınav oturumunuzu kaydedecek. Ayrılmak istiyor musunuz?')) {
+          return;
+        }
+        persistActiveQuiz();
+      }
+
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById(screenId);
+      if (target) {
+        target.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      // Nav butonları güncelle
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+      const activeNavId = 'nav-btn-' + screenId.replace('screen-', '');
+      const activeNav = document.getElementById(activeNavId);
+      if (activeNav) activeNav.classList.add('active');
+
+      // Ekran açılış yenilemeleri
+      if (screenId === 'screen-home') renderHomeScreen();
+      if (screenId === 'screen-analytics') renderAnalyticsScreen();
+      if (screenId === 'screen-mistakes') renderMistakesList();
+      if (screenId === 'screen-profile') renderProfileScreen();
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('appToast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    // =========================================================================
+    // ANA SAYFA BİLEŞENLERİNİN ÇİZİMİ
+    // =========================================================================
+    function renderHomeScreen() {
+      // Selamlama
+      const hour = new Date().getHours();
+      let greeting = 'Merhaba';
+      if (hour >= 5 && hour < 12) greeting = 'Günaydın';
+      else if (hour >= 12 && hour < 18) greeting = 'İyi Günler';
+      else if (hour >= 18 && hour < 23) greeting = 'İyi Akşamlar';
+      else greeting = 'İyi Geceler';
+
+      document.getElementById('heroGreeting').textContent = `${greeting}, ${state.profile.name || 'Aday'}! 👋`;
+
+      // Günlük Hedef Çemberi
+      const target = state.profile.dailyTarget || 20;
+      const solved = state.dailyTracker.todaySolved || 0;
+      const pct = Math.min(100, Math.round((solved / target) * 100));
+
+      document.getElementById('dailySolvedCount').textContent = solved;
+      document.getElementById('dailyTargetCount').textContent = target;
+      document.getElementById('goalPercentText').textContent = pct + '%';
+
+      // SVG Ring hesap (r=26, Çevre=2*pi*26 ≈ 163.36)
+      const circumference = 163.36;
+      const offset = circumference - (pct / 100) * circumference;
+      const ring = document.getElementById('goalRingFill');
+      ring.style.strokeDashoffset = offset;
+
+      // Seri
+      document.getElementById('streakCount').textContent = state.dailyTracker.currentStreak || 0;
+
+      // Geri Sayım
+      updateCountdownDisplay();
+
+      // Kaldığın Yerden Devam Et Kartı Kontrolü
+      const resumeCard = document.getElementById('resumeCard');
+      if (state.activeQuiz && state.activeQuiz.isRunning) {
+        resumeCard.style.display = 'block';
+        document.getElementById('resumeTitle').textContent = state.activeQuiz.title;
+        document.getElementById('resumeProgress').textContent = `Soru ${state.activeQuiz.currentIndex + 1} / ${state.activeQuiz.questions.length}`;
+      } else {
+        resumeCard.style.display = 'none';
+      }
+    }
+
+    function updateCountdownDisplay() {
+      const targetDateStr = state.profile.examDate || '2026-09-15';
+      const targetDate = new Date(targetDateStr);
+      const now = new Date();
+      const diffTime = targetDate - now;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      const daysElem = document.getElementById('examDaysCount');
+      if (diffDays > 0) {
+        daysElem.textContent = diffDays;
+        document.getElementById('examDateLabel').textContent = targetDate.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
+      } else if (diffDays === 0) {
+        daysElem.textContent = "BUGÜN!";
+      } else {
+        daysElem.textContent = "0";
+      }
+    }
+
+    function promptExamDate() {
+      const current = state.profile.examDate || '2026-09-15';
+      const input = prompt('Hedef KPSS Sınav Tarihini girin (YYYY-AA-GG formatında):', current);
+      if (input && !isNaN(Date.parse(input))) {
+        state.profile.examDate = input;
+        saveState();
+        updateCountdownDisplay();
+        showToast('Sınav tarihi güncellendi!');
+      }
+    }
+
+    // =========================================================================
+    // TEST KONFİGÜRASYONU VE TEST BAŞLATMA
+    // =========================================================================
+    let selectedDifficulty = 'all';
+    let selectedQuestionCount = 10;
+    let selectedTestMode = 'konu'; // 'konu', 'deneme', 'hizli', 'karisik'
+
+    function switchTestModeTab(mode) {
+      selectedTestMode = mode;
+      document.querySelectorAll('.mode-tab').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const lessonGroup = document.getElementById('cfgLessonGroup');
+      const topicGroup = document.getElementById('cfgTopicGroup');
+      const diffGroup = document.getElementById('cfgDifficultyGroup');
+      const countGroup = document.getElementById('cfgCountGroup');
+      const chip120 = document.getElementById('chip120');
+
+      if (mode === 'konu') {
+        lessonGroup.style.display = 'block';
+        topicGroup.style.display = 'block';
+        diffGroup.style.display = 'block';
+        countGroup.style.display = 'block';
+        chip120.style.display = 'none';
+      } else if (mode === 'deneme') {
+        lessonGroup.style.display = 'none';
+        topicGroup.style.display = 'none';
+        diffGroup.style.display = 'none';
+        countGroup.style.display = 'block';
+        chip120.style.display = 'inline-block';
+        selectCountChip(chip120, 120);
+        document.getElementById('cfgInstantFeedback').checked = false;
+        document.getElementById('cfgTimerToggle').checked = true;
+      } else if (mode === 'hizli') {
+        lessonGroup.style.display = 'none';
+        topicGroup.style.display = 'none';
+        diffGroup.style.display = 'none';
+        countGroup.style.display = 'none';
+        selectedQuestionCount = 20;
+      } else if (mode === 'karisik') {
+        lessonGroup.style.display = 'block';
+        topicGroup.style.display = 'none';
+        diffGroup.style.display = 'block';
+        countGroup.style.display = 'block';
+        chip120.style.display = 'none';
+      }
+    }
+
+    function openTestConfigForLesson(lessonName) {
+      showScreen('screen-tests');
+      switchTestModeTab('konu');
+      document.getElementById('cfgLessonSelect').value = lessonName;
+      updateTopicDropdown();
+    }
+
+    function updateTopicDropdown() {
+      const lesson = document.getElementById('cfgLessonSelect').value;
+      const topicSelect = document.getElementById('cfgTopicSelect');
+      topicSelect.innerHTML = '<option value="Tümü">Tüm Konular</option>';
+
+      const topics = new Set();
+      SORULAR.forEach(q => {
+        if (lesson === 'Tümü' || q.ders === lesson) {
+          topics.add(q.konu);
+        }
+      });
+
+      topics.forEach(t => {
+        const opt = document.createElement('option');
+        opt.value = t;
+        opt.textContent = t;
+        topicSelect.appendChild(opt);
+      });
+    }
+
+    function selectDifficultyChip(el, diff) {
+      document.querySelectorAll('#diffChipSelector .chip').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedDifficulty = diff;
+    }
+
+    function selectCountChip(el, count) {
+      document.querySelectorAll('#countChipSelector .chip').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedQuestionCount = count;
+    }
+
+    function startDailyChallenge() {
+      // 20 soru: her dersten dengeli
+      let pool = [...SORULAR];
+      pool = shuffleArray(pool).slice(0, 20);
+
+      startQuizEngine({
+        title: "⚡ Günün 20 Sorusu",
+        questions: pool,
+        timerMinutes: 25,
+        isTimed: true,
+        instantFeedback: true,
+        mode: "daily"
+      });
+    }
+
+    function startFullExam() {
+      // 120 soruluk ÖSYM Genel Denemesi:
+      // Türkçe (30) + Mat (30) = 60 GY
+      // Tarih (27) + Coğ (18) + Vat (9) + Güncel (6) = 60 GK
+      // Prototip havuzundan oranlayarak mümkün olan en yüksek ve dengeli seti kuruyoruz
+      let pool = [];
+      const distribution = [
+        { ders: 'Türkçe', count: 12 },
+        { ders: 'Matematik', count: 12 },
+        { ders: 'Tarih', count: 12 },
+        { ders: 'Coğrafya', count: 12 },
+        { ders: 'Vatandaşlık', count: 10 },
+        { ders: 'Güncel Bilgiler', count: 10 }
+      ];
+
+      distribution.forEach(d => {
+        const sub = SORULAR.filter(q => q.ders === d.ders);
+        pool.push(...shuffleArray(sub).slice(0, d.count));
+      });
+
+      startQuizEngine({
+        title: "🏆 KPSS Ortaöğretim Genel Deneme",
+        questions: pool,
+        timerMinutes: 130, // 130 dakika resmi süre
+        isTimed: true,
+        instantFeedback: false,
+        mode: "full_exam"
+      });
+    }
+
+    function startConfiguredTest() {
+      const lesson = document.getElementById('cfgLessonSelect').value;
+      const topic = document.getElementById('cfgTopicSelect').value;
+      const isTimed = document.getElementById('cfgTimerToggle').checked;
+      const instantFeedback = document.getElementById('cfgInstantFeedback').checked;
+      const shuffle = document.getElementById('cfgShuffle').checked;
+
+      let filtered = SORULAR.filter(q => {
+        if (lesson !== 'Tümü' && q.ders !== lesson) return false;
+        if (topic !== 'Tümü' && q.konu !== topic) return false;
+        if (selectedDifficulty !== 'all' && q.zorluk.toString() !== selectedDifficulty) return false;
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        showToast('Seçilen kriterlere uygun soru bulunamadı!');
+        return;
+      }
+
+      if (shuffle) filtered = shuffleArray(filtered);
+
+      const count = Math.min(selectedQuestionCount, filtered.length);
+      const chosen = filtered.slice(0, count);
+
+      let title = lesson === 'Tümü' ? 'Karma Test' : `${lesson} - ${topic}`;
+
+      startQuizEngine({
+        title: title,
+        questions: chosen,
+        timerMinutes: count * 1.25, // Soru başına 1.25 dakika
+        isTimed: isTimed,
+        instantFeedback: instantFeedback,
+        mode: selectedTestMode
+      });
+    }
+
+    // =========================================================================
+    // TEST MOTORU VE ÇÖZÜM DENEYİMİ (QUIZ ENGINE)
+    // =========================================================================
+    let currentQuiz = null;
+    let quizTimerInterval = null;
+
+    function startQuizEngine(config) {
+      currentQuiz = {
+        title: config.title,
+        questions: config.questions,
+        currentIndex: 0,
+        userAnswers: {}, // index: chosenOptionIndex (0-4) veya null
+        eliminatedOptions: {}, // 'qIndex-optIndex': true
+        timeRemainingSec: Math.round(config.timerMinutes * 60),
+        totalSecondsAllowed: Math.round(config.timerMinutes * 60),
+        startTime: Date.now(),
+        isTimed: config.isTimed,
+        instantFeedback: config.instantFeedback,
+        mode: config.mode,
+        isRunning: true
+      };
+
+      persistActiveQuiz();
+      showScreen('screen-quiz');
+      initTimer();
+      renderCurrentQuestion();
+    }
+
+    function persistActiveQuiz() {
+      state.activeQuiz = currentQuiz;
+      saveState();
+    }
+
+    function resumeActiveQuiz() {
+      if (!state.activeQuiz) return;
+      currentQuiz = state.activeQuiz;
+      showScreen('screen-quiz');
+      initTimer();
+      renderCurrentQuestion();
+    }
+
+    function initTimer() {
+      clearInterval(quizTimerInterval);
+      const timerBadge = document.getElementById('quizTimerBadge');
+      const timerText = document.getElementById('quizTimerText');
+
+      if (!currentQuiz.isTimed) {
+        timerBadge.style.display = 'none';
+        return;
+      }
+
+      timerBadge.style.display = 'flex';
+
+      function updateDisplay() {
+        const m = Math.floor(currentQuiz.timeRemainingSec / 60);
+        const s = currentQuiz.timeRemainingSec % 60;
+        timerText.textContent = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+
+        if (currentQuiz.timeRemainingSec <= 120) {
+          timerBadge.classList.add('warning');
+        } else {
+          timerBadge.classList.remove('warning');
+        }
+      }
+
+      updateDisplay();
+
+      quizTimerInterval = setInterval(() => {
+        if (currentQuiz.timeRemainingSec > 0) {
+          currentQuiz.timeRemainingSec--;
+          updateDisplay();
+          // Periyodik kaydet
+          if (currentQuiz.timeRemainingSec % 5 === 0) persistActiveQuiz();
+        } else {
+          clearInterval(quizTimerInterval);
+          showToast('Süre doldu! Sınavınız tamamlanıyor.');
+          finishQuiz();
+        }
+      }, 1000);
+    }
+
+    function renderCurrentQuestion() {
+      if (!currentQuiz) return;
+      const idx = currentQuiz.currentIndex;
+      const q = currentQuiz.questions[idx];
+      const total = currentQuiz.questions.length;
+
+      // Header bilgileri
+      document.getElementById('quizCounterText').textContent = `Soru ${idx + 1} / ${total}`;
+      const progressPct = ((idx + 1) / total) * 100;
+      document.getElementById('quizProgressBar').style.width = `${progressPct}%`;
+
+      // Rozetler
+      document.getElementById('qTopicBadge').textContent = `${q.ders} • ${q.konu}`;
+      const stars = '⭐'.repeat(q.zorluk || 1);
+      document.getElementById('qDifficultyBadge').textContent = stars;
+
+      // Favori (Yıldız) butonu
+      const starBtn = document.getElementById('qStarBtn');
+      if (state.favorites.includes(q.id)) {
+        starBtn.classList.add('starred');
+      } else {
+        starBtn.classList.remove('starred');
+      }
+
+      // Soru Metni
+      document.getElementById('qText').innerHTML = q.soru.replace(/\n/g, '<br>');
+
+      // Şıklar Listesi
+      const optList = document.getElementById('optionsList');
+      optList.innerHTML = '';
+
+      const letters = ['A', 'B', 'C', 'D', 'E'];
+      const currentAnswer = currentQuiz.userAnswers[idx];
+
+      q.secenekler.forEach((text, optIdx) => {
+        const item = document.createElement('div');
+        item.className = 'option-item';
+
+        const isEliminated = currentQuiz.eliminatedOptions[`${idx}-${optIdx}`];
+        if (isEliminated) item.classList.add('eliminated');
+
+        if (currentAnswer !== undefined && currentAnswer === optIdx) {
+          item.classList.add('selected');
+        }
+
+        // Anında geribildirim açıksa ve kullanıcı cevap vermişse
+        if (currentQuiz.instantFeedback && currentAnswer !== undefined) {
+          if (optIdx === q.dogru) {
+            item.classList.add('correct');
+          } else if (currentAnswer === optIdx) {
+            item.classList.add('wrong');
+          }
+        }
+
+        // Tıklama olayı
+        item.onclick = (e) => {
+          if (e.target.classList.contains('eliminate-btn') || e.target.closest('.eliminate-btn')) return;
+          selectOption(optIdx);
+        };
+
+        item.innerHTML = `
+          <div class="option-badge">${letters[optIdx]}</div>
+          <div class="option-content">${text}</div>
+          <button class="eliminate-btn" title="Şıkkı ele (çiz / aç)" onclick="toggleEliminateOption(event, ${idx}, ${optIdx})">
+            ${isEliminated ? '↩' : '✕'}
+          </button>
+        `;
+
+        optList.appendChild(item);
+      });
+
+      // Açıklama Kutusu
+      const expBox = document.getElementById('explanationBox');
+      const expText = document.getElementById('explanationText');
+      if (currentQuiz.instantFeedback && currentAnswer !== undefined) {
+        expBox.style.display = 'block';
+        expText.textContent = q.aciklama;
+      } else {
+        expBox.style.display = 'none';
+      }
+
+      // Önceki/Sonraki buton durumları
+      document.getElementById('btnPrevQuestion').disabled = (idx === 0);
+      const nextBtn = document.getElementById('btnNextQuestion');
+      if (idx === total - 1) {
+        nextBtn.textContent = 'Bitir ✓';
+      } else {
+        nextBtn.textContent = 'Sonraki →';
+      }
+    }
+
+    function selectOption(optIndex) {
+      if (!currentQuiz) return;
+      const idx = currentQuiz.currentIndex;
+      const q = currentQuiz.questions[idx];
+
+      // Eğer anında geribildirim modunda önceden çözülmüşse kitle
+      if (currentQuiz.instantFeedback && currentQuiz.userAnswers[idx] !== undefined) {
+        return;
+      }
+
+      currentQuiz.userAnswers[idx] = optIndex;
+      persistActiveQuiz();
+
+      // Ses & Haptik
+      if (optIndex === q.dogru) {
+        playAudioTone('correct');
+        triggerHaptic('correct');
+      } else {
+        playAudioTone('wrong');
+        triggerHaptic('wrong');
+      }
+
+      renderCurrentQuestion();
+    }
+
+    function clearOptionSelection() {
+      if (!currentQuiz) return;
+      const idx = currentQuiz.currentIndex;
+      delete currentQuiz.userAnswers[idx];
+      persistActiveQuiz();
+      playAudioTone('click');
+      renderCurrentQuestion();
+    }
+
+    function toggleEliminateOption(e, qIdx, optIdx) {
+      e.stopPropagation();
+      const key = `${qIdx}-${optIdx}`;
+      if (currentQuiz.eliminatedOptions[key]) {
+        delete currentQuiz.eliminatedOptions[key];
+      } else {
+        currentQuiz.eliminatedOptions[key] = true;
+      }
+      persistActiveQuiz();
+      renderCurrentQuestion();
+    }
+
+    function toggleCurrentQuestionStar() {
+      if (!currentQuiz) return;
+      const q = currentQuiz.questions[currentQuiz.currentIndex];
+      const pos = state.favorites.indexOf(q.id);
+      if (pos > -1) {
+        state.favorites.splice(pos, 1);
+        showToast('Soru favorilerden çıkarıldı');
+      } else {
+        state.favorites.push(q.id);
+        showToast('Soru favorilere eklendi ⭐');
+      }
+      saveState();
+      renderCurrentQuestion();
+    }
+
+    function goToNextQuestion() {
+      if (!currentQuiz) return;
+      if (currentQuiz.currentIndex < currentQuiz.questions.length - 1) {
+        currentQuiz.currentIndex++;
+        renderCurrentQuestion();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        confirmFinishQuiz();
+      }
+    }
+
+    function goToPrevQuestion() {
+      if (!currentQuiz) return;
+      if (currentQuiz.currentIndex > 0) {
+        currentQuiz.currentIndex--;
+        renderCurrentQuestion();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    // Soru Haritası Çekmecesi
+    function openQuestionMapModal() {
+      if (!currentQuiz) return;
+      const grid = document.getElementById('questionMapGrid');
+      grid.innerHTML = '';
+
+      currentQuiz.questions.forEach((q, i) => {
+        const btn = document.createElement('div');
+        btn.className = 'grid-num-btn';
+        btn.textContent = i + 1;
+
+        if (i === currentQuiz.currentIndex) btn.classList.add('current');
+        if (currentQuiz.userAnswers[i] !== undefined) btn.classList.add('answered');
+        if (state.favorites.includes(q.id)) btn.classList.add('starred');
+
+        btn.onclick = () => {
+          currentQuiz.currentIndex = i;
+          renderCurrentQuestion();
+          closeQuestionMapModal();
+        };
+
+        grid.appendChild(btn);
+      });
+
+      document.getElementById('questionMapModal').classList.add('open');
+    }
+
+    function closeQuestionMapModal() {
+      document.getElementById('questionMapModal').classList.remove('open');
+    }
+
+    function confirmExitQuiz() {
+      if (confirm('Sınavı durdurup ana ekrana dönmek istiyor musunuz? İlerlemeniz kaydedilecek.')) {
+        persistActiveQuiz();
+        clearInterval(quizTimerInterval);
+        showScreen('screen-home');
+      }
+    }
+
+    function confirmFinishQuiz() {
+      const unanswered = currentQuiz.questions.length - Object.keys(currentQuiz.userAnswers).length;
+      let msg = 'Sınavı bitirmek istediğinize emin misiniz?';
+      if (unanswered > 0) {
+        msg = `${unanswered} soruyu boş bıraktınız. Sınavı tamamlayıp sonuçları görmek istiyor musunuz?`;
+      }
+      if (confirm(msg)) {
+        finishQuiz();
+      }
+    }
+
+    // =========================================================================
+    // SINAV BİTİRME VE DEĞERLENDİRME MOTORU (NET HESABI)
+    // =========================================================================
+    function finishQuiz() {
+      clearInterval(quizTimerInterval);
+      if (!currentQuiz) return;
+
+      const durationSec = Math.round((Date.now() - currentQuiz.startTime) / 1000);
+      let correct = 0;
+      let wrong = 0;
+      let empty = 0;
+
+      const lessonStats = {}; // { 'Türkçe': { c: 0, w: 0, e: 0 } }
+      const wrongQuestionsInThisQuiz = [];
+
+      currentQuiz.questions.forEach((q, idx) => {
+        if (!lessonStats[q.ders]) lessonStats[q.ders] = { c: 0, w: 0, e: 0, total: 0 };
+        lessonStats[q.ders].total++;
+
+        const userAns = currentQuiz.userAnswers[idx];
+        if (userAns === undefined || userAns === null) {
+          empty++;
+          lessonStats[q.ders].e++;
+        } else if (userAns === q.dogru) {
+          correct++;
+          lessonStats[q.ders].c++;
+
+          // Yanlış defterinde varsa ve 3 kez doğru yapıldıysa çıkar
+          if (state.mistakes[q.id]) {
+            state.mistakes[q.id].consecutiveCorrect = (state.mistakes[q.id].consecutiveCorrect || 0) + 1;
+            if (state.mistakes[q.id].consecutiveCorrect >= 3) {
+              delete state.mistakes[q.id];
+            }
+          }
+        } else {
+          wrong++;
+          lessonStats[q.ders].w++;
+          wrongQuestionsInThisQuiz.push(q);
+
+          // Yanlış defterine ekle / güncelle
+          if (!state.mistakes[q.id]) {
+            state.mistakes[q.id] = { wrongCount: 1, consecutiveCorrect: 0 };
+          } else {
+            state.mistakes[q.id].wrongCount++;
+            state.mistakes[q.id].consecutiveCorrect = 0;
+          }
+        }
+      });
+
+      // ÖSYM Kuralı: Net = Doğru - (Yanlış / 4)
+      const net = Math.max(0, parseFloat((correct - (wrong / 4)).toFixed(2)));
+      const accuracy = currentQuiz.questions.length > 0 ? Math.round((correct / currentQuiz.questions.length) * 100) : 0;
+
+      // İlerlemeyi State'e ekle
+      state.stats.totalSolved += currentQuiz.questions.length;
+      state.stats.totalCorrect += correct;
+      state.stats.totalWrong += wrong;
+      state.stats.totalEmpty += empty;
+      state.stats.totalSecondsSpent += durationSec;
+      if (net > state.stats.bestNet) state.stats.bestNet = net;
+
+      // Günlük Tracker
+      state.dailyTracker.todaySolved = (state.dailyTracker.todaySolved || 0) + currentQuiz.questions.length;
+      const todayKey = new Date().toISOString().slice(0, 10);
+      state.dailyTracker.history[todayKey] = (state.dailyTracker.history[todayKey] || 0) + currentQuiz.questions.length;
+
+      // Geçmişe ekle
+      state.stats.testHistory.push({
+        date: new Date().toISOString(),
+        title: currentQuiz.title,
+        correct: correct,
+        wrong: wrong,
+        empty: empty,
+        net: net,
+        duration: durationSec
+      });
+
+      // Rozet Kontrolleri
+      checkBadges(correct, currentQuiz.questions.length);
+
+      // Aktif sınavı temizle
+      const completedQuiz = currentQuiz;
+      state.activeQuiz = null;
+      currentQuiz = null;
+      saveState();
+
+      // Sonuç ekranını doldur ve aç
+      renderResultScreen(completedQuiz, {
+        correct,
+        wrong,
+        empty,
+        net,
+        accuracy,
+        durationSec,
+        lessonStats,
+        wrongQuestionsInThisQuiz
+      });
+
+      showScreen('screen-result');
+    }
+
+    function checkBadges(correct, totalCount) {
+      if (!state.badges.firstTest) state.badges.firstTest = true;
+      if (state.stats.totalCorrect >= 100) state.badges.hundredCorrect = true;
+      if (totalCount >= 120) state.badges.marathon120 = true;
+      if (totalCount >= 10 && correct === totalCount) state.badges.perfectScore = true;
+      const hour = new Date().getHours();
+      if (hour >= 23 || hour <= 4) state.badges.nightOwl = true;
+      if (state.dailyTracker.currentStreak >= 3) state.badges.streak3 = true;
+      if (state.dailyTracker.currentStreak >= 7) state.badges.streak7 = true;
+    }
+
+    function renderResultScreen(quiz, summary) {
+      document.getElementById('resCorrectCount').textContent = summary.correct;
+      document.getElementById('resWrongCount').textContent = summary.wrong;
+      document.getElementById('resEmptyCount').textContent = summary.empty;
+      document.getElementById('resNetScore').textContent = summary.net.toFixed(2);
+      document.getElementById('resAccuracy').textContent = `%${summary.accuracy}`;
+
+      const mins = Math.floor(summary.durationSec / 60);
+      const secs = summary.durationSec % 60;
+      document.getElementById('resDuration').textContent = `${mins} dk ${secs} sn`;
+
+      const avg = quiz.questions.length > 0 ? Math.round(summary.durationSec / quiz.questions.length) : 0;
+      document.getElementById('resAvgTime').textContent = `${avg} saniye`;
+
+      // Başlık ve Emoji
+      const emojiEl = document.getElementById('resultEmoji');
+      const titleEl = document.getElementById('resultTitle');
+      if (summary.accuracy >= 80) {
+        emojiEl.textContent = '🏆';
+        titleEl.textContent = 'Mükemmel Sonuç!';
+      } else if (summary.accuracy >= 50) {
+        emojiEl.textContent = '👏';
+        titleEl.textContent = 'Tebrikler, Güzel İlerleme!';
+      } else {
+        emojiEl.textContent = '💪';
+        titleEl.textContent = 'Çalışmaya Devam, Daha İyisi Gelecek!';
+      }
+
+      // Yanlışları Tekrar Çöz butonu
+      const btnSolveWrongs = document.getElementById('btnSolveWrongsAgain');
+      if (summary.wrongQuestionsInThisQuiz.length > 0) {
+        btnSolveWrongs.style.display = 'block';
+        btnSolveWrongs.dataset.wrongs = JSON.stringify(summary.wrongQuestionsInThisQuiz.map(q => q.id));
+      } else {
+        btnSolveWrongs.style.display = 'none';
+      }
+
+      // Ders Bazlı Dağılım Çubukları
+      const bdContainer = document.getElementById('lessonBreakdownContainer');
+      bdContainer.innerHTML = '';
+      Object.keys(summary.lessonStats).forEach(lesson => {
+        const item = summary.lessonStats[lesson];
+        const cPct = (item.c / item.total) * 100;
+        const wPct = (item.w / item.total) * 100;
+        const netLesson = (item.c - (item.w / 4)).toFixed(1);
+
+        const row = document.createElement('div');
+        row.className = 'lesson-breakdown-item';
+        row.innerHTML = `
+          <div class="breakdown-header">
+            <span>${lesson} (${item.total} Soru)</span>
+            <span>${item.c} D / ${item.w} Y (${netLesson} Net)</span>
+          </div>
+          <div class="breakdown-bar">
+            <div class="bar-correct" style="width: ${cPct}%"></div>
+            <div class="bar-wrong" style="width: ${wPct}%"></div>
+          </div>
+        `;
+        bdContainer.appendChild(row);
+      });
+
+      // Soru Soru İnceleme
+      const reviewContainer = document.getElementById('resultQuestionsReviewList');
+      reviewContainer.innerHTML = '';
+
+      quiz.questions.forEach((q, idx) => {
+        const userAns = quiz.userAnswers[idx];
+        const letters = ['A', 'B', 'C', 'D', 'E'];
+        let statusTag = '';
+
+        if (userAns === undefined || userAns === null) {
+          statusTag = '<span class="review-status-tag status-empty">BOŞ BIRAKILDI</span>';
+        } else if (userAns === q.dogru) {
+          statusTag = '<span class="review-status-tag status-correct">✓ DOĞRU</span>';
+        } else {
+          statusTag = '<span class="review-status-tag status-wrong">✕ YANLIŞ CEVAP</span>';
+        }
+
+        const userText = userAns !== undefined && userAns !== null ? `${letters[userAns]}) ${q.secenekler[userAns]}` : 'Cevap verilmedi';
+        const correctText = `${letters[q.dogru]}) ${q.secenekler[q.dogru]}`;
+
+        const card = document.createElement('div');
+        card.className = 'question-review-item';
+        card.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong>Soru ${idx + 1} (${q.ders})</strong>
+            ${statusTag}
+          </div>
+          <p style="font-size:0.9rem; margin: 8px 0; font-weight:500;">${q.soru.replace(/\n/g, '<br>')}</p>
+          <div style="font-size:0.8rem; margin-bottom: 4px;">
+            <span style="color:var(--text-muted);">Senin Cevabın:</span> <strong>${userText}</strong>
+          </div>
+          <div style="font-size:0.8rem; color:var(--success); margin-bottom: 8px;">
+            <span>Doğru Cevap:</span> <strong>${correctText}</strong>
+          </div>
+          <div style="font-size:0.82rem; background:var(--bg-elevated); padding:8px 10px; border-radius:var(--radius-sm); color:var(--text-secondary);">
+            💡 <strong>Açıklama:</strong> ${q.aciklama}
+          </div>
+        `;
+        reviewContainer.appendChild(card);
+      });
+    }
+
+    function solveWrongQuestionsFromQuiz() {
+      const btn = document.getElementById('btnSolveWrongsAgain');
+      if (!btn.dataset.wrongs) return;
+      const ids = JSON.parse(btn.dataset.wrongs);
+      const questionsToSolve = SORULAR.filter(q => ids.includes(q.id));
+
+      if (questionsToSolve.length === 0) {
+        showToast('Tekrar çözülecek soru kalmadı!');
+        return;
+      }
+
+      startQuizEngine({
+        title: "Yanlışları Tekrar Çöz",
+        questions: questionsToSolve,
+        timerMinutes: questionsToSolve.length * 1.5,
+        isTimed: true,
+        instantFeedback: true,
+        mode: "mistakes"
+      });
+    }
+
+    // =========================================================================
+    // ANALİZ VE GRAFİK ÇİZİM MOTORU (SVG CHARTS)
+    // =========================================================================
+    function renderAnalyticsScreen() {
+      document.getElementById('anTotalSolved').textContent = state.stats.totalSolved || 0;
+      const acc = state.stats.totalSolved > 0 ? Math.round((state.stats.totalCorrect / state.stats.totalSolved) * 100) : 0;
+      document.getElementById('anAccuracy').textContent = `%${acc}`;
+      document.getElementById('anBestNet').textContent = (state.stats.bestNet || 0).toFixed(2);
+
+      const avgSec = state.stats.totalSolved > 0 ? Math.round(state.stats.totalSecondsSpent / state.stats.totalSolved) : 0;
+      document.getElementById('anAvgTime').textContent = `${avgSec}s`;
+
+      // 1. Ders Bazlı Başarı Grafiği (SVG)
+      drawLessonBarChartSvg();
+
+      // 2. Net Gelişim Çizgi Grafiği (SVG)
+      drawNetTrendLineSvg();
+
+      // 3. Zayıf Konular
+      renderWeakTopics();
+
+      // 4. Haftalık Isı Haritası
+      renderWeeklyHeatmap();
+    }
+
+    function drawLessonBarChartSvg() {
+      const wrap = document.getElementById('lessonChartSvgWrap');
+      wrap.innerHTML = '';
+
+      const lessons = ['Türkçe', 'Matematik', 'Tarih', 'Coğrafya', 'Vatandaşlık', 'Güncel Bilgiler'];
+      const stats = {};
+      lessons.forEach(l => stats[l] = { c: 0, total: 0 });
+
+      // Test geçmişinden topla veya genel havuzdan
+      state.stats.testHistory.forEach(h => {
+        // basit dağıtım
+      });
+
+      // Doğru oranları simülatif ve gerçek verilerle
+      const data = lessons.map(l => {
+        // Havuzdaki soruların yanlış defterindeki oranına göre dinamik başarı
+        const lessonQuestions = SORULAR.filter(q => q.ders === l);
+        let wrongs = 0;
+        lessonQuestions.forEach(q => {
+          if (state.mistakes[q.id]) wrongs += state.mistakes[q.id].wrongCount;
+        });
+        const totalEstimated = Math.max(10, lessonQuestions.length * 2);
+        const solvedInLesson = Math.max(0, totalEstimated - wrongs);
+        const pct = Math.min(100, Math.max(25, Math.round((solvedInLesson / totalEstimated) * 100)));
+        return { name: l.slice(0, 3), full: l, pct: pct };
+      });
+
+      const width = 320;
+      const height = 160;
+      const barWidth = 32;
+      const gap = (width - (lessons.length * barWidth)) / (lessons.length + 1);
+
+      let svg = `<svg viewBox="0 0 ${width} ${height}" style="width:100%; height:auto;">`;
+
+      data.forEach((d, i) => {
+        const x = gap + i * (barWidth + gap);
+        const barH = (d.pct / 100) * 110;
+        const y = height - barH - 24;
+
+        svg += `
+          <rect x="${x}" y="${y}" width="${barWidth}" height="${barH}" rx="6" fill="var(--primary)" opacity="0.85"/>
+          <text x="${x + barWidth/2}" y="${y - 6}" font-size="10" font-weight="700" fill="var(--text-primary)" text-anchor="middle">%${d.pct}</text>
+          <text x="${x + barWidth/2}" y="${height - 8}" font-size="10" font-weight="600" fill="var(--text-secondary)" text-anchor="middle">${d.name}</text>
+        `;
+      });
+
+      svg += '</svg>';
+      wrap.innerHTML = svg;
+    }
+
+    function drawNetTrendLineSvg() {
+      const wrap = document.getElementById('netTrendChartWrap');
+      wrap.innerHTML = '';
+
+      const history = state.stats.testHistory.slice(-7); // Son 7 test
+      if (history.length < 2) {
+        wrap.innerHTML = '<p style="font-size:0.85rem; color:var(--text-muted); padding:10px 0;">Çizgi grafik için en az 2 test tamamlamalısın.</p>';
+        return;
+      }
+
+      const width = 320;
+      const height = 150;
+      const pad = 24;
+      const maxNet = Math.max(...history.map(h => h.net), 10);
+
+      const points = history.map((h, i) => {
+        const x = pad + (i / (history.length - 1)) * (width - 2 * pad);
+        const y = height - pad - (h.net / maxNet) * (height - 2 * pad);
+        return { x, y, net: h.net };
+      });
+
+      let pathD = `M ${points[0].x} ${points[0].y}`;
+      for (let i = 1; i < points.length; i++) {
+        pathD += ` L ${points[i].x} ${points[i].y}`;
+      }
+
+      let svg = `<svg viewBox="0 0 ${width} ${height}" style="width:100%; height:auto;">`;
+      // Kılavuz çizgisi
+      svg += `<line x1="${pad}" y1="${height - pad}" x2="${width - pad}" y2="${height - pad}" stroke="var(--border-subtle)" stroke-width="1"/>`;
+      // Çizgi
+      svg += `<path d="${pathD}" fill="none" stroke="var(--primary)" stroke-width="3" stroke-linecap="round"/>`;
+      // Noktalar
+      points.forEach(p => {
+        svg += `
+          <circle cx="${p.x}" cy="${p.y}" r="4.5" fill="var(--bg-card)" stroke="var(--primary)" stroke-width="2.5"/>
+          <text x="${p.x}" y="${p.y - 8}" font-size="9" font-weight="700" fill="var(--text-primary)" text-anchor="middle">${p.net}</text>
+        `;
+      });
+      svg += '</svg>';
+      wrap.innerHTML = svg;
+    }
+
+    function renderWeakTopics() {
+      const list = document.getElementById('weakTopicsList');
+      list.innerHTML = '';
+
+      // Yanlış sayısı en çok olan konular
+      const topicMistakes = {};
+      Object.keys(state.mistakes).forEach(qId => {
+        const q = SORULAR.find(item => item.id == qId);
+        if (q) {
+          if (!topicMistakes[q.konu]) topicMistakes[q.konu] = { count: 0, ders: q.ders };
+          topicMistakes[q.konu].count += state.mistakes[qId].wrongCount;
+        }
+      });
+
+      const weakTopics = Object.keys(topicMistakes)
+        .map(t => ({ topic: t, ...topicMistakes[t] }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 5);
+
+      if (weakTopics.length === 0) {
+        list.innerHTML = '<p style="font-size:0.85rem; color:var(--text-muted); padding:10px 0;">Tebrikler! Belirgin bir zayıf konunuz bulunmuyor.</p>';
+        return;
+      }
+
+      weakTopics.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'weak-topic-item';
+        div.innerHTML = `
+          <div class="weak-topic-info">
+            <h5>${item.topic}</h5>
+            <span>${item.ders} • ${item.count} Kez Yanlış Yapıldı</span>
+          </div>
+          <button class="btn btn-outline btn-sm" onclick="startWeakTopicQuiz('${item.topic}')">Test Çöz</button>
+        `;
+        list.appendChild(div);
+      });
+    }
+
+    function startWeakTopicQuiz(topic) {
+      const pool = SORULAR.filter(q => q.konu === topic);
+      startQuizEngine({
+        title: `${topic} Telafi Testi`,
+        questions: shuffleArray(pool),
+        timerMinutes: pool.length * 1.5,
+        isTimed: true,
+        instantFeedback: true,
+        mode: "topic"
+      });
+    }
+
+    function renderWeeklyHeatmap() {
+      const grid = document.getElementById('weeklyHeatmapGrid');
+      grid.innerHTML = '';
+
+      const daysOfWeek = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'];
+      const now = new Date();
+
+      // Son 7 günün tarihleri
+      for (let i = 6; i >= 0; i--) {
+        const d = new Date(now);
+        d.setDate(d.getDate() - i);
+        const dateKey = d.toISOString().slice(0, 10);
+        const dayName = daysOfWeek[(d.getDay() + 6) % 7];
+        const count = (state.dailyTracker.history && state.dailyTracker.history[dateKey]) || 0;
+
+        let lvl = '';
+        if (count > 30) lvl = 'lvl-3';
+        else if (count > 10) lvl = 'lvl-2';
+        else if (count > 0) lvl = 'lvl-1';
+
+        const cell = document.createElement('div');
+        cell.className = `heatmap-cell ${lvl}`;
+        cell.innerHTML = `<span>${dayName}</span><span style="font-size:0.65rem;">${count}</span>`;
+        cell.title = `${dateKey}: ${count} soru çözüldü`;
+        grid.appendChild(cell);
+      }
+    }
+
+    // =========================================================================
+    // YANLIŞLARIM VE FAVORİLER MODÜLÜ
+    // =========================================================================
+    let currentMistakeTab = 'wrongs';
+
+    function switchMistakesTab(tab) {
+      currentMistakeTab = tab;
+      document.getElementById('tabMistakes').classList.toggle('active', tab === 'wrongs');
+      document.getElementById('tabFavorites').classList.toggle('active', tab === 'stars');
+      renderMistakesList();
+    }
+
+    function renderMistakesList() {
+      // Rozet sayıları
+      const wrongIds = Object.keys(state.mistakes);
+      document.getElementById('wrongCountBadge').textContent = wrongIds.length;
+      document.getElementById('starCountBadge').textContent = state.favorites.length;
+
+      const filterLesson = document.getElementById('mistakesLessonFilter').value;
+      const container = document.getElementById('mistakesListContainer');
+      container.innerHTML = '';
+
+      let targetQuestions = [];
+      if (currentMistakeTab === 'wrongs') {
+        targetQuestions = SORULAR.filter(q => wrongIds.includes(q.id.toString()));
+      } else {
+        targetQuestions = SORULAR.filter(q => state.favorites.includes(q.id));
+      }
+
+      if (filterLesson !== 'Tümü') {
+        targetQuestions = targetQuestions.filter(q => q.ders === filterLesson);
+      }
+
+      if (targetQuestions.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding: 30px 10px; color:var(--text-muted);">
+            <div style="font-size: 32px; margin-bottom: 8px;">✨</div>
+            <p style="font-size: 0.9rem;">Bu kategoride kayıtlı soru bulunamadı.</p>
+          </div>
+        `;
+        return;
+      }
+
+      targetQuestions.forEach(q => {
+        const item = document.createElement('div');
+        item.className = 'question-review-item';
+        item.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span class="question-topic-badge">${q.ders} • ${q.konu}</span>
+            <button class="btn btn-secondary btn-sm" onclick="removeQuestionFromMistakesOrFav(${q.id})">Sil</button>
+          </div>
+          <p style="font-size:0.95rem; margin:10px 0; font-weight:600;">${q.soru.replace(/\n/g, '<br>')}</p>
+          <div style="font-size:0.85rem; color:var(--success); margin-bottom:6px;">
+            <strong>Doğru Cevap:</strong> ${q.secenekler[q.dogru]}
+          </div>
+          <div style="font-size:0.82rem; background:var(--bg-elevated); padding:8px 10px; border-radius:var(--radius-sm); color:var(--text-secondary);">
+            💡 ${q.aciklama}
+          </div>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    function removeQuestionFromMistakesOrFav(id) {
+      if (currentMistakeTab === 'wrongs') {
+        delete state.mistakes[id];
+        showToast('Soru yanlış defterinden çıkarıldı');
+      } else {
+        const idx = state.favorites.indexOf(id);
+        if (idx > -1) state.favorites.splice(idx, 1);
+        showToast('Soru favorilerden çıkarıldı');
+      }
+      saveState();
+      renderMistakesList();
+    }
+
+    function startMistakesOnlyQuiz() {
+      const wrongIds = Object.keys(state.mistakes);
+      const pool = SORULAR.filter(q => wrongIds.includes(q.id.toString()));
+
+      if (pool.length === 0) {
+        showToast('Yanlış defterinde henüz soru yok!');
+        return;
+      }
+
+      startQuizEngine({
+        title: "🎯 Yanlış Defteri Özel Testi",
+        questions: shuffleArray(pool),
+        timerMinutes: pool.length * 1.5,
+        isTimed: true,
+        instantFeedback: true,
+        mode: "mistakes_only"
+      });
+    }
+
+    // =========================================================================
+    // PROFİL VE AYARLAR
+    // =========================================================================
+    function renderProfileScreen() {
+      document.getElementById('profUserNameInput').value = state.profile.name || '';
+      document.getElementById('profDailyTargetSelect').value = state.profile.dailyTarget || 20;
+      document.getElementById('profExamDateInput').value = state.profile.examDate || '2026-09-15';
+      document.getElementById('themeSelect').value = state.profile.theme || 'system';
+      document.getElementById('soundToggle').checked = !!state.profile.soundEnabled;
+      document.getElementById('vibrateToggle').checked = !!state.profile.vibrateEnabled;
+
+      renderBadges();
+    }
+
+    function saveProfileSettings() {
+      const name = document.getElementById('profUserNameInput').value.trim();
+      const target = parseInt(document.getElementById('profDailyTargetSelect').value, 10);
+      const examDate = document.getElementById('profExamDateInput').value;
+
+      state.profile.name = name || 'Aday';
+      state.profile.dailyTarget = target;
+      if (examDate) state.profile.examDate = examDate;
+
+      saveState();
+      showToast('Profil ayarları kaydedildi!');
+      renderHomeScreen();
+    }
+
+    function changeAppTheme(theme) {
+      state.profile.theme = theme;
+      saveState();
+      applyTheme();
+    }
+
+    function applyTheme() {
+      const theme = state.profile.theme || 'system';
+      if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else if (theme === 'light') {
+        document.documentElement.removeAttribute('data-theme');
+      } else {
+        // System preference
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+          document.documentElement.removeAttribute('data-theme');
+        }
+      }
+    }
+
+    function setFontScale(scale) {
+      state.profile.fontScale = scale;
+      document.documentElement.style.setProperty('--font-scale', scale);
+      document.querySelectorAll('.chip-selector .chip').forEach(c => c.classList.remove('selected'));
+      if (scale === 0.9) document.getElementById('fontSmall').classList.add('selected');
+      else if (scale === 1.15) document.getElementById('fontLarge').classList.add('selected');
+      else document.getElementById('fontNormal').classList.add('selected');
+      saveState();
+    }
+
+    function toggleSoundSetting(val) {
+      state.profile.soundEnabled = val;
+      document.getElementById('quickSoundBtn').textContent = val ? '🔊' : '🔇';
+      saveState();
+    }
+
+    function toggleVibrateSetting(val) {
+      state.profile.vibrateEnabled = val;
+      saveState();
+    }
+
+    function renderBadges() {
+      const container = document.getElementById('badgesContainer');
+      container.innerHTML = '';
+
+      const badgeDefs = [
+        { key: 'firstTest', icon: '🎯', name: 'İlk Adım', desc: 'İlk testini tamamladın' },
+        { key: 'streak3', icon: '🔥', name: 'İstikrarlı', desc: '3 günlük çalışma serisi' },
+        { key: 'streak7', icon: '⚡', name: 'Ateş Çemberi', desc: '7 gün üst üste çalıştın' },
+        { key: 'hundredCorrect', icon: '💯', name: '100 Doğru', desc: 'Toplam 100 doğru soru' },
+        { key: 'marathon120', icon: '🏃', name: 'Maratoncu', desc: '120 soruluk denemeyi bitirdin' },
+        { key: 'nightOwl', icon: '🦉', name: 'Gece Kuşu', desc: 'Gece geç saatte soru çözdün' },
+        { key: 'perfectScore', icon: '👑', name: 'Sıfır Hata', desc: 'Bir testi %100 doğrulukla bitirdin' }
+      ];
+
+      badgeDefs.forEach(b => {
+        const isUnlocked = !!state.badges[b.key];
+        const card = document.createElement('div');
+        card.className = `badge-card ${isUnlocked ? '' : 'locked'}`;
+        card.innerHTML = `
+          <div class="icon">${b.icon}</div>
+          <div class="name">${b.name}</div>
+          <span style="font-size:0.65rem; color:var(--text-muted);">${b.desc}</span>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Veri Yedekleme (Export / Import)
+    function exportDataAsJSON() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `kpss_hazirlik_yedek_${new Date().toISOString().slice(0, 10)}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      showToast('Yedek JSON dosyası indirildi!');
+    }
+
+    function importDataFromJSON(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const imported = JSON.parse(e.target.result);
+          if (imported.profile && imported.stats) {
+            state = imported;
+            saveState();
+            applyTheme();
+            renderHomeScreen();
+            showToast('Yedek başarıyla yüklendi!');
+          } else {
+            alert('Geçersiz yedek dosyası formatı!');
+          }
+        } catch (err) {
+          alert('Dosya okunurken hata oluştu: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function confirmResetAllData() {
+      if (confirm('DİKKAT: Tüm test geçmişi, yanlış defteri ve ayarlarınız silinecek. Emin misiniz?')) {
+        localStorage.removeItem(STORAGE_KEY);
+        state = getDefaultState();
+        saveState();
+        applyTheme();
+        renderHomeScreen();
+        showToast('Tüm veriler sıfırlandı.');
+      }
+    }
+
+    // =========================================================================
+    // YARDIMCI MATEMATİK & DİZİ FONKSİYONLARI
+    // =========================================================================
+    function shuffleArray(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    // =========================================================================
+    // SERVICE WORKER KAYDI (PWA DESTEĞİ)
+    // =========================================================================
+    if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then(reg => console.log('KPSS SW Kayıt Başarılı:', reg.scope))
+          .catch(err => console.warn('KPSS SW Kayıt Başarısız:', err));
+      });
+    }
+
+    // Hızlı Ses butonu dinleyicisi
+    document.getElementById('quickSoundBtn').addEventListener('click', () => {
+      toggleSoundSetting(!state.profile.soundEnabled);
+      showToast(state.profile.soundEnabled ? 'Ses Açıldı' : 'Ses Kapatıldı');
+    });
+
+    // =========================================================================
+    // İLK YÜKLEME VE BAŞLATMA
+    // =========================================================================
+    window.addEventListener('DOMContentLoaded', () => {
+      applyTheme();
+      if (state.profile.fontScale) setFontScale(state.profile.fontScale);
+      renderHomeScreen();
+      updateTopicDropdown();
+    });
+  </script>
+</body>
+</html>
