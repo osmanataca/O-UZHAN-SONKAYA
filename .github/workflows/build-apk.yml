@@ -1,0 +1,83 @@
+name: Build and Release Android APK
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Create Mock Debug Keystore if missing
+        run: |
+          if [ ! -f "debug.keystore" ]; then
+            keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
+          fi
+
+      - name: Make Gradle executable
+        run: |
+          if [ -f "./gradlew" ]; then
+            chmod +x ./gradlew
+          fi
+
+      - name: Build Debug APK
+        run: |
+          if [ -f "./gradlew" ]; then
+            ./gradlew :app:assembleDebug --stacktrace
+          else
+            gradle :app:assembleDebug --stacktrace
+          fi
+
+      - name: Rename APK for Easy Identification
+        run: |
+          mkdir -p build_output
+          cp app/build/outputs/apk/debug/app-debug.apk build_output/KPSS_Ortaogretim_v1.0.apk
+
+      - name: Upload APK as Workflow Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: KPSS-Ortaogretim-APK
+          path: build_output/KPSS_Ortaogretim_v1.0.apk
+          retention-days: 30
+
+      - name: Create GitHub Release with APK
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
+        with:
+          tag_name: v1.0.0-${{ github.run_number }}
+          name: KPSS Ortaöğretim Sınav Hazırlık v1.0.${{ github.run_number }}
+          body: |
+            ## 📱 KPSS Ortaöğretim Sınav Hazırlık Android APK
+            
+            Bu sürüm GitHub Actions tarafından otomatik olarak derlenmiştir.
+            
+            - **Uygulama Adı:** KPSS Ortaöğretim
+            - **Paket:** com.aistudio.kpss.ortaogretim.hzkp
+            - **Özellikler:** %100 Çevrimdışı, 106+ Soru, 120 Soruluk Deneme, Analiz Grafikleri, Yanlış Defteri.
+            
+            ### ⬇️ İndirme:
+            Aşağıdaki `Assets` bölümünden `KPSS_Ortaogretim_v1.0.apk` dosyasını telefonunuza indirip kurabilirsiniz.
+          files: build_output/KPSS_Ortaogretim_v1.0.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
