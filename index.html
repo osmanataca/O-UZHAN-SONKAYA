@@ -767,6 +767,85 @@
       color: var(--primary);
     }
 
+    /* İPUCU (HINT) ALANI & GÜNCEL UI GELİŞTİRMELERİ */
+    .hint-section {
+      margin-top: 14px;
+      margin-bottom: 6px;
+    }
+
+    .hint-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      background: var(--warning-light);
+      border: 1.5px solid var(--warning);
+      color: #92400e;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(245, 158, 11, 0.2);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    [data-theme="dark"] .hint-toggle-btn {
+      background: #451a03;
+      color: #fde68a;
+      border-color: #b45309;
+    }
+    .hint-toggle-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+    }
+    .hint-toggle-btn:active {
+      transform: scale(0.97);
+    }
+    .hint-toggle-btn.open {
+      background: var(--warning);
+      color: white;
+    }
+
+    .hint-content-box {
+      margin-top: 10px;
+      padding: 13px 16px;
+      border-radius: var(--radius-md);
+      background: #fffbeb;
+      border-left: 4px solid var(--warning);
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: #78350f;
+      animation: fadeIn 0.25s ease-out;
+      box-shadow: var(--shadow-sm);
+    }
+    [data-theme="dark"] .hint-content-box {
+      background: #231808;
+      color: #fef3c7;
+      border-left-color: #f59e0b;
+    }
+
+    .tactic-card {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border: 1px solid #fcd34d;
+      color: #78350f;
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    [data-theme="dark"] .tactic-card {
+      background: linear-gradient(135deg, #2b1f09 0%, #451a03 100%);
+      border-color: #78350f;
+      color: #fde68a;
+    }
+    .tactic-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
     /* TEST ALT NAVİGASYONU */
     .quiz-bottom-nav {
       display: flex;
@@ -1233,15 +1312,29 @@
         </div>
       </div>
 
+      <!-- GÜNÜN KPSS ALTIN TAKTİK VE İPUCU KARTI -->
+      <div class="tactic-card" id="dailyTacticCard" onclick="cycleDailyTactic()">
+        <div style="font-size: 24px; flex-shrink: 0;">💡</div>
+        <div style="flex: 1;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 3px;">
+            <strong style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;">Günün KPSS Altın İpucu</strong>
+            <span style="font-size: 0.72rem; opacity: 0.8;">Tıkla & Değiştir ↻</span>
+          </div>
+          <p id="dailyTacticText" style="font-size: 0.88rem; font-weight: 600; line-height: 1.4;">
+            "Ters orantı problemlerinde (işçi, musluk vb.) sayılar karşılıklı çarpılır; doğru orantıda ise çapraz (içler-dışlar) çarpımı yapılır!"
+          </p>
+        </div>
+      </div>
+
       <!-- DERS BAZLI HIZLI BAŞLANGIÇ KARTLARI -->
-      <div class="card-title">Dersler & Konular</div>
+      <div class="card-title">Dersler & Konular (160 Soru)</div>
       <div class="lessons-grid">
         <div class="lesson-card lesson-turkce" onclick="openTestConfigForLesson('Türkçe')">
           <div class="lesson-icon-wrap">📖</div>
           <div class="lesson-name">Türkçe</div>
           <div class="lesson-meta">
             <span>Paragraf, Dil Bilgisi</span>
-            <strong id="badge-count-turkce">125 Soru</strong>
+            <strong id="badge-count-turkce">50 Soru</strong>
           </div>
         </div>
 
@@ -1250,7 +1343,7 @@
           <div class="lesson-name">Matematik</div>
           <div class="lesson-meta">
             <span>Problemler, Geometri</span>
-            <strong id="badge-count-matematik">125 Soru</strong>
+            <strong id="badge-count-matematik">26 Soru</strong>
           </div>
         </div>
 
@@ -1259,7 +1352,7 @@
           <div class="lesson-name">Tarih</div>
           <div class="lesson-meta">
             <span>Osmanlı, İnkılap</span>
-            <strong id="badge-count-tarih">112 Soru</strong>
+            <strong id="badge-count-tarih">24 Soru</strong>
           </div>
         </div>
 
@@ -1268,7 +1361,7 @@
           <div class="lesson-name">Coğrafya</div>
           <div class="lesson-meta">
             <span>Yer Şekilleri, İklim</span>
-            <strong id="badge-count-cografya">75 Soru</strong>
+            <strong id="badge-count-cografya">22 Soru</strong>
           </div>
         </div>
 
@@ -1277,7 +1370,7 @@
           <div class="lesson-name">Vatandaşlık</div>
           <div class="lesson-meta">
             <span>Anayasa, Yasama</span>
-            <strong id="badge-count-vatandaslik">38 Soru</strong>
+            <strong id="badge-count-vatandaslik">20 Soru</strong>
           </div>
         </div>
 
@@ -1286,7 +1379,7 @@
           <div class="lesson-name">Güncel Bilgiler</div>
           <div class="lesson-meta">
             <span>Kültür, Sanat, Dünya</span>
-            <strong id="badge-count-guncel">25 Soru</strong>
+            <strong id="badge-count-guncel">18 Soru</strong>
           </div>
         </div>
       </div>
@@ -1421,6 +1514,18 @@
         <!-- ŞIKLAR -->
         <div class="options-list" id="optionsList">
           <!-- Seçenekler JS ile basılacak -->
+        </div>
+
+        <!-- SORU ALTI İPUCU ALANI -->
+        <div class="hint-section" id="hintSection">
+          <button class="hint-toggle-btn" id="btnToggleHint" onclick="toggleHintVisibility()">
+            <span class="hint-icon">💡</span>
+            <span id="hintBtnLabel">İpucu Al</span>
+          </button>
+          <div class="hint-content-box" id="hintContentBox" style="display: none;">
+            <strong style="color: #b45309; display: block; margin-bottom: 4px;">💡 Soru İpucu & Taktik:</strong>
+            <span id="hintText"></span>
+          </div>
         </div>
 
         <!-- AÇIKLAMA / GERİBİLDİRİM KUTUSU -->
@@ -3155,6 +3260,643 @@
         ],
         dogru: 1,
         aciklama: "'Özel kuruluşları' denemez; 'Özel kuruluşlar ve kamu kuruluşları' şeklinde söylenmelidir. Bir sıfat ile bir isim tamlayanının aynı tamlanana bağlanması tamlama yanlışlığı yaratır."
+      },
+      // -----------------------------------------------------------------------
+      // MATEMATİK DEVAM PAKETİ (Soru 107-120)
+      // -----------------------------------------------------------------------
+      {
+        id: 107,
+        ders: "Matematik",
+        konu: "Kümeler",
+        zorluk: 2,
+        soru: "s(A) = 14, s(B) = 18 ve s(A ∩ B) = 6 olduğuna göre, A ∪ B birleşim kümesinin eleman sayısı s(A ∪ B) kaçtır?",
+        secenekler: ["24", "26", "28", "32", "38"],
+        dogru: 1,
+        ipucu: "Birleşim formülünü hatırla: s(A ∪ B) = s(A) + s(B) - s(A ∩ B)",
+        aciklama: "s(A ∪ B) = s(A) + s(B) - s(A ∩ B) = 14 + 18 - 6 = 32 - 6 = 26'dır."
+      },
+      {
+        id: 108,
+        ders: "Matematik",
+        konu: "Oran - Orantı",
+        zorluk: 2,
+        soru: "Bir işi eşit güçteki 6 işçi günde 8 saat çalışarak 15 günde bitirebilmektedir.\nAynı işi 10 işçi günde 6 saat çalışarak kaç günde bitirebilir?",
+        secenekler: ["8", "10", "12", "14", "16"],
+        dogru: 2,
+        ipucu: "Yapılan iş miktarları aynı olduğunda: (1. İşçi × Saat × Gün) = (2. İşçi × Saat × Gün)",
+        aciklama: "Toplam iş gücü = 6 · 8 · 15 = 720 birim. İkinci durumda gün sayısı x olsun: 10 · 6 · x = 60 · x = 720 => x = 12 gündür."
+      },
+      {
+        id: 109,
+        ders: "Matematik",
+        konu: "Kesir Problemleri",
+        zorluk: 2,
+        soru: "Bir öğrenci harçlığının önce 2/5'ini, sonra da kalan parasının 1/3'ünü harcıyor. Geriye 120 TL'si kaldığına göre, öğrencinin başlangıçtaki toplam harçlığı kaç TL'dir?",
+        secenekler: ["240", "280", "300", "320", "360"],
+        dogru: 2,
+        ipucu: "Kalanın kalanı sorularında kalan kesirleri birbiriyle çarpın: (1 - 2/5) × (1 - 1/3)",
+        aciklama: "Parası 5x olsun. 2/5'i harcanınca 3/5'i (yani 3x) kalır. 3x'in 1/3'ü harcanınca 2x'i kalır. 2x = 120 TL ise x = 60 TL. Toplam para = 5x = 5 · 60 = 300 TL."
+      },
+      {
+        id: 110,
+        ders: "Matematik",
+        konu: "Kâr - Zarar Problemleri",
+        zorluk: 2,
+        soru: "Bir tüccar maliyeti 200 TL olan bir ürünü %40 kârla etiketlendirmiştir. Satışlar durunca etiket fiyatı üzerinden %20 indirim yapmıştır.\nTüccarın bu üründen son durumdaki net kârı kaç TL'dir?",
+        secenekler: ["16", "20", "24", "28", "32"],
+        dogru: 2,
+        ipucu: "Önce maliyeti %40 artırarak etiket fiyatını bulun, ardından bu fiyatın %20 indirimini hesaplayıp maliyetten çıkarın.",
+        aciklama: "Etiket fiyatı: 200 + (200 · 0.40) = 280 TL. %20 indirim: 280 · 0.20 = 56 TL indirim. Satış fiyatı: 280 - 56 = 224 TL. Net Kâr = 224 - 200 = 24 TL."
+      },
+      {
+        id: 111,
+        ders: "Matematik",
+        konu: "Karışım Problemleri",
+        zorluk: 2,
+        soru: "Tuz oranı %20 olan 60 gram tuzlu su ile tuz oranı %40 olan 40 gram tuzlu su karıştırılıyor.\nOluşan yeni karışımın tuz oranı yüzde kaçtır?",
+        secenekler: ["25", "28", "30", "32", "34"],
+        dogru: 1,
+        ipucu: "Karışım formülü: (Miktar1 × Yüzde1 + Miktar2 × Yüzde2) = Toplam Miktar × Yeni Yüzde",
+        aciklama: "(60 · 20 + 40 · 40) = (60 + 40) · x => 1200 + 1600 = 100x => 2800 = 100x => x = 28. Yeni karışımın tuz oranı %28'dir."
+      },
+      {
+        id: 112,
+        ders: "Matematik",
+        konu: "İşçi Problemleri",
+        zorluk: 2,
+        soru: "Bir işi Can yalnız başına 12 günde, Cem ise yalnız başına 24 günde bitirebilmektedir.\nİkisi birlikte çalışırlarsa bu işin tamamını kaç günde bitirirler?",
+        secenekler: ["6", "8", "9", "10", "16"],
+        dogru: 1,
+        ipucu: "Birlikte çalışma formülü: 1/t = 1/t1 + 1/t2",
+        aciklama: "1/t = 1/12 + 1/24 = 2/24 + 1/24 = 3/24 = 1/8. Buradan t = 8 gün bulunur."
+      },
+      {
+        id: 113,
+        ders: "Matematik",
+        konu: "Fonksiyonlar",
+        zorluk: 1,
+        soru: "f(x) = 3x - 5 doğrusal fonksiyonu veriliyor.\nBuna göre f(4) değeri kaçtır?",
+        secenekler: ["5", "7", "9", "11", "12"],
+        dogru: 1,
+        ipucu: "Fonksiyon denkleminde x gördüğün her yere 4 yaz.",
+        aciklama: "f(4) = 3(4) - 5 = 12 - 5 = 7'dir."
+      },
+      {
+        id: 114,
+        ders: "Matematik",
+        konu: "Sayı Basamakları",
+        zorluk: 2,
+        soru: "AB ve BA iki basamaklı sayılardır.\nAB - BA = 54 olduğuna göre, A - B farkı kaçtır?",
+        secenekler: ["4", "5", "6", "7", "8"],
+        dogru: 2,
+        ipucu: "Basamak çözümlemesi yap: (10A + B) - (10B + A) = 9(A - B)",
+        aciklama: "AB = 10A + B, BA = 10B + A. AB - BA = 9(A - B) = 54 => A - B = 54 / 9 = 6."
+      },
+      {
+        id: 115,
+        ders: "Matematik",
+        konu: "Mutlak Değer",
+        zorluk: 2,
+        soru: "|x - 3| < 5 eşitsizliğini sağlayan kaç farklı x tam sayı değeri vardır?",
+        secenekler: ["7", "8", "9", "10", "11"],
+        dogru: 2,
+        ipucu: "|a| < k ise -k < a < k kuralını uygula.",
+        aciklama: "-5 < x - 3 < 5 => Her tarafa 3 eklersek: -2 < x < 8. Sağlayan tam sayılar: -1, 0, 1, 2, 3, 4, 5, 6, 7 (toplam 9 tam sayı değeri vardır)."
+      },
+      {
+        id: 116,
+        ders: "Matematik",
+        konu: "Basit Eşitsizlikler",
+        zorluk: 2,
+        soru: "a < b < 0 olduğuna göre, aşağıdakilerden hangisi DAİMA DOĞRUDUR?",
+        secenekler: [
+          "a · b < 0",
+          "a / b < 0",
+          "a + b > 0",
+          "a^2 > b^2",
+          "1/a > 1/b"
+        ],
+        dogru: 3,
+        ipucu: "Negatif sayılarda mutlak değerce büyük olanın karesi daha büyüktür. Örnek değer ver: a = -3, b = -2.",
+        aciklama: "Örneğin a = -3, b = -2 için: a^2 = 9, b^2 = 4 ve 9 > 4'tür. Negatif sayılarda daha küçük olanın karesi daima daha büyüktür."
+      },
+      {
+        id: 117,
+        ders: "Matematik",
+        konu: "Permütasyon",
+        zorluk: 2,
+        soru: "4 farklı matematik ve 3 farklı fizik kitabı düz bir rafa dizilecektir.\nMatematik kitapları yan yana olmak koşuluyla kaç farklı şekilde dizilebilirler?",
+        secenekler: ["144", "288", "576", "720", "1440"],
+        dogru: 2,
+        ipucu: "Yan yana olanları tek bir blok say (1 paket) ve kendi içindeki sıralamalarını (4!) unutma.",
+        aciklama: "4 matematik kitabını tek bir paket sayarız (1). 3 fizik kitabı da vardır, toplam 1 + 3 = 4 eleman 4! kadar sıralanır. Matematik kitapları kendi aralarında 4! sıralanır: 4! · 4! = 24 · 24 = 576."
+      },
+      {
+        id: 118,
+        ders: "Matematik",
+        konu: "Kombinasyon",
+        zorluk: 2,
+        soru: "7 kişilik bir gruptan 3 kişilik bir çalışma komitesi kaç farklı şekilde seçilebilir?",
+        secenekler: ["21", "28", "35", "42", "70"],
+        dogru: 2,
+        ipucu: "Kombinasyon formülü: C(n, r) = n! / [r! × (n-r)!]",
+        aciklama: "C(7, 3) = (7 · 6 · 5) / (3 · 2 · 1) = 210 / 6 = 35 farklı şekilde seçilebilir."
+      },
+      {
+        id: 119,
+        ders: "Matematik",
+        konu: "Geometri (Üçgenler)",
+        zorluk: 1,
+        soru: "Bir dik üçgende dik kenarların uzunlukları 6 cm ve 8 cm olduğuna göre, hipotenüs uzunluğu kaç santimetredir?",
+        secenekler: ["9", "10", "12", "14", "15"],
+        dogru: 1,
+        ipucu: "Pisagor bağıntısını (a² + b² = c²) veya 3-4-5 özel üçgeninin 2 katını hatırla.",
+        aciklama: "3-4-5 üçgeninin 2 katı: 6-8-10 üçgenidir. c² = 6² + 8² = 36 + 64 = 100 => c = 10 cm."
+      },
+      {
+        id: 120,
+        ders: "Matematik",
+        konu: "Geometri (Dairenin Alanı)",
+        zorluk: 1,
+        soru: "Yarıçapı 4 cm olan bir dairenin alanı kaç santimetrekaredir? (π = 3 alınız)",
+        secenekler: ["24", "36", "48", "64", "96"],
+        dogru: 2,
+        ipucu: "Dairenin alanı = π · r²",
+        aciklama: "Alan = π · r² = 3 · 4² = 3 · 16 = 48 cm²."
+      },
+
+      // -----------------------------------------------------------------------
+      // TARİH DEVAM PAKETİ (Soru 121-132)
+      // -----------------------------------------------------------------------
+      {
+        id: 121,
+        ders: "Tarih",
+        konu: "İslamiyet Öncesi Türk Tarihi",
+        zorluk: 1,
+        soru: "Türk tarihinin ve edebiyatının ilk yazılı kaynakları kabul edilen ve II. Göktürk (Kutluk) Devleti dönemine ait olan eser aşağıdakilerden hangisidir?",
+        secenekler: ["Yenisey Yazıtları", "Orhun Abideleri", "Manas Destanı", "Divanü Lügati't-Türk", "Kutadgu Bilig"],
+        dogru: 1,
+        ipucu: "Bilge Kağan, Kül Tigin ve Vezir Tonyukuk adına dikilen anıtları düşünün.",
+        aciklama: "Moğolistan sınırlarında bulunan Orhun (Göktürk) Yazıtları, Vezir Tonyukuk, Kül Tigin ve Bilge Kağan adına dikilmiş ilk Türkçe yazılı belgelerdir."
+      },
+      {
+        id: 122,
+        ders: "Tarih",
+        konu: "Türk-İslam Tarihi",
+        zorluk: 1,
+        soru: "Orta Asya'da kurulan ve İslamiyet'i resmi din olarak kabul eden İLK Türk-İslam devleti hangisidir?",
+        secenekler: ["Gazneliler", "Büyük Selçuklular", "Karahanlılar", "Tolunoğulları", "İhşidiler"],
+        dogru: 2,
+        ipucu: "Satuk Buğra Han (Abdülkerim) döneminde İslamiyet'i kabul eden devleti hatırla.",
+        aciklama: "Karahanlılar (840-1212), Orta Asya'da kurulan ve Satuk Buğra Han döneminde İslamiyet'i kabul eden ilk Türk-İslam devletidir."
+      },
+      {
+        id: 123,
+        ders: "Tarih",
+        konu: "Osmanlı Yükselme Dönemi",
+        zorluk: 2,
+        soru: "1538 yılında Barbaros Hayreddin Paşa komutasındaki Osmanlı donanmasının Haçlı donanmasını yenerek Akdeniz'i Türk gölü haline getirdiği zafer hangisidir?",
+        secenekler: ["İnebahtı Deniz Savaşı", "Preveze Deniz Zaferi", "Çeşme Baskını", "Navarin Olayı", "Cerbe Deniz Savaşı"],
+        dogru: 1,
+        ipucu: "Günümüzde her yıl 'Donanma Günü' olarak kutlanan zaferi düşünün.",
+        aciklama: "28 Eylül 1538'de Andrea Doria komutasındaki Haçlı donanmasına karşı kazanılan Preveze Deniz Zaferi ile Akdeniz'de Türk üstünlüğü kesinleşmiştir."
+      },
+      {
+        id: 124,
+        ders: "Tarih",
+        konu: "Osmanlı Duraklama Dönemi",
+        zorluk: 2,
+        soru: "Hotin Seferi sırasında disiplinsizliğini gördüğü Yeniçeri Ocağı'nı kaldırmayı düşünen ancak yeniçeriler tarafından tahttan indirilip katledilen ilk Osmanlı padişahı kimdir?",
+        secenekler: ["IV. Murat", "II. Osman (Genç Osman)", "I. Ahmet", "III. Mehmet", "IV. Mehmet"],
+        dogru: 1,
+        ipucu: "Saray dışından evlenerek saray içi nüfuzu kırmaya çalışan genç padişahı hatırla.",
+        aciklama: "II. Osman (Genç Osman), Yeniçeri Ocağı'nı kaldırma fikrini ortaya atan ve bu uğurda Yedikule zindanlarında yeniçerilerce şehit edilen padişahtır."
+      },
+      {
+        id: 125,
+        ders: "Tarih",
+        konu: "Osmanlı Gerileme (Lale Devri)",
+        zorluk: 2,
+        soru: "Osmanlı Devleti'nde Lale Devri'nde İbrahim Müteferrika ve Said Efendi öncülüğünde kurulan ilk Türk matbaasında basılan İLK eser hangisidir?",
+        secenekler: ["Seyahatname", "Vankulu Lügati", "Cihannüma", "Tarih-i Naima", "Şecere-i Terakime"],
+        dogru: 1,
+        ipucu: "Arapça-Türkçe sözlük niteliğindeki ünlü sözlüğü hatırla.",
+        aciklama: "1729 yılında kurulan ilk Müslüman Türk matbaasında basılan ilk eser Vankulu Lügati'dir (dini eserlerin basımı yasaklanmıştır)."
+      },
+      {
+        id: 126,
+        ders: "Tarih",
+        konu: "Osmanlı Dağılma Dönemi",
+        zorluk: 2,
+        soru: "1839 yılında Sadrazam Mustafa Reşit Paşa tarafından Gülhane Parkı'nda okunarak ilan edilen ve kanun üstünlüğünü getiren ferman hangisidir?",
+        secenekler: ["Sened-i İttifak", "Tanzimat Fermanı", "Islahat Fermanı", "I. Meşrutiyet Kanun-i Esasisi", "Halepe Fermanı"],
+        dogru: 1,
+        ipucu: "Sultan Abdülmecid döneminde Gülhane Hatt-ı Hümayunu adıyla anılan fermanı düşünün.",
+        aciklama: "Tanzimat Fermanı (1839) ile padişah kendi gücünün üzerinde kanun gücü olduğunu ilk kez kabul etmiştir."
+      },
+      {
+        id: 127,
+        ders: "Tarih",
+        konu: "I. Dünya Savaşı",
+        zorluk: 2,
+        soru: "I. Dünya Savaşı'nda Irak Cephesi'nde Halil (Kut) Paşa komutasındaki Osmanlı ordusunun İngiliz general Townsend ve 13 bin askerini esir aldığı büyük zafer hangisidir?",
+        secenekler: ["Kutü'l-Amare Zaferi", "Selman-ı Pak Zaferi", "Medine Müdafaası", "Gazze Muharebesi", "Anafartalar Zaferi"],
+        dogru: 0,
+        ipucu: "29 Nisan 1916'da Irak Cephesi'nde kazanılan ve İngiliz ordusuna ağır hezimet yaşatan zafer.",
+        aciklama: "Kutü'l-Amare Zaferi (1916), Çanakkale'den sonra I. Dünya Savaşı'nda kazandığımız en büyük ikinci zaferdir; İngiliz tümeni tamamen esir alınmıştır."
+      },
+      {
+        id: 128,
+        ders: "Tarih",
+        konu: "Kurtuluş Savaşı Hazırlık Dönemi",
+        zorluk: 2,
+        soru: "'Manda ve himaye kabul edilemez.' maddesiyle manda fikri İLK KEZ nerede kesin olarak reddedilmiştir?",
+        secenekler: ["Havza Genelgesi", "Amasya Genelgesi", "Erzurum Kongresi", "Sivas Kongresi", "Amasya Görüşmeleri"],
+        dogru: 2,
+        ipucu: "Toplanış bakımından bölgesel, aldığı kararlar bakımından millî olan kongreyi hatırla.",
+        aciklama: "Manda ve himaye ilk kez Erzurum Kongresi'nde reddedilmiş, Sivas Kongresi'nde ise bir daha gündeme gelmemek üzere kesin olarak reddedilmiştir."
+      },
+      {
+        id: 129,
+        ders: "Tarih",
+        konu: "Kurtuluş Savaşı Muharebeler",
+        zorluk: 2,
+        soru: "Büyük Taarruz ve Başkomutanlık Meydan Muharebesi'nin kazanılmasının ardından Millî Mücadele'nin silahlı dönemini sona erdiren ateşkes antlaşması hangisidir?",
+        secenekler: ["Mondros Ateşkesi", "Mudanya Ateşkes Antlaşması", "Gümrü Antlaşması", "Ankara Antlaşması", "Kars Antlaşması"],
+        dogru: 1,
+        ipucu: "İsmet İnönü'nün TBMM adına katıldığı ve Doğu Trakya ile Boğazlar'ın savaşsız kurtarıldığı antlaşma.",
+        aciklama: "11 Ekim 1922'de imzalanan Mudanya Ateşkes Antlaşması ile Kurtuluş Savaşı'nın askeri safhası sona ermiş, diplomatik safha başlamıştır."
+      },
+      {
+        id: 130,
+        ders: "Tarih",
+        konu: "Lozan Barış Antlaşması",
+        zorluk: 3,
+        soru: "24 Temmuz 1923'te imzalanan Lozan Barış Antlaşması'nda Türkiye ile İngiltere arasında çözülemeyen ve sonraya bırakılan tek sınır meselesi hangisidir?",
+        secenekler: ["Hatay Sorunu", "Batı Trakya Sorunu", "Musul (Irak Sınırı) Sorunu", "Boğazlar Sorunu", "On İki Ada Sorunu"],
+        dogru: 2,
+        ipucu: "Petrol zengini bu bölge daha sonra 1926 Ankara Antlaşması ile Irak'a bırakılmıştır.",
+        aciklama: "Lozan'da çözülemeyip Türkiye ile İngiltere arasındaki ikili görüşmelere bırakılan tek mesele Musul (Irak sınırı) meselesidir."
+      },
+      {
+        id: 131,
+        ders: "Tarih",
+        konu: "Atatürk İnkılapları",
+        zorluk: 2,
+        soru: "3 Mart 1924 tarihinde kabul edilen ve Türkiye'deki bütün eğitim-öğretim kurumlarını Millî Eğitim Bakanlığı'na bağlayan kanun hangisidir?",
+        secenekler: ["Tevhid-i Tedrisat Kanunu", "Takrir-i Sükun Kanunu", "Medeni Kanun", "Kabotaj Kanunu", "Soyadı Kanunu"],
+        dogru: 0,
+        ipucu: "Öğretimin birleştirilmesi anlamına gelen ünlü inkılap kanununu hatırla.",
+        aciklama: "Tevhid-i Tedrisat (Öğretim Birliği) Kanunu ile tüm medreseler kapatılmış, eğitim kurumları MEB çatısı altında birleştirilmiştir."
+      },
+      {
+        id: 132,
+        ders: "Tarih",
+        konu: "Çağdaş Türk ve Dünya Tarihi",
+        zorluk: 2,
+        soru: "Türkiye Cumhuriyeti Devleti'nin garantörlük hakkını kullanarak 1974 yılında Kıbrıslı Türklerin can güvenliğini sağlamak amacıyla başlattığı harekâtın adı nedir?",
+        secenekler: ["Zeytin Dalı Harekâtı", "Kıbrıs Barış Harekâtı", "Fırat Kalkanı", "Pençe Harekâtı", "Kore Harekâtı"],
+        dogru: 1,
+        ipucu: "'Ayşe tatile çıksın' parolasıyla başlatılan tarihi askeri harekât.",
+        aciklama: "20 Temmuz 1974'te Başbakan Bülent Ecevit ve Başbakan Yardımcısı Necmettin Erbakan liderliğinde Kıbrıs Barış Harekâtı icra edilmiştir."
+      },
+
+      // -----------------------------------------------------------------------
+      // COĞRAFYA DEVAM PAKETİ (Soru 133-142)
+      // -----------------------------------------------------------------------
+      {
+        id: 133,
+        ders: "Coğrafya",
+        konu: "Türkiye'nin Jeolojik Yapısı",
+        zorluk: 2,
+        soru: "Birinci jeolojik zamanda (Paleozoik) oluşan, sertleşmiş, kıvrılmayan ve deprem riski düşük olan eski kütlelere ne ad verilir?",
+        secenekler: ["Horst", "Graben", "Masif Arazi", "Moren", "Sander Düzlüğü"],
+        dogru: 2,
+        ipucu: "Yıldız Dağları, Menteşe, Mardin-Derik gibi arazilerin ortak jeolojik adını düşünün.",
+        aciklama: "I. zamanda oluşmuş yaşlı ve dayanıklı zeminlere 'masif' denir (ör: Yıldız, Saruhan-Menteşe, Kırşehir, Bitlis masifleri)."
+      },
+      {
+        id: 134,
+        ders: "Coğrafya",
+        konu: "Türkiye'nin Dağları",
+        zorluk: 2,
+        soru: "Ege Bölgesi'nde yer alan Kaz Dağı, Madra Dağı, Yunt Dağı ve Bozdağlar oluşum mekanizmaları bakımından hangi tür dağlardır?",
+        secenekler: ["Volkanik Dağlar", "Kırık (Horst) Dağları", "Kıvrım Dağları", "Buzul Dağları", "Karstik Dağlar"],
+        dogru: 1,
+        ipucu: "Sert arazilerin yan basınçlarla kırılmasıyla yüksekte kalan horst bloklarını hatırla.",
+        aciklama: "Ege'de sert tabakaların kırılması sonucu yüksekte kalan kısımlar horst (dağ), çöken kısımlar graben (çöküntü ovası) oluşturur."
+      },
+      {
+        id: 135,
+        ders: "Coğrafya",
+        konu: "Türkiye'nin Gölleri",
+        zorluk: 2,
+        soru: "Burdur ve Isparta yöresinde (Göller Yöresi) bulunan Salda, Kestel ve Avlan gölleri oluşum bakımından hangi tür göllerdir?",
+        secenekler: ["Buzul Gölleri", "Heyelan Set Gölleri", "Karstik Göller", "Volkanik Göller", "Kıyı Set Gölleri"],
+        dogru: 2,
+        ipucu: "Kalker, jips, kaya tuzu gibi suda kolay çözünebilen kayaçların erimesiyle oluşan çukurlukları düşünün.",
+        aciklama: "Göller Yöresi karstik erime çukurluklarında (polye) su birikmesiyle oluşan karstik gölleriyle meşhurdur."
+      },
+      {
+        id: 136,
+        ders: "Coğrafya",
+        konu: "Türkiye'nin İklimi",
+        zorluk: 1,
+        soru: "Türkiye'de her mevsimi yağışlı geçen, yıllık yağış miktarı en yüksek ve kurak dönemi bulunmayan iklim tipi hangisidir?",
+        secenekler: ["Akdeniz İklimi", "Karasal İklim", "Karadeniz İklimi", "Sert Karasal İklim", "Step İklimi"],
+        dogru: 2,
+        ipucu: "Doğu Karadeniz kıyılarında (Rize, Trabzon) hakim olan ılıman ve nemli iklimi hatırla.",
+        aciklama: "Karadeniz iklimi, ülkemizde dört mevsim yağış alan ve kuraklık yaşanmayan tek iklim tipidir."
+      },
+      {
+        id: 137,
+        ders: "Coğrafya",
+        konu: "Türkiye'nin Toprakları",
+        zorluk: 2,
+        soru: "Akdeniz iklim bölgesinde kalkerli (kireçtaşı) araziler üzerinde gelişen, demir oksit oranı yüksek olduğu için kırmızı renkli olan toprak türü hangisidir?",
+        secenekler: ["Çernezyom", "Podzol", "Terra Rossa", "Alüvyal", "Lös"],
+        dogru: 2,
+        ipucu: "'Kırmızı Akdeniz Toprağı' olarak da bilinen zonal toprak türü.",
+        aciklama: "Terra Rossa (Kırmızı Akdeniz Toprağı), kalkerler üzerinde kirecin yıkanması ve demirin oksitlenmesiyle kırmızı rengini alır."
+      },
+      {
+        id: 138,
+        ders: "Coğrafya",
+        konu: "Türkiye'de Nüfus ve Göç",
+        zorluk: 1,
+        soru: "Çukurova'ya pamuk, Karadeniz'e fındık, Ege'ye üzüm ve tütün toplamak için belirli dönemlerde yapılan göçler hangi göç türüne örnektir?",
+        secenekler: ["Sürekli Dış Göç", "Mevsimlik (Geçici) İç Göç", "Mübadele Göçü", "Beyin Göçü", "Sığınmacı Göçü"],
+        dogru: 1,
+        ipucu: "Yılın belirli tarım hasat aylarında gidilip geri dönülen göç biçimi.",
+        aciklama: "Tarım, inşaat veya turizm sezonunda birkaç aylığına yapılan yer değiştirmeler 'mevsimlik (geçici) iç göç' olarak adlandırılır."
+      },
+      {
+        id: 139,
+        ders: "Coğrafya",
+        konu: "Tarım Ürünleri",
+        zorluk: 2,
+        soru: "Türkiye'de üretim alanlarının tamamına yakını Doğu Karadeniz Bölümü'nde toplanmış olan ve kış ılıklığı ile bol nem isteyen tarım ürünü hangisidir?",
+        secenekler: ["İncir", "Zeytin", "Çay", "Pamuk", "Mercimek"],
+        dogru: 2,
+        ipucu: "Rize, Artvin, Trabzon kıyılarında mikroklimal ortamda yetişen yapraklı içecek bitkisi.",
+        aciklama: "Çay tarımı aşırı nem ve asitli toprak istediği için yalnızca Doğu Karadeniz'in kıyı kuşağında yapılabilmektedir."
+      },
+      {
+        id: 140,
+        ders: "Coğrafya",
+        konu: "Madenler",
+        zorluk: 2,
+        soru: "Kastamonu-Küre, Artvin-Murgul ve Elazığ-Maden yataklarında çıkarılan, elektrik ve elektronik sanayisinin temel hammaddesi olan metalik maden hangisidir?",
+        secenekler: ["Demir", "Bakır", "Boksit", "Krom", "Kurşun"],
+        dogru: 1,
+        ipucu: "İletkenliği çok yüksek olan, tencere ve kablo yapımında sıkça kullanılan kırmızımsı maden.",
+        aciklama: "Bakır rezervleri Küre, Murgul, Maden ve Çayeli sahalarında zengindir ve Samsun ile Maden tesislerinde işlenir."
+      },
+      {
+        id: 141,
+        ders: "Coğrafya",
+        konu: "Enerji Kaynakları",
+        zorluk: 2,
+        soru: "Fay hatlarına bağlı sıcak su buharından elektrik üreten Türkiye'nin ilk jeotermal santrali hangi ilimizde kurulmuştur?",
+        secenekler: ["İzmir", "Denizli (Sarayköy)", "Aydın", "Manisa", "Afyonkarahisar"],
+        dogru: 1,
+        ipucu: "Denizli'nin Sarayköy ilçesindeki ilk jeotermal enerji tesisini düşünün.",
+        aciklama: "Türkiye'nin ilk jeotermal elektrik santrali Denizli Sarayköy'de işletmeye açılmıştır."
+      },
+      {
+        id: 142,
+        ders: "Coğrafya",
+        konu: "Bölgesel Kalkınma Projeleri",
+        zorluk: 1,
+        soru: "Fırat ve Dicle nehirlerinin sularından yararlanarak Güneydoğu Anadolu'da sulu tarımı yaygınlaştırmayı hedefleyen cumhuriyet tarihinin en büyük kalkınma projesi hangisidir?",
+        secenekler: ["DOKAP", "ZBK Projesi", "GAP (Güneydoğu Anadolu Projesi)", "DAP", "Yeşilırmak Havza Projesi"],
+        dogru: 2,
+        ipucu: "Atatürk Barajı ve Şanlıurfa Tünelleri bu projenin omurgasıdır.",
+        aciklama: "GAP (Güneydoğu Anadolu Projesi), bölgenin tarım, enerji ve sosyoekonomik kalkınmasını sağlayan devasa entegre projedir."
+      },
+
+      // -----------------------------------------------------------------------
+      // VATANDAŞLIK DEVAM PAKETİ (Soru 143-152)
+      // -----------------------------------------------------------------------
+      {
+        id: 143,
+        ders: "Vatandaşlık",
+        konu: "Hukukun Temel Kavramları",
+        zorluk: 1,
+        soru: "Kişinin haklara ve borçlara sahip olabilme iktidarına ne ad verilir?",
+        secenekler: ["Fiil Ehliyeti", "Hak Ehliyeti", "Vesayet", "Gaiplik", "Kısıtlılık"],
+        dogru: 1,
+        ipucu: "Sağ ve tam doğmak şartıyla ana rahmine düşüldüğü andan itibaren kazanılan ehliyet.",
+        aciklama: "Hak ehliyeti pasif bir ehliyettir, herkes sağ ve tam doğumla hak ehliyetine sahip olur. Hakları bizzat kullanabilme ise 'fiil ehliyeti'dir."
+      },
+      {
+        id: 144,
+        ders: "Vatandaşlık",
+        konu: "Anayasa Tarihi",
+        zorluk: 2,
+        soru: "Türk anayasa tarihinde 'Meclis Hükümeti Sistemi'ni benimseyen ve en kısa, tek yumuşak-çerçeve anayasamız hangisidir?",
+        secenekler: ["1876 Kanun-i Esasi", "1921 Anayasası (Teşkilat-ı Esasiye)", "1924 Anayasası", "1961 Anayasası", "1982 Anayasası"],
+        dogru: 1,
+        ipucu: "Kurtuluş Savaşı şartlarında hazırlanan 23 maddelik temel metni düşünün.",
+        aciklama: "1921 Anayasası olağanüstü savaş koşullarında hazırlandığı için kısa (23 madde), çerçeve ve değiştirilmesi kolay yumuşak tek anayasamızdır."
+      },
+      {
+        id: 145,
+        ders: "Vatandaşlık",
+        konu: "1982 Anayasası Esasları",
+        zorluk: 1,
+        soru: "1982 Anayasası'nın 4. maddesine göre anayasanın ilk kaç maddesi değiştirilemez ve değiştirilmesi teklif dahi edilemez?",
+        secenekler: ["İlk 1 maddesi", "İlk 2 maddesi", "İlk 3 maddesi", "İlk 5 maddesi", "İlk 10 maddesi"],
+        dogru: 2,
+        ipucu: "Devletin şekli, nitelikleri, başkenti ve bayrağını düzenleyen ilk maddeler.",
+        aciklama: "1982 Anayasası'nın 4. maddesi; 1. (Devletin Şekli), 2. (Cumhuriyetin Nitelikleri) ve 3. (Devletin Bütünlüğü, Dili, Bayrağı, Marşı, Başkenti) maddelerinin değiştirilemeyeceğini hükme bağlamıştır."
+      },
+      {
+        id: 146,
+        ders: "Vatandaşlık",
+        konu: "Temel Haklar ve Ödevler",
+        zorluk: 2,
+        soru: "Eğitim ve öğrenim hakkı, sağlık hizmetleri hakkı ve konut hakkı Anayasa'mızda hangi hak kategorisinde (Jellinek sınıflaması) yer alır?",
+        secenekler: [
+          "Kişisel Haklar (Negatif Statü)",
+          "Sosyal ve Ekonomik Haklar (Pozitif Statü / İsteme Hakları)",
+          "Siyasi Haklar (Aktif Statü)",
+          "Çekirdek Haklar",
+          "Kolektif Haklar"
+        ],
+        dogru: 1,
+        ipucu: "Bireyin devletten hizmet ve güvence talep ettiği 'isteme' hakları grubunu düşünün.",
+        aciklama: "Devletin birey için sosyal güvence sağlamakla yükümlü olduğu eğitim, sağlık, sosyal güvenlik gibi haklar Sosyal ve Ekonomik (Pozitif Statü) haklardır."
+      },
+      {
+        id: 147,
+        ders: "Vatandaşlık",
+        konu: "TBMM ve Seçimler",
+        zorluk: 2,
+        soru: "1982 Anayasası'na göre TBMM'nin seçimlerin yenilenmesine (erken seçime) karar verebilmesi için meclis üye tamsayısının en az kaçta kaçının oyu gerekir?",
+        secenekler: ["Salt Çoğunluğu (301)", "3/5 Çoğunluğu (360)", "2/3 Çoğunluğu (400)", "4/5 Çoğunluğu (480)", "1/3 Çoğunluğu (200)"],
+        dogru: 1,
+        ipucu: "600 milletvekilinin %60'ına denk gelen 360 oyu hatırla.",
+        aciklama: "TBMM, üye tamsayısının beşte üç (3/5) çoğunluğuyla (en az 360 milletvekili) erken seçim kararı alabilir."
+      },
+      {
+        id: 148,
+        ders: "Vatandaşlık",
+        konu: "Yasama ve Kanunlar",
+        zorluk: 2,
+        soru: "TBMM tarafından kabul edilen kanunları yayımlamak veya tekrar görüşülmek üzere meclise geri göndermek için Cumhurbaşkanı'na tanınan süre kaç gündür?",
+        secenekler: ["7 gün", "10 gün", "15 gün", "30 gün", "45 gün"],
+        dogru: 2,
+        ipucu: "İki haftalık süreyi düşünün (Bütçe kanunu hariç).",
+        aciklama: "Cumhurbaşkanı, TBMM'ce kabul edilen kanunları 15 gün içinde Resmî Gazete'de yayımlar veya veto ederek meclise geri gönderir."
+      },
+      {
+        id: 149,
+        ders: "Vatandaşlık",
+        konu: "Yürütme ve Kararnameler",
+        zorluk: 3,
+        soru: "Cumhurbaşkanlığı Kararnameleri ile ilgili olarak aşağıdakilerden hangisi DOĞRUDUR?",
+        secenekler: [
+          "Anayasa'da yer alan kişi hak ve ödevleri kararname ile düzenlenebilir.",
+          "Kanunla açıkça düzenlenen konularda kararname çıkarılamaz.",
+          "Kararnameler yargı denetimine tabi değildir.",
+          "Vergi ve harçlar kararname ile ihdas edilebilir.",
+          "Kararnamelerin denetimini Danıştay yapar."
+        ],
+        dogru: 1,
+        ipucu: "Kanun ile Cumhurbaşkanlığı Kararnamesi çatışırsa kanun hükümleri uygulanır.",
+        aciklama: "Kanunda açıkça düzenlenen konularda ve münhasıran kanunla düzenlenmesi gereken konularda CBK çıkarılamaz; CBK'lerin anayasaya uygunluk denetimini Anayasa Mahkemesi yapar."
+      },
+      {
+        id: 150,
+        ders: "Vatandaşlık",
+        konu: "Yargı Organları",
+        zorluk: 2,
+        soru: "Hâkimler ve Savcılar Kurulu'nun (HSK) başkanı kanunen kimdir?",
+        secenekler: [
+          "Yargıtay Birinci Başkanı",
+          "Adalet Bakanı",
+          "Anayasa Mahkemesi Başkanı",
+          "Danıştay Başkanı",
+          "Adalet Bakanlığı Müsteşarı (Bakan Yardımcısı)"
+        ],
+        dogru: 1,
+        ipucu: "Hükümet kabinesinde adalet işlerinden sorumlu bakanı düşünün.",
+        aciklama: "Anayasa'nın 159. maddesi gereğince HSK'nin başkanı Adalet Bakanı'dır. Adalet Bakan Yardımcısı ise kurulun tabii üyesidir."
+      },
+      {
+        id: 151,
+        ders: "Vatandaşlık",
+        konu: "İdare Hukuku",
+        zorluk: 2,
+        soru: "Türkiye'de il idaresinde 'Yetki Genişliği' ilkesine sahip tek kamu görevlisi kimdir?",
+        secenekler: ["Belediye Başkanı", "Vali", "Kaymakam", "İl Genel Meclis Başkanı", "Köy Muhtarı"],
+        dogru: 1,
+        ipucu: "İlde devleti ve Cumhurbaşkanı'nı temsil eden en üst mülki idare amiri.",
+        aciklama: "Yetki genişliği, merkeze danışmadan devlet adına karar alabilme yetkisidir ve Türkiye'de bu yetki yalnızca 'Vali'ye tanınmıştır (Kaymakamın yetki genişliği yoktur)."
+      },
+      {
+        id: 152,
+        ders: "Vatandaşlık",
+        konu: "İdare Hukuku",
+        zorluk: 1,
+        soru: "Aşağıdakilerden hangisi 'Merkeze Yardımcı Kuruluşlar' arasında yer alır?",
+        secenekler: ["Danıştay", "Yargıtay", "Uyuşmazlık Mahkemesi", "İl İdare Kurulu", "Belediye Meclisi"],
+        dogru: 0,
+        ipucu: "İdari davaların temyiz mercii olmanın yanı sıra idareye danışma (istişare) görevi de bulunan yüksek mahkeme.",
+        aciklama: "Danıştay ve Sayıştay, hem yüksek mahkeme hem de idareye görüş bildiren merkeze yardımcı danışma kuruluşlarıdır."
+      },
+
+      // -----------------------------------------------------------------------
+      // GÜNCEL BİLGİLER DEVAM PAKETİ (Soru 153-160)
+      // -----------------------------------------------------------------------
+      {
+        id: 153,
+        ders: "Güncel Bilgiler",
+        konu: "Bilim ve Savunma Sanayii",
+        zorluk: 1,
+        soru: "TUSAŞ tarafından geliştirilen ve Şubat 2024'te ilk uçuşunu başarıyla gerçekleştiren Türkiye'nin 5. nesil millî muharip uçağının adı nedir?",
+        secenekler: ["HÜRJET", "KAAN", "KIZILELMA", "ANKA-3", "ATAK"],
+        dogru: 1,
+        ipucu: "Adı 'Hakan, Hükümdar' anlamına gelen 5. nesil savaş uçağımız.",
+        aciklama: "Türkiye'nin yerli ve millî 5. nesil hayalet savaş uçağı projesi KAAN, 2024 başında ilk uçuşunu başarıyla tamamlamıştır."
+      },
+      {
+        id: 154,
+        ders: "Güncel Bilgiler",
+        konu: "Kültürel Miras",
+        zorluk: 2,
+        soru: "Taş işçiliği ve gölge oyunlarıyla ünlü, UNESCO Dünya Kültür Mirası Listesi'ne Türkiye'den giren ilk mimari eser olan Divriği Ulu Camii ve Darüşşifası hangi ilimizdedir?",
+        secenekler: ["Erzurum", "Sivas", "Konya", "Kayseri", "Tokat"],
+        dogru: 1,
+        ipucu: "Mengücekliler döneminde inşa edilen şaheser İç Anadolu ilimizdedir.",
+        aciklama: "Sivas ilinin Divriği ilçesinde bulunan Divriği Ulu Camii ve Darüşşifası, 1985'te UNESCO Dünya Mirası Listesi'ne alınmıştır."
+      },
+      {
+        id: 155,
+        ders: "Güncel Bilgiler",
+        konu: "Uzay ve Bilim",
+        zorluk: 1,
+        soru: "Ocak 2024'te Uluslararası Uzay İstasyonu'na (ISS) giderek uzayda 13 farklı bilimsel deney gerçekleştiren Türkiye'nin ilk astronotu kimdir?",
+        secenekler: ["Tuva Cihangir Atasever", "Alper Gezeravcı", "Feryal Özel", "Umut Yıldız", "Canan Dağdeviren"],
+        dogru: 1,
+        ipucu: "Axiom-3 göreviyle uzaya çıkan ve 'İstikbal göklerdedir' mesajını ileten pilot albayımız.",
+        aciklama: "Alper Gezeravcı, Ax-3 misyonu kapsamında uzaya çıkan Türkiye Cumhuriyeti'nin ilk astronotudur."
+      },
+      {
+        id: 156,
+        ders: "Güncel Bilgiler",
+        konu: "Edebiyat",
+        zorluk: 2,
+        soru: "'Kendi Gök Kubbemiz', 'Süleymaniye'de Bayram Sabahı' ve 'Eğil Dağlar' eserlerinin yazarı olan usta şair ve yazarımız kimdir?",
+        secenekler: ["Yahya Kemal Beyatlı", "Ahmet Hamdi Tanpınar", "Faruk Nafiz Çamlıbel", "Necip Fazıl Kısakürek", "Cahit Sıtkı Tarancı"],
+        dogru: 0,
+        ipucu: "İstanbul aşığı, neoklasik tarzın en büyük temsilcisi olan şair.",
+        aciklama: "Yahya Kemal Beyatlı, modern Türk şiirinin kurucularından olup Türk tarihini ve İstanbul'u destansı şiirleriyle ölümsüzleştirmiştir."
+      },
+      {
+        id: 157,
+        ders: "Güncel Bilgiler",
+        konu: "Sanat ve Müzecilik",
+        zorluk: 2,
+        soru: "Ünlü 'Kaplumbağa Terbiyecisi' tablosunu yapan, Sanayi-i Nefise Mektebi'nin ve İstanbul Arkeoloji Müzeleri'nin kurucusu olan Osmanlı aydını kimdir?",
+        secenekler: ["Şeker Ahmet Paşa", "Osman Hamdi Bey", "İbrahim Çallı", "Abidin Dino", "Hoca Ali Rıza"],
+        dogru: 1,
+        ipucu: "Sayda kazılarında İskender Lahdi'ni bularak müzeye kazandıran ünlü ressam ve arkeolog.",
+        aciklama: "Osman Hamdi Bey (1842-1910), modern Türk müzeciliğinin öncüsü, arkeolog ve Kaplumbağa Terbiyecisi tablosunun ressamıdır."
+      },
+      {
+        id: 158,
+        ders: "Güncel Bilgiler",
+        konu: "Coğrafya & Doğa",
+        zorluk: 1,
+        soru: "5.137 metre yüksekliğiyle Türkiye'nin ve Avrupa'nın en yüksek zirvesi kabul edilen volkanik dağ hangisidir?",
+        secenekler: ["Süphan Dağı", "Cilo Dağı", "Ağrı Dağı", "Erciyes Dağı", "Kaçkar Dağı"],
+        dogru: 2,
+        ipucu: "Tepesinde Türkiye'nin en büyük takke buzulunu barındıran dağ.",
+        aciklama: "Büyük Ağrı Dağı, 5.137 metre rakımıyla Türkiye'nin en yüksek noktasıdır."
+      },
+      {
+        id: 159,
+        ders: "Güncel Bilgiler",
+        konu: "Uluslararası Kuruluşlar",
+        zorluk: 1,
+        soru: "Kuzey Atlantik Antlaşması Örgütü (NATO) 1949 yılında kurulmuştur. Türkiye NATO'ya hangi yıl üye olmuştur?",
+        secenekler: ["1950", "1952", "1955", "1960", "1974"],
+        dogru: 1,
+        ipucu: "Kore Savaşı'na asker gönderilmesinin ardından Yunanistan ile birlikte üye olunan yıl.",
+        aciklama: "Türkiye, Kore Savaşı'nda gösterdiği kahramanlıkların ardından 18 Şubat 1952 tarihinde Yunanistan ile birlikte NATO'ya üye olmuştur."
+      },
+      {
+        id: 160,
+        ders: "Güncel Bilgiler",
+        konu: "Milli Tarih & Kahramanlık",
+        zorluk: 2,
+        soru: "Kurtuluş Savaşı'nda gösterdiği kahramanlık dolayısıyla TBMM tarafından 1925 yılında 'Kırmızı Şeritli İstiklal Madalyası' ile ödüllendirilen ilk ilimiz hangisidir?",
+        secenekler: ["Gaziantep", "Şanlıurfa", "Kahramanmaraş", "İnebolu", "Kastamonu"],
+        dogru: 2,
+        ipucu: "Sütçü İmam'ın ilk kurşunu sıktığı ve kendi kendini kurtaran kahraman şehir.",
+        aciklama: "5 Nisan 1925'te TBMM tarafından halkının topyekün direnişi sebebiyle şehir adına İstiklal Madalyası verilen ilk şehir Kahramanmaraş'tır (1973'te de Kahraman unvanı verilmiştir)."
       }
     ];
 
@@ -3732,6 +4474,24 @@
         optList.appendChild(item);
       });
 
+      // İpucu (Hint) Alanı
+      const hintBox = document.getElementById('hintContentBox');
+      const hintBtn = document.getElementById('btnToggleHint');
+      const hintText = document.getElementById('hintText');
+      const hintBtnLabel = document.getElementById('hintBtnLabel');
+
+      if (hintBox && hintBtn && hintText && hintBtnLabel) {
+        hintBox.style.display = 'none';
+        hintBtn.classList.remove('open');
+        hintBtnLabel.textContent = 'İpucu Al';
+
+        if (q.ipucu) {
+          hintText.textContent = q.ipucu;
+        } else {
+          hintText.textContent = `${q.ders} alanındaki "${q.konu}" konusunun temel kurallarını ve püf noktalarını aklına getir.`;
+        }
+      }
+
       // Açıklama Kutusu
       const expBox = document.getElementById('explanationBox');
       const expText = document.getElementById('explanationText');
@@ -3750,6 +4510,43 @@
       } else {
         nextBtn.textContent = 'Sonraki →';
       }
+    }
+
+    function toggleHintVisibility() {
+      const hintBox = document.getElementById('hintContentBox');
+      const hintBtn = document.getElementById('btnToggleHint');
+      const hintBtnLabel = document.getElementById('hintBtnLabel');
+      if (!hintBox || !hintBtn) return;
+
+      if (hintBox.style.display === 'none') {
+        hintBox.style.display = 'block';
+        hintBtn.classList.add('open');
+        if (hintBtnLabel) hintBtnLabel.textContent = 'İpucunu Kapat';
+        playAudioTone('click');
+        triggerHaptic('click');
+      } else {
+        hintBox.style.display = 'none';
+        hintBtn.classList.remove('open');
+        if (hintBtnLabel) hintBtnLabel.textContent = 'İpucu Al';
+      }
+    }
+
+    const KPSS_TACTICS = [
+      "Ters orantı problemlerinde (işçi, musluk vb.) sayılar karşılıklı çarpılır; doğru orantıda ise çapraz (içler-dışlar) çarpımı yapılır!",
+      "SOMBAHÇEMİ formülü: Sanki, Oysaki, Mademki, Belki, Hâlbuki, Çünkü, Meğerki, İllaki sözcüklerindeki 'ki'ler daima bitişik yazılır!",
+      "Dünya bor rezervlerinin yaklaşık %72'si Türkiye'dedir (Eskişehir Seyitgazi, Kütahya Emet, Balıkesir Bigadiç).",
+      "1982 Anayasası'nda 2017 değişikliğiyle milletvekili seçilme yaşı 18'e indirilmiş, vekil sayısı 600'e çıkarılmıştır.",
+      "Kafkas ve Kanal cepheleri Osmanlı'nın I. Dünya Savaşı'ndaki taarruz (hücum) cepheleridir (2K Formülü).",
+      "Paragrafta akışı bozan cümle sorularında konunun yön değiştirdiği veya genelden özele aniden sapan cümleye odaklanın!",
+      "Bölünebilme kuralı: Bir sayının 9 ile tam bölünebilmesi için rakamları toplamının 9 veya 9'un katı olması şarttır."
+    ];
+    let currentTacticIndex = 0;
+    function cycleDailyTactic() {
+      currentTacticIndex = (currentTacticIndex + 1) % KPSS_TACTICS.length;
+      const el = document.getElementById('dailyTacticText');
+      if (el) el.textContent = `"${KPSS_TACTICS[currentTacticIndex]}"`;
+      playAudioTone('click');
+      triggerHaptic('click');
     }
 
     function selectOption(optIndex) {
@@ -4090,8 +4887,9 @@
           <div style="font-size:0.8rem; color:var(--success); margin-bottom: 8px;">
             <span>Doğru Cevap:</span> <strong>${correctText}</strong>
           </div>
+          ${q.ipucu ? `<div style="font-size:0.8rem; background:#fffbeb; color:#92400e; padding:6px 10px; border-radius:var(--radius-sm); margin-bottom:6px; border-left:3px solid var(--warning);">💡 <strong>İpucu:</strong> ${q.ipucu}</div>` : ''}
           <div style="font-size:0.82rem; background:var(--bg-elevated); padding:8px 10px; border-radius:var(--radius-sm); color:var(--text-secondary);">
-            💡 <strong>Açıklama:</strong> ${q.aciklama}
+            📖 <strong>Açıklama:</strong> ${q.aciklama}
           </div>
         `;
         reviewContainer.appendChild(card);
@@ -4369,8 +5167,9 @@
           <div style="font-size:0.85rem; color:var(--success); margin-bottom:6px;">
             <strong>Doğru Cevap:</strong> ${q.secenekler[q.dogru]}
           </div>
+          ${q.ipucu ? `<div style="font-size:0.8rem; background:#fffbeb; color:#92400e; padding:6px 10px; border-radius:var(--radius-sm); margin-bottom:6px; border-left:3px solid var(--warning);">💡 <strong>İpucu:</strong> ${q.ipucu}</div>` : ''}
           <div style="font-size:0.82rem; background:var(--bg-elevated); padding:8px 10px; border-radius:var(--radius-sm); color:var(--text-secondary);">
-            💡 ${q.aciklama}
+            📖 <strong>Açıklama:</strong> ${q.aciklama}
           </div>
         `;
         container.appendChild(item);
