@@ -1,6 +1,6 @@
 {
   "name": "KPSS Ortaöğretim",
-  "description": "KPSS Ortaöğretim (Lise) hazırlık için 500 soruluk, tüm dersleri içeren çevrimdışı test ve deneme sınavı uygulaması",
+  "description": "KPSS Ortaöğretim (Lise) hazırlık için 600 soruluk (her ders 100 soru), tüm dersleri içeren çevrimdışı test ve deneme sınavı uygulaması",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
